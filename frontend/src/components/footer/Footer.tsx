@@ -6,11 +6,11 @@ const Footer = () => {
 
 
   return (
-    <div className="flex w-full h-[422px] flex-col items-center justify-center bg-[#8DD3BB]">
-      <div className="w-10/12 gap-16 flex flex-col py-[104px] -translate-y-32">
+    <footer className="flex w-full h-[422px] flex-col items-center justify-center bg-[#8DD3BB] mt-[300px]">
+      <div className="w-10/12 gap-16 flex flex-col -translate-y-24">
         <div className="flex justify-between rounded-3xl max-[1210px]:justify-center bg-[#CDEAE1] px-6">
           <div className="flex flex-col justify-between py-6 max-[1210px]:items-center">
-            <p className="flex-col font-mono text-5xl font-semibold leading-[54px] max-[1210px]:justify-center text-black">
+            <p className="flex-col font-mono opacity-80 text-5xl font-semibold max-[1210px]:justify-center text-black">
               Subscribe
               <br />
               Newsletter
@@ -25,12 +25,12 @@ const Footer = () => {
                   scenes stories.
                 </p>
               </div>
-              <div className="flex h-[46px] w-full gap-4">
+              <div className="flex h-[56px] w-full gap-4">
                 <input
                   className="w-full rounded px-2 placeholder:font-sans placeholder:text-base placeholder:font-light placeholder:leading-5 placeholder:text-[#1C1B1F] placeholder:opacity-80"
                   placeholder="Your email address"
                 ></input>
-                <button className="rounded bg-[#112211] px-4 py-2 font-mono text-sm hover:bg-gray-400">
+                <button className="rounded text-white delay-75 ease-in-out duration-100 bg-[#112211] px-4 py-2 font-mono text-sm hover:bg-gray-400">
                   Subscribe
                 </button>
               </div>
@@ -41,9 +41,9 @@ const Footer = () => {
           </div>
         </div>
         <div className="flex gap-[140px] max-[1210px]:justify-center">
-          <div className="flex flex-col gap-6">
-            <img src="./logo.svg" alt="logo"></img>
-            <div className="flex gap-2">
+          <div className="flex flex-col gap-6 max-[1210px]:items-center">
+            <img src="./hm.png" alt="logo"></img>
+            <div className="flex gap-2 max-[1210px]:gap-4">
               <img src="./facebook.svg" alt="facebook" />
               <img src="./twitter.svg" alt="twitter" />
               <img src="./youtube.svg" alt="youtube" />
@@ -105,7 +105,7 @@ const Footer = () => {
           </div>
         </div>
       </div>
-    </div>
+    </footer>
   );
 };
 

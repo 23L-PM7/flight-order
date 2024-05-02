@@ -17,7 +17,7 @@ const config: Config = {
       fontFamily: {
         'montserrat': ['Montserrat'],
         'lato': ['Lato'],
-        'garamond': ['Garamond']
+        'grotesk': ['Schibsted Grotesk']
       }
     },
   },

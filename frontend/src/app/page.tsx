@@ -1,3 +1,8 @@
+import Trip from "./destination/Trip";
+
+
 export default function Home() {
-  return <main className="h-96">Hello World</main>;
+  return <main className="m-auto">
+    <Trip />
+  </main>;
 }
