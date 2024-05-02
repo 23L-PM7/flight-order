@@ -1,26 +1,56 @@
-import { dbRequest } from "./dbRequest";
+import { dbRequest } from "../config/dbRequest";
 
 export async function GET(request: Request) {
-  const { searchParams } = new URL(request.url);
-  const id = searchParams.get("id");
+  try {
+    const data = await dbRequest("order", "find");
 
-  console.log({ id });
-
-  const { documents } = await dbRequest("categories", "find");
-  return Response.json(documents);
+    return Response.json(data);
+  } catch (error) {
+    console.log(error);
+    throw new Error("aldaa");
+  }
 }
 
 export async function POST(request: Request) {
-  const body = await request.json();
-  const { name, description } = body;
+  try {
+    const data = await dbRequest("order", "insertOne", {
+      document: {
+        name: "test1",
+        description: "test",
+      },
+    });
 
-  console.log({ body });
+    return Response.json(data);
+  } catch (error) {
+    console.log(error);
 
-  const data = await dbRequest("categories", "insertOne", {
-    document: {
-      name: name,
-      description: description,
-    },
-  });
-  return Response.json(data);
+    throw new Error("aldaa");
+  }
+}
+export async function DELETE(request: Request) {
+  try {
+    const data = await dbRequest("order", "deleteOne", {
+      filter: {
+        _id: { $oid: "6632141f01fa922aad366cf0" },
+      },
+    });
+    return Response.json({ message: "successfully deleted" });
+  } catch (error) {
+    console.log(error);
+    throw new Error("error");
+  }
+}
+export async function PUT(request: Request) {
+  try {
+    const data = await dbRequest("order", "replaceOne", {
+      filter: {
+        _id: { $oid: "6632141ee4ce112d94afda09" },
+      },
+      replacement: {
+        name: "div",
+      },
+    });
+  } catch (error) {
+    console.log(error);
+  }
 }
