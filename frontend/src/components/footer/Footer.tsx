@@ -6,17 +6,17 @@ const Footer = () => {
 
 
   return (
-    <div className="flex w-full flex-col items-center justify-center bg-[#8DD3BB]">
-      <div className="w-10/12 gap-16 flex flex-col py-[104px]">
-        <div className="flex justify-between rounded-3xl bg-[#CDEAE1] px-6">
-          <div className="flex flex-col justify-between py-6">
-            <p className="flex-col font-mono text-5xl font-semibold leading-[54px] text-black">
+    <div className="flex w-full h-[422px] flex-col items-center justify-center bg-[#8DD3BB]">
+      <div className="w-10/12 gap-16 flex flex-col py-[104px] -translate-y-32">
+        <div className="flex justify-between rounded-3xl max-[1210px]:justify-center bg-[#CDEAE1] px-6">
+          <div className="flex flex-col justify-between py-6 max-[1210px]:items-center">
+            <p className="flex-col font-mono text-5xl font-semibold leading-[54px] max-[1210px]:justify-center text-black">
               Subscribe
               <br />
               Newsletter
             </p>
             <div className="flex flex-col gap-4">
-              <div className="gap-2">
+              <div className="gap-2 max-[1210px]:align-middle max-[1210px]:flex-col max-[1210px]:items-center max-[1210px]:flex">
                 <p className="text-xl font-bold text-[#112211] opacity-80">
                   The Travel
                 </p>
@@ -36,11 +36,11 @@ const Footer = () => {
               </div>
             </div>
           </div>
-          <div>
+          <div className="max-[1210px]:hidden">
             <img src="./mailx.svg" alt="mailx"></img>
           </div>
         </div>
-        <div className="flex gap-[140px]">
+        <div className="flex gap-[140px] max-[1210px]:justify-center">
           <div className="flex flex-col gap-6">
             <img src="./logo.svg" alt="logo"></img>
             <div className="flex gap-2">
@@ -50,7 +50,7 @@ const Footer = () => {
               <img src="./instagram.svg" alt="instagram" />
             </div>
           </div>
-          <div className="mr-20 flex w-full justify-between gap-6">
+          <div className="mr-20 flex w-full max-[1210px]:hidden justify-between gap-6">
             <div className="flex flex-col gap-4 text-[#112211]">
               <div className="font-sans text-base font-semibold">
                 <h1 className="">Our Destinations</h1>
