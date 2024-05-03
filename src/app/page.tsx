@@ -1,8 +1,8 @@
 "use client";
 
-import { Header } from "@/components/header/Header";
-import { Hero } from "@/components/home/Hero";
-import { FindFlight } from "@/components/home/FindFlight";
+import { Header } from "../components/header/Header";
+import { Hero } from "../components/home/Hero";
+import { FindFlight } from "../components/home/FindFlight";
 
 export default function Home() {
   return (
