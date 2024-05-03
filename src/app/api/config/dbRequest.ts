@@ -6,7 +6,7 @@ export async function dbRequest(
   params?: {}
 ) {
   const data = JSON.stringify({
-    collection: "order",
+    collection: collection,
     database: "Flight",
     dataSource: "Cluster0",
     ...params,
