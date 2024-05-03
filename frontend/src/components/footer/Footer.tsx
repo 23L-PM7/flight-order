@@ -40,12 +40,12 @@ const Footer = () => {
         <div className="flex gap-[140px] max-[1210px]:justify-center">
           <div className="flex flex-col gap-6 max-[1210px]:items-center">
             <img src="./hm.png" alt="logo"></img>
-            <Link href="/" className="flex gap-2 max-[1210px]:gap-4">
+            <div className="flex gap-2 max-[1210px]:gap-4">
               <img src="./facebook.svg" alt="facebook" />
               <img src="./twitter.svg" alt="twitter" />
               <img src="./youtube.svg" alt="youtube" />
               <img src="./instagram.svg" alt="instagram" />
-            </Link>
+            </div>
           </div>
           <div className="mr-20 flex w-full justify-between gap-6 max-[1210px]:hidden">
             <div className="flex flex-col gap-4 text-[#112211]">
