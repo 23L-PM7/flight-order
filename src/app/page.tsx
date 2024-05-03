@@ -1,3 +1,12 @@
+"use client";
+
+import { Header } from "@/components/header/Header";
+import { Hero } from "../components/home/Hero";
+
 export default function Home() {
-  return <main>Hello World</main>;
+  return (
+    <main className="bg-[#FAFBFC]">
+      <Hero />
+    </main>
+  );
 }
