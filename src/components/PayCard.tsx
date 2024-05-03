@@ -22,7 +22,7 @@ export function PayCard() {
       <Card style={{ backgroundColor: "#8DD3BB" }}>
         <div className="flex justify-between">
           <div>
-            <Typography level="h2">Pay part now, part later</Typography>
+            <Typography level="h3">Pay part now, part later</Typography>
             <Typography>
               Pay $207.43 now, and the rest ($207.43) will be automatically
               charged to the same payment method on Nov 14, 2022. No extra fees.
@@ -40,7 +40,7 @@ export function PayCard() {
       <Card style={{ backgroundColor: "#8DD3BB" }}>
         <div className="flex justify-between">
           <div>
-            <Typography level="h2">Pay in full</Typography>
+            <Typography level="h3">Pay in full</Typography>
             <Typography>Pay the total and you are all set</Typography>
           </div>
           <div className="flex items-center">

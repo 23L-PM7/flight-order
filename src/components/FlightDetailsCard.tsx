@@ -4,10 +4,10 @@ import { FaPlane } from "react-icons/fa";
 import { FaWifi } from "react-icons/fa";
 import dayjs from "dayjs";
 import { IoFastFoodSharp } from "react-icons/io5";
-import { WidthFull } from "@mui/icons-material";
+
 export function FlightDetailsCard({ Flight }: any) {
   return (
-    <Card variant="soft">
+    <Card variant="soft" className="py-14">
       <div className="flex justify-between">
         <p className="font-bold text-3xl">{Flight.aircraft}</p>
         <p className="font-bold text-red-400 text-xl">{Flight.price}</p>
