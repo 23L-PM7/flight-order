@@ -58,7 +58,7 @@ export function FindFlight() {
   };
 
   return (
-    <div className="w-[1232px h-[272px] rounded-2xl px-6 py-8 bg-white drop-shadow-xl">
+    <div className="w-9/12 rounded-2xl px-6 py-8 bg-white drop-shadow-xl -translate-y-1/3">
       <div className="flex justify-between items-center">
         <p className="font-semibold text-xl">Where are you flying?</p>
         <Passengers />
