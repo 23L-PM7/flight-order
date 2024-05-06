@@ -1,11 +1,19 @@
+"use client";
+
 import Card from "@mui/joy/Card";
 import { MdOutlineAirlineSeatReclineExtra } from "react-icons/md";
 import { FaPlane } from "react-icons/fa";
 import { FaWifi } from "react-icons/fa";
 import dayjs from "dayjs";
 import { IoFastFoodSharp } from "react-icons/io5";
+import { useFlight } from "@/app/order/Utils";
+import { useEffect } from "react";
 
 export function FlightDetailsCard({ Flight }: any) {
+  // const { setFlight }: any = useFlight();
+  // useEffect(() => {
+  //   setFlight(Flight);
+  // }, []);
   return (
     <Card variant="soft" className="py-14">
       <div className="flex justify-between">
