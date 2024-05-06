@@ -11,12 +11,52 @@ import { MdChildFriendly } from "react-icons/md";
 import { FiPlusCircle } from "react-icons/fi";
 import { FiMinusCircle } from "react-icons/fi";
 import { useState } from "react";
+import { create } from "zustand";
+
+type State = {
+  adultQuantity: number;
+  childQuantity: number;
+  infantQuantity: number;
+  // adultAdd: () => void;
+  // adultSubtract: () => void;
+  // childAdd: () => void;
+  // childSubtract: () => void;
+  // infantAdd: () => void;
+  // infantSubtract: () => void;
+  setAdultQuantity: (v: number) => void;
+  setChildQuantity: (v: number) => void;
+  setInfantQuantity: (v: number) => void;
+};
+
+export const passengersQuantityStore = create<State>((set) => ({
+  adultQuantity: 1,
+  childQuantity: 0,
+  infantQuantity: 0,
+  setAdultQuantity: (adultQuantity: number) =>
+    set(() => ({ adultQuantity: adultQuantity })),
+  // adultAdd: () => set((state) => ({ adultQuantity: state.adultQuantity + 1 })),
+  // adultSubtract: () =>
+  //   set((state) => ({
+  //     adultQuantity: state.adultQuantity === 1 ? 1 : state.adultQuantity - 1,
+  //   })),
+
+  setChildQuantity: (childQuantity: number) =>
+    set(() => ({ childQuantity: childQuantity })),
+  setInfantQuantity: (infantQuantity: number) =>
+    set(() => ({ infantQuantity: infantQuantity })),
+}));
 
 export function Passengers() {
   const [anchorEl, setAnchorEl] = useState(null);
-  const [adultQuantity, setAdultQuantity] = useState<number>(1);
-  const [childQuantity, setChildQuantity] = useState<number>(1);
-  const [infantQuantity, setInfantQuantity] = useState<number>(1);
+
+  const {
+    adultQuantity,
+    childQuantity,
+    infantQuantity,
+    setAdultQuantity,
+    setChildQuantity,
+    setInfantQuantity,
+  } = passengersQuantityStore();
 
   const handleClick = (event: any) => {
     setAnchorEl(event.currentTarget);
@@ -34,7 +74,9 @@ export function Passengers() {
   };
 
   const adultSubtract = () => {
-    setAdultQuantity(adultQuantity - 1);
+    if (adultQuantity !== 1) {
+      setAdultQuantity(adultQuantity - 1);
+    }
   };
 
   const childAdd = () => {
@@ -42,7 +84,9 @@ export function Passengers() {
   };
 
   const childSubtract = () => {
-    setChildQuantity(childQuantity - 1);
+    if (childQuantity !== 0) {
+      setChildQuantity(childQuantity - 1);
+    }
   };
 
   const infantAdd = () => {
@@ -50,10 +94,10 @@ export function Passengers() {
   };
 
   const infantSubtract = () => {
-    setInfantQuantity(infantQuantity - 1);
+    if (infantQuantity !== 0) {
+      setInfantQuantity(infantQuantity - 1);
+    }
   };
-
-  console.log(adultQuantity, childQuantity, infantQuantity);
 
   return (
     <div>
@@ -63,7 +107,21 @@ export function Passengers() {
         onClick={handleClick}
       >
         <IoMdPersonAdd />
-        <div>1 Adult</div>
+        {adultQuantity && (
+          <div>
+            {adultQuantity} {adultQuantity > 1 ? "Adults" : "Adult"}
+          </div>
+        )}
+        {childQuantity !== 0 && (
+          <div>
+            {childQuantity} {childQuantity === 1 ? "Child" : "Children"}
+          </div>
+        )}
+        {infantQuantity !== 0 && (
+          <div>
+            {infantQuantity} {infantQuantity === 1 ? "infant" : "Infants"}
+          </div>
+        )}
       </Button>
       <Popover
         id={id}

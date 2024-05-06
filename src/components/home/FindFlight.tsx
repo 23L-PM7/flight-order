@@ -12,7 +12,7 @@ import { DemoContainer, DemoItem } from "@mui/x-date-pickers/internals/demo";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DateRangePicker } from "@mui/x-date-pickers-pro/DateRangePicker";
-import { Passengers } from "./Passengers";
+import { Passengers, passengersQuantityStore } from "./Passengers";
 
 const fromTo = ["Ulaanbaatar - Beijing", "Ulaanbaatar - Seoul"];
 const tripType = ["One way", "Round trip"];
@@ -25,23 +25,24 @@ export function FindFlight() {
   const [trip, setTrip] = React.useState<string | null>(tripType[0]);
   const [secondInput, setSecondInput] = React.useState("");
   const [value, setValue] = React.useState<[Dayjs, Dayjs]>([
-    dayjs("2022-04-17"),
-    dayjs("2022-04-21"),
+    dayjs("2024-05-01"),
+    dayjs("2024-05-31"),
   ]);
 
   const startDate = value[0].format("YYYY-MM-DD");
   const endDate = value[1].format("YYYY-MM-DD");
 
-  // const [quantity, setQuantity] = React.useState<string | null>(passangers[0]);
-  // const [thirdInput, setThirdInput] = React.useState("");
   const [economy, setEconomy] = React.useState<string | null>(classType[0]);
   const [thirdInput, setThirdInput] = React.useState("");
 
+  const { adultQuantity, childQuantity, infantQuantity } =
+    passengersQuantityStore();
+
   const findFlights = async () => {
-    if (!country || !trip || !value || !economy) {
-      alert("Бүх талбарыг бөглөнө үү!");
-      return;
-    }
+    // if (!country || !trip || !value || !economy) {
+    //   alert("Бүх талбарыг бөглөнө үү!");
+    //   return;
+    // }
     // try {
     //   await axios.post("http://localhost:3000/flights", {
     //     country,
@@ -54,7 +55,16 @@ export function FindFlight() {
     //   console.error("Error:", error);
     //   alert("An error occured while creating the new articles");
     // }
-    console.log(country, trip, startDate, endDate, economy);
+    console.log({
+      country,
+      trip,
+      startDate,
+      endDate,
+      economy,
+      adultQuantity,
+      childQuantity,
+      infantQuantity,
+    });
   };
 
   return (
