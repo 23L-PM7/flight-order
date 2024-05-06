@@ -12,7 +12,7 @@ export default function InteractiveCard() {
       variant="outlined"
       orientation="horizontal"
       sx={{
-        width: 399.5,
+        width: 1,
         "&:hover": {
           boxShadow: "md",
           borderColor: "neutral.outlinedHoverBorder",
