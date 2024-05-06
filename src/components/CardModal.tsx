@@ -7,10 +7,19 @@ import ModalClose from "@mui/joy/ModalClose";
 import Typography from "@mui/joy/Typography";
 import Sheet from "@mui/joy/Sheet";
 import { GoPlusCircle } from "react-icons/go";
-import { TextField } from "@mui/joy";
+import { Checkbox, Input, Option, Select } from "@mui/joy";
+import SelectCountry from "./SelectCountry";
+import { UseRegion, useFlight } from "@/app/order/Utils";
 
 export default function CardModal() {
   const [open, setOpen] = React.useState<boolean>(false);
+  const [cardNumber, setCardNumber] = React.useState();
+  const [date, setDate] = React.useState();
+  const [cvc, setCvc] = React.useState();
+  const [nameOnCard, SetNameOnCard] = React.useState();
+  const { region }: any = UseRegion();
+  const { Flight }: any = useFlight();
+  console.log(cvc, nameOnCard, date, cardNumber, region, Flight);
   return (
     <React.Fragment>
       <Button variant="soft" color="neutral" onClick={() => setOpen(true)}>
@@ -46,15 +55,59 @@ export default function CardModal() {
             fontWeight="lg"
             mb={1}
           >
-            Add new Card
+            Add a New Card
           </Typography>
+
           <div>
-            {/* <TextField
-              id="outlined-multiline-flexible"
-              label="Multiline"
-              multiline
-              maxRows={4}
-            /> */}
+            <Input
+              onChange={(event: any) => {
+                setCardNumber(event.target.value);
+              }}
+              className="mb-3"
+              placeholder="Card Number"
+            />
+            <div className="flex justify-between gap-4 mb-3">
+              <Input
+                onChange={(event: any) => {
+                  setDate(event.target.value);
+                }}
+                className="flex-1"
+                type="date"
+                placeholder="Date"
+              />
+              <Input
+                className="flex-1"
+                type="number"
+                placeholder="cvc"
+                onChange={(event: any) => {
+                  setCvc(event.target.value);
+                }}
+              />
+            </div>
+            <Input
+              className="w-full mb-3"
+              placeholder="Name on Card"
+              onChange={(event: any) => {
+                SetNameOnCard(event.target.value);
+              }}
+            />
+            <SelectCountry />
+            <Checkbox
+              className="mb-10 mt-4"
+              label="Securely save my information for 1-click checkout"
+            />
+            <Button
+              className="w-full  bg-[#8DD3BB] text-black hover:bg-slate-200 hover:border-emerald-800 mb-5"
+              onClick={function () {}}
+            >
+              Add Card
+            </Button>
+            <p className="text-[8px]">
+              By confirming your subscription, you allow The Outdoor Inn Crowd
+              Limited to charge your card for this payment and future payments
+              in accordance with their terms. You can always cancel your
+              subscription.
+            </p>
           </div>
         </Sheet>
       </Modal>
