@@ -3,18 +3,20 @@
 import { WidthNormal } from "@mui/icons-material";
 import { Checkbox, Stack, Typography } from "@mui/joy";
 import Card from "@mui/joy/Card";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 export function PayCard() {
-  const [payFull, setPayFull] = React.useState(true);
-  const [payPart, setPayPart] = React.useState(false);
-  const handleChangePayFull = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setPayFull(event.target.checked);
-    console.log(payFull);
+  const [payFull, setPayFull] = useState(false);
+  const [payPart, setPayPart] = useState(false);
+
+  const handlePayFullChange = () => {
+    setPayFull(true);
+    setPayPart(false);
   };
-  const handleChangePayPart = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setPayPart(event.target.checked);
-    console.log(payPart);
+
+  const handlePayPartChange = () => {
+    setPayPart(true);
+    setPayFull(false);
   };
 
   return (
@@ -26,10 +28,11 @@ export function PayCard() {
             <Typography>Pay the total and you are all set</Typography>
           </div>
           <div className="flex items-center">
-            <Checkbox
-              color="success"
-              checked={payPart}
-              onChange={handleChangePayPart}
+            <input
+              className="size-4 rounded-sm"
+              type="checkbox"
+              checked={payFull}
+              onChange={handlePayFullChange}
             />
           </div>
         </div>
@@ -44,10 +47,11 @@ export function PayCard() {
             </Typography>
           </div>
           <div className="flex items-center">
-            <Checkbox
-              color="success"
-              checked={payFull}
-              onChange={handleChangePayFull}
+            <input
+              className="size-4 rounded-sm "
+              type="checkbox"
+              checked={payPart}
+              onChange={handlePayPartChange}
             />
           </div>
         </div>
