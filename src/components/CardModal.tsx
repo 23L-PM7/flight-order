@@ -9,7 +9,7 @@ import Sheet from "@mui/joy/Sheet";
 import { GoPlusCircle } from "react-icons/go";
 import { Checkbox, Input, Option, Select } from "@mui/joy";
 import SelectCountry from "./SelectCountry";
-import { useRegion } from "@/app/order/Utils";
+import { useFlight, useRegion } from "@/app/order/Utils";
 
 export default function CardModal() {
   const [open, setOpen] = React.useState<boolean>(false);
@@ -17,18 +17,15 @@ export default function CardModal() {
   const [date, setDate] = React.useState();
   const [cvc, setCvc] = React.useState();
   const [nameOnCard, SetNameOnCard] = React.useState();
-<<<<<<< HEAD
   const { region }: any = useRegion();
-  console.log(date, region, nameOnCard, cardNumber, cvc);
+  const { Flight }: any = useFlight();
+
   // const { date, setDate }: any = useDate();
   // const { cvc, setCvc }: any = useCvc();
   // const { cardNumber, setCardNumber }: any = useCardNumber();
   // const { nameOnCard, setNameOnCard }: any = useNameOnCard();
-=======
-  const { region }: any = UseRegion();
-  const { Flight }: any = useFlight();
+
   console.log(cvc, nameOnCard, date, cardNumber, region, Flight);
->>>>>>> 3d2f9391af229ce773447a4d146b1f7133171052
 
   return (
     <React.Fragment>
