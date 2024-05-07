@@ -9,8 +9,10 @@ import Sheet from "@mui/joy/Sheet";
 import { GoPlusCircle } from "react-icons/go";
 import { Checkbox, Input, Option, Select } from "@mui/joy";
 import SelectCountry from "./SelectCountry";
+
 import { useRegion, useFlight, useCardData } from "@/app/order/Utils";
 import axios from "axios";
+import { Visa } from "./icons/Visa";
 
 export default function CardModal() {
   const [open, setOpen] = React.useState<boolean>(false);
@@ -137,6 +139,19 @@ export default function CardModal() {
           </div>
         </Sheet>
       </Modal>
+      <div className="p-4 w-[378px] bg-[#8DD3BB] rounded-2xl">
+        <div>
+          <div className="font-semibold text-2xl">**** **** **** ****</div>
+          <div className="font-semibold text-3xl">Joe</div>
+        </div>
+        <div className="flex justify-between mt-[60px] py-[11px] items-center">
+          <div>
+            <div className="font-medium text-xs">Valid date</div>
+            <div className="text-xl font-semibold">02/27</div>
+          </div>
+          <Visa />
+        </div>
+      </div>
     </React.Fragment>
   );
 }
