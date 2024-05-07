@@ -11,8 +11,8 @@ const labels: { [index: string]: string } = {
   2: "bad+",
   2.5: "Good",
   3: "Good",
-  3.5: " Very Good",
-  4: " Very Good+",
+  3.5: "Very Good",
+  4: "Very Good+",
   4.5: "Excellent",
   5: "Excellent+",
 };

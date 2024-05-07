@@ -15,7 +15,7 @@ export function AddCard() {
   };
   const date = Date();
   return (
-    <Card variant="soft">
+    <Card variant="plain">
       <Card style={{ backgroundColor: "#8DD3BB" }}>
         <div className="flex justify-between">
           <div className=" flex gap-2">
@@ -27,11 +27,16 @@ export function AddCard() {
           <div className="flex items-center"></div>
         </div>
       </Card>
-      <Card variant="soft" className="flex justify-center items-center py-10">
-        <div className="mt-4">
-          <CardModal />
-        </div>
-      </Card>
+      <div className="border-dashed border-2 border-[#8DD3BB] ">
+        <Card
+          variant="plain"
+          className="flex justify-center items-center py-10"
+        >
+          <div className="mt-4 ">
+            <CardModal />
+          </div>
+        </Card>
+      </div>
     </Card>
   );
 }

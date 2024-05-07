@@ -6,20 +6,20 @@ import { AddCard } from "@/components/AddCard";
 import CardModal from "@/components/CardModal";
 export default function home() {
   return (
-    <div className="container mx-auto">
-      <div className="flex gap-10 mt-10">
-        <div className="">
+    <div className="bg-[#fafafa]">
+      <div className="container mx-auto flex pt-[94px] pb-[120px] gap-10">
+        <div className="w-2/3 flex flex-col bg-white drop-shadow-lg gap-[40px]">
           <FlightDetailsCard Flight={FlightData} />
+          <div className="drop-shadow-lg">
+            <PayCard />
+          </div>
+          <div className="drop-shadow-lg">
+            <AddCard />
+          </div>
         </div>
-        <div className="">
+        <div className="w-1/3">
           <PriceDetails Flight={FlightData} />
         </div>
-      </div>
-      <div className="w-7/12 ">
-        <PayCard />
-      </div>
-      <div className="w-7/12 mt-10">
-        <AddCard />
       </div>
     </div>
   );
