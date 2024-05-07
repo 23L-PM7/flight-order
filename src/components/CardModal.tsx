@@ -9,7 +9,9 @@ import Sheet from "@mui/joy/Sheet";
 import { GoPlusCircle } from "react-icons/go";
 import { Checkbox, Input, Option, Select } from "@mui/joy";
 import SelectCountry from "./SelectCountry";
-import { UseRegion, useFlight } from "@/app/order/Utils";
+
+import { useRegion, useFlight, useCardData } from "@/app/order/Utils";
+import axios from "axios";
 import { Visa } from "./icons/Visa";
 
 export default function CardModal() {
@@ -18,10 +20,34 @@ export default function CardModal() {
   const [date, setDate] = React.useState();
   const [cvc, setCvc] = React.useState();
   const [nameOnCard, SetNameOnCard] = React.useState();
-  const { region }: any = UseRegion();
-  const { Flight }: any = useFlight();
-  console.log(cvc, nameOnCard, date, cardNumber, region, Flight);
+  const { region }: any = useRegion();
+  const { flight }: any = useFlight();
+  const { setCardData, cardData }: any = useCardData();
 
+  React.useEffect(() => {
+    console.log(cardData);
+  }, [cardData]);
+  function AddCard() {
+    setCardData({
+      cvc: cardNumber,
+      nameOnCard: cardNumber,
+      date: date,
+      cardNumber: cardNumber,
+      region: region,
+    });
+    // try {
+    //   axios.post("http://localhost:3000/api/order", {
+    //     cvc,
+    //     nameOnCard,
+    //     date,
+    //     cardNumber,
+    //     region,
+    //     flight,
+    //   });
+    // } catch (error) {
+    //   console.log(error);
+    // }
+  }
   return (
     <React.Fragment>
       <Button variant="plain" color="neutral" onClick={() => setOpen(true)}>
@@ -100,7 +126,7 @@ export default function CardModal() {
             />
             <Button
               className="w-full  bg-[#8DD3BB] text-black hover:bg-slate-200 hover:border-emerald-800 mb-5"
-              onClick={function () {}}
+              onClick={AddCard}
             >
               Add Card
             </Button>

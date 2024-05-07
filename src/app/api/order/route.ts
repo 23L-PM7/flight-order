@@ -12,11 +12,16 @@ export async function GET(request: Request) {
 }
 
 export async function POST(request: Request) {
+  const body = await request.json();
+  const { cvc, nameOnCard, date, cardNumber, region, flight } = body;
   try {
     const data = await dbRequest("order", "insertOne", {
       document: {
-        name: "test1",
-        description: "test",
+        cvc: cvc,
+        nameOnCard: nameOnCard,
+        date: date,
+        cardNumber: cardNumber,
+        region: region,
       },
     });
 
