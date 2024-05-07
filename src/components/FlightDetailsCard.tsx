@@ -10,10 +10,10 @@ import { useFlight } from "@/app/order/Utils";
 import { useEffect } from "react";
 
 export function FlightDetailsCard({ Flight }: any) {
-  // const { setFlight }: any = useFlight();
-  // useEffect(() => {
-  //   setFlight(Flight);
-  // }, []);
+  const { setFlight }: any = useFlight();
+  useEffect(() => {
+    setFlight(Flight);
+  }, []);
   return (
     <Card variant="soft" className="py-14">
       <div className="flex justify-between">

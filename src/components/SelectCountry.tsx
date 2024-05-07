@@ -2,23 +2,23 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
-import { Fullscreen } from "@mui/icons-material";
-import { UseRegion } from "@/app/order/Utils";
+
+import { useRegion } from "@/app/order/Utils";
 
 export default function SelectCountry() {
-  //   const [region, setRegion] = React.useState<any>(undefined);
-  const { setRegion, region }: any = UseRegion();
-  console.log(region);
+  const { setRegion, region }: any = useRegion();
+
   return (
     <Autocomplete
+      value={region}
       id="country-select-demo"
       sx={{ width: "100%" }}
       options={countries}
       autoHighlight
       getOptionLabel={(option) => {
-        // setRegion(option);
         return option.label;
       }}
+      onChange={(e, newValue) => setRegion(newValue)}
       renderOption={(props, option) => {
         return (
           <Box
@@ -43,7 +43,7 @@ export default function SelectCountry() {
           label="Choose a country"
           inputProps={{
             ...params.inputProps,
-            autoComplete: "new-password", // disable autocomplete and autofill
+            autoComplete: "new-password",
           }}
         />
       )}
@@ -58,7 +58,6 @@ interface CountryType {
   suggested?: boolean;
 }
 
-// From https://bitbucket.org/atlassian/atlaskit-mk-2/raw/4ad0e56649c3e6c973e226b7efaeb28cb240ccb0/packages/core/select/src/data/countries.js
 const countries: readonly CountryType[] = [
   { code: "AD", label: "Andorra", phone: "376" },
   {

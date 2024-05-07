@@ -9,7 +9,7 @@ import Sheet from "@mui/joy/Sheet";
 import { GoPlusCircle } from "react-icons/go";
 import { Checkbox, Input, Option, Select } from "@mui/joy";
 import SelectCountry from "./SelectCountry";
-import { UseRegion, useFlight } from "@/app/order/Utils";
+import { useRegion } from "@/app/order/Utils";
 
 export default function CardModal() {
   const [open, setOpen] = React.useState<boolean>(false);
@@ -17,9 +17,13 @@ export default function CardModal() {
   const [date, setDate] = React.useState();
   const [cvc, setCvc] = React.useState();
   const [nameOnCard, SetNameOnCard] = React.useState();
-  const { region }: any = UseRegion();
-  const { Flight }: any = useFlight();
-  console.log(cvc, nameOnCard, date, cardNumber, region, Flight);
+  const { region }: any = useRegion();
+  console.log(date, region, nameOnCard, cardNumber, cvc);
+  // const { date, setDate }: any = useDate();
+  // const { cvc, setCvc }: any = useCvc();
+  // const { cardNumber, setCardNumber }: any = useCardNumber();
+  // const { nameOnCard, setNameOnCard }: any = useNameOnCard();
+
   return (
     <React.Fragment>
       <Button variant="soft" color="neutral" onClick={() => setOpen(true)}>
@@ -96,10 +100,7 @@ export default function CardModal() {
               className="mb-10 mt-4"
               label="Securely save my information for 1-click checkout"
             />
-            <Button
-              className="w-full  bg-[#8DD3BB] text-black hover:bg-slate-200 hover:border-emerald-800 mb-5"
-              onClick={function () {}}
-            >
+            <Button className="w-full  bg-[#8DD3BB] text-black hover:bg-slate-200 hover:border-emerald-800 mb-5">
               Add Card
             </Button>
             <p className="text-[8px]">
