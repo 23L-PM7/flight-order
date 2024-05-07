@@ -17,7 +17,7 @@ export function FlightDetailsCard({ Flight }: any) {
   return (
     <Card
       variant="plain"
-      className="py-8 px-6 font-mono shadow-lg bg-white w-[900px] h-[350px]"
+      className="py-8 px-6 font-mono drop-shadow-lg bg-white"
     >
       <div className="flex justify-between">
         <p className="font-bold text-2xl">{Flight.aircraft}</p>

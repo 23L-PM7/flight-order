@@ -11,7 +11,7 @@ export function PriceDetails({ Flight }: any) {
       size="md"
       variant="plain"
     >
-      <div className="p-6 shadow-lg bg-white font-mono w-[450px]">
+      <div className="p-6 drop-shadow-lg bg-white font-mono w-[450px]">
         <Stack display={"flex"} direction={"row"} gap={"24px"}>
           <img
             className="w-[120px] h-[120px] rounded-xl bg-cover"
