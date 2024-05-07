@@ -17,21 +17,27 @@ export default function CardModal() {
   const [date, setDate] = React.useState();
   const [cvc, setCvc] = React.useState();
   const [nameOnCard, SetNameOnCard] = React.useState();
+<<<<<<< HEAD
   const { region }: any = useRegion();
   console.log(date, region, nameOnCard, cardNumber, cvc);
   // const { date, setDate }: any = useDate();
   // const { cvc, setCvc }: any = useCvc();
   // const { cardNumber, setCardNumber }: any = useCardNumber();
   // const { nameOnCard, setNameOnCard }: any = useNameOnCard();
+=======
+  const { region }: any = UseRegion();
+  const { Flight }: any = useFlight();
+  console.log(cvc, nameOnCard, date, cardNumber, region, Flight);
+>>>>>>> 3d2f9391af229ce773447a4d146b1f7133171052
 
   return (
     <React.Fragment>
-      <Button variant="soft" color="neutral" onClick={() => setOpen(true)}>
-        <div className="cursor-pointer  ounded-md py-2 px-4 text-center transition duration-300 hover:text-[#8DD3BB]">
+      <Button variant="plain" color="neutral" onClick={() => setOpen(true)}>
+        <div className="cursor-pointer rounded-md text-center transition duration-300 hover:text-[#8DD3BB] text-slate-500 text-sm font-medium">
           <div className=" flex justify-center">
-            <GoPlusCircle size={70} />
+            <GoPlusCircle size={50} />
           </div>
-          <p className="hover:text-[#8DD3BB] text-lg">Add new Card</p>
+          <p className="">Add new Card</p>
         </div>
       </Button>
       <Modal
