@@ -28,7 +28,7 @@ export default function CardModal() {
     setOpen(false);
     try {
       axios
-        .post("http://localhost:3000/api/cardData", {
+        .post("/api/cardData", {
           cvc,
           nameOnCard,
           date,
