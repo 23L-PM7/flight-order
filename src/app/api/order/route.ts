@@ -13,13 +13,12 @@ export async function GET(request: Request) {
 
 export async function POST(request: Request) {
   const body = await request.json();
-  const { cardData, FlightData } = body;
+  const { cardData, Flight } = body;
+  console.log(cardData, Flight);
   try {
     const data = await dbRequest("order", "insertOne", {
       document: {
         FlightTicket: {
-          id: "FLT987654321",
-          booking_reference: "XYZ789",
           passenger: {
             first_name: "Alice",
             last_name: "Smith",
@@ -29,32 +28,33 @@ export async function POST(request: Request) {
           },
 
           flight: {
-            number: FlightData.flight_number,
+            number: Flight.flight_number,
             departure_airport: {
-              code: "JFK",
-              name: "John F. Kennedy International Airport",
-              city: "New York",
-              country: "USA",
+              code: Flight.departure_airport.code,
+              name: Flight.departure_airport.name,
+              city: Flight.departure_airport.city,
+              country: Flight.departure_airport.country,
             },
             arrival_airport: {
-              code: "LHR",
-              name: "Heathrow Airport",
-              city: "London",
-              country: "UK",
+              code: Flight.arrival_airport.code,
+              name: Flight.arrival_airport.name,
+              city: Flight.arrival_airport.city,
+              country: Flight.arrival_airport.country,
             },
-            departure_time: "2024-06-15T10:00:00Z",
-            arrival_time: "2024-06-15T22:00:00Z",
-            duration: "12h",
-            airline: {
-              name: "American Airlines",
-            },
+            departure_time: Flight.departure_time,
+            arrival_time: Flight.arrival_time,
+            duration: Flight.duration,
+            airline: Flight.airline,
+
+            aircraft: Flight.aircraft,
+
             seat: {
               number: "15B",
               class: "Economy",
             },
           },
           ticket_status: "confirmed",
-          price: 800,
+          price: Flight.price,
           currency: "USD",
           booking_date: "2024-05-20",
           booking_agent: {
@@ -66,8 +66,8 @@ export async function POST(request: Request) {
           payment: {
             method: "credit_card",
             card_type: "Visa",
-            last_four_digits: "1234",
-            expiration_date: "2025-12",
+            last_four_digits: cardData.cardNumber,
+            expiration_date: cardData.date,
           },
         },
       },
