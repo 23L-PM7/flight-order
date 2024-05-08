@@ -15,7 +15,7 @@ export const useCardData = create((set) => ({
   cardData: [],
   setCardData: (newList: any) => set(() => ({ cardData: newList })),
   fetchCardData: () => {
-    axios.get("http://localhost:3000/api/cardData").then(({ data }) => {
+    axios.get("/api/cardData").then(({ data }) => {
       set(() => ({ cardData: data.documents }));
     });
   },

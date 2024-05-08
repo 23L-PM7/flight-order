@@ -27,14 +27,18 @@ export default function CardModal() {
   function addCard() {
     setOpen(false);
     try {
-      axios.post("/api/cardData", {
-        cvc,
-        nameOnCard,
-        date,
-        cardNumber,
-        region,
-      });
-      cardData();
+      axios
+        .post("/api/cardData", {
+          cvc,
+          nameOnCard,
+          date,
+          cardNumber,
+          region,
+        })
+        .then(() => {
+          fetchCardData();
+        });
+
     } catch (error) {
       console.log(error);
     }
