@@ -24,32 +24,35 @@ export function AddCard({ Flight }: any) {
 
   if (cardData.length == 0) {
     return (
-      <Card variant="plain">
-        <Card style={{ backgroundColor: "#8DD3BB" }}>
-          <div className="flex justify-between items-center">
-            <div className=" flex gap-2">
-              <FaCcVisa />
+      <div className="bg-white">
+        {" "}
+        <Card variant="plain">
+          <Card style={{ backgroundColor: "#8DD3BB" }}>
+            <div className="flex justify-between items-center">
+              <div className=" flex gap-2">
+                <FaCcVisa />
 
-              <p className="mt-1">{dayjs(date).format("YY-MM-DD")}</p>
-            </div>
-          </div>
-        </Card>
-        <div className="border-dashed border-2 border-[#8DD3BB] ">
-          <Card
-            variant="plain"
-            className="flex justify-center items-center py-10"
-          >
-            <div className="mt-4 ">
-              <CardModal />
+                <p className="mt-1">{dayjs(date).format("YY-MM-DD")}</p>
+              </div>
             </div>
           </Card>
-        </div>
-      </Card>
+          <div className="border-dashed border-2 border-[#8DD3BB] ">
+            <Card
+              variant="plain"
+              className="flex justify-center items-center py-10"
+            >
+              <div className="mt-4 ">
+                <CardModal />
+              </div>
+            </Card>
+          </div>
+        </Card>
+      </div>
     );
   }
   if (cardData) {
     return (
-      <div>
+      <div className="bg-white">
         {cardData.map((card: any) => {
           return (
             <Card variant="plain">
@@ -85,6 +88,11 @@ export function AddCard({ Flight }: any) {
                   <Visa />
                 </div>
               </div>
+              <button className="drop-shadow-md mt-[50px]">
+                <div className="flex justify-center items-center bg-[#8DD3BB] hover:bg-[#81cab1] p-4 rounded-xl cursor-pointer hover:text-green-600">
+                  <div className="font-bold text-xl">Order now</div>
+                </div>
+              </button>
             </Card>
           );
         })}
