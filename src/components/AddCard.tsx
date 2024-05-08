@@ -15,6 +15,23 @@ export function AddCard({ Flight }: any) {
   const [selectedFile, setSelectedFile] = useState(null);
   const { fetchCardData, cardData }: any = useCardData();
 
+  useEffect(() => {
+    fetchCardData();
+  }, []);
+
+  function orderButton() {
+    try {
+      axios.post("/api/order", {
+        Flight,
+        cardData,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  console.log(cardData);
+
   const date = Date();
 
   if (cardData.length == 0) {
@@ -82,7 +99,10 @@ export function AddCard({ Flight }: any) {
                   <Visa />
                 </div>
               </div>
-              <button className="drop-shadow-md mt-[50px]">
+              <button
+                onClick={orderButton}
+                className="drop-shadow-md mt-[50px]"
+              >
                 <div className="flex justify-center items-center bg-[#8DD3BB] hover:bg-[#81cab1] p-4 rounded-xl cursor-pointer hover:text-green-600">
                   <div className="font-bold text-xl">Order now</div>
                 </div>
