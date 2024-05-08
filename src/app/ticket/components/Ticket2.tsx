@@ -50,14 +50,14 @@ export default function Ticket2() {
         <>
           <div className="flex justify-between my-8">
             <div className="flex flex-col gap-2">
-              <h1 className="text-xl font-bold">{ticket.flight}</h1>
+              <h1 className="text-2xl font-bold">{ticket.flight}</h1>
               <p className="flex items-center gap-2">
                 <LocationIcon />
                 {ticket.airport_address}
               </p>
             </div>
             <div className="flex flex-col items-end gap-2">
-              <p className="font-bold text-xl">{ticket.price}</p>
+              <p className="font-bold text-[32px]">{ticket.price}</p>
               <div className="flex gap-2">
                 <Button variant="soft">
                   <LinkIcon />
