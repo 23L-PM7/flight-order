@@ -6,9 +6,9 @@ import { AddCard } from "@/components/AddCard";
 
 export default function home() {
   return (
-    <div className="bg-[#fafafa]">
-      <div className="container mx-auto pt-10 flex pb-[120px] gap-10">
-        <div className="w-2/3 flex flex-col gap-5">
+    <div className="">
+      <div className="container mx-auto flex pt-[94px] pb-[120px] gap-10 ">
+        <div className="w-2/3 flex flex-col drop-shadow-md gap-[50px] bg-[#fafafa]">
           <FlightDetailsCard Flight={FlightData} />
           <div className="drop-shadow-md bg-[#fafafa]">
             <PayCard />
