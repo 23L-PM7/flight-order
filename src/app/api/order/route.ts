@@ -13,7 +13,7 @@ export async function GET(request: Request) {
 
 export async function POST(request: Request) {
   const body = await request.json();
-  const { cvc, nameOnCard, date, cardNumber, region, flight } = body;
+  const { cvc, nameOnCard, date, cardNumber, region } = body;
   try {
     const data = await dbRequest("order", "insertOne", {
       document: {

@@ -24,30 +24,21 @@ export default function CardModal() {
   const { flight }: any = useFlight();
   const { setCardData, cardData }: any = useCardData();
 
-  React.useEffect(() => {
-    console.log(cardData);
-  }, [cardData]);
-  function AddCard() {
-    setCardData({
-      cvc: cardNumber,
-      nameOnCard: cardNumber,
-      date: date,
-      cardNumber: cardNumber,
-      region: region,
-    });
-    // try {
-    //   axios.post("http://localhost:3000/api/order", {
-    //     cvc,
-    //     nameOnCard,
-    //     date,
-    //     cardNumber,
-    //     region,
-    //     flight,
-    //   });
-    // } catch (error) {
-    //   console.log(error);
-    // }
+  function addCard() {
+    try {
+      axios.post("http://localhost:3000/api/cardData", {
+        cvc,
+        nameOnCard,
+        date,
+        cardNumber,
+        region,
+      });
+      cardData();
+    } catch (error) {
+      console.log(error);
+    }
   }
+
   return (
     <React.Fragment>
       <Button variant="plain" color="neutral" onClick={() => setOpen(true)}>
@@ -126,7 +117,7 @@ export default function CardModal() {
             />
             <Button
               className="w-full  bg-[#8DD3BB] text-black hover:bg-slate-200 hover:border-emerald-800 mb-5"
-              onClick={AddCard}
+              onClick={addCard}
             >
               Add Card
             </Button>
@@ -139,19 +130,6 @@ export default function CardModal() {
           </div>
         </Sheet>
       </Modal>
-      <div className="p-4 w-[378px] bg-[#8DD3BB] rounded-2xl">
-        <div>
-          <div className="font-semibold text-2xl">**** **** **** ****</div>
-          <div className="font-semibold text-3xl">Joe</div>
-        </div>
-        <div className="flex justify-between mt-[60px] py-[11px] items-center">
-          <div>
-            <div className="font-medium text-xs">Valid date</div>
-            <div className="text-xl font-semibold">02/27</div>
-          </div>
-          <Visa />
-        </div>
-      </div>
     </React.Fragment>
   );
 }
