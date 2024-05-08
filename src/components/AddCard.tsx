@@ -24,14 +24,11 @@ export function AddCard({ Flight }: any) {
 
   if (cardData.length == 0) {
     return (
-      <div className="bg-white">
-        {" "}
-        <Card variant="plain">
-          <Card style={{ backgroundColor: "#8DD3BB" }}>
-            <div className="flex justify-between items-center">
-              <div className=" flex gap-2">
-                <FaCcVisa />
-
+      <Card variant="plain" sx={{ backgroundColor: "#ffff" }}>
+        <Card style={{ backgroundColor: "#8DD3BB" }}>
+          <div className="flex justify-between items-center">
+            <div className=" flex gap-2">
+              <FaCcVisa />
                 <p className="mt-1">{dayjs(date).format("YY-MM-DD")}</p>
               </div>
             </div>
@@ -55,7 +52,10 @@ export function AddCard({ Flight }: any) {
       <div className="bg-white">
         {cardData.map((card: any) => {
           return (
-            <Card variant="plain">
+            <Card
+              variant="outlined"
+              sx={{ backgroundColor: "#ffff", borderColor: "#EAEDED" }}
+            >
               <Card style={{ backgroundColor: "#8DD3BB" }}>
                 <div className="flex justify-between items-center">
                   <div className=" flex gap-2">
