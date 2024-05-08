@@ -16,8 +16,9 @@ export function FlightDetailsCard({ Flight }: any) {
   }, []);
   return (
     <Card
-      variant="plain"
-      className="py-8 px-6 font-mono drop-shadow-lg bg-white"
+      variant="outlined"
+      sx={{ borderColor: "#EAEDED" }}
+      className="py-8 px-6 font-mono bg-white"
     >
       <div className="flex justify-between">
         <p className="font-bold text-2xl">{Flight.aircraft}</p>
@@ -51,7 +52,12 @@ export function FlightDetailsCard({ Flight }: any) {
         <div className="text-2xl font-semibold">
           {dayjs(Flight.departure_time).format("hA")}
         </div>
-        <div className="font-medium"> Newark(EWR)</div>
+        <div className="font-medium">
+          {" "}
+          {Flight.departure_airport.country +
+            ">" +
+            Flight.departure_airport.city}
+        </div>
         <div className="h-[2px] w-20 bg-slate-700"></div>
         <div className="">
           <FaPlane size={50} />
@@ -60,7 +66,9 @@ export function FlightDetailsCard({ Flight }: any) {
         <div className="text-2xl font-semibold">
           {dayjs(Flight.arrival_time).format("hA")}
         </div>
-        <p className="font-medium "> Newark(EWR)</p>
+        <p className="font-medium ">
+          {Flight.arrival_airport.country + ">" + Flight.arrival_airport.city}
+        </p>
       </div>
     </Card>
   );

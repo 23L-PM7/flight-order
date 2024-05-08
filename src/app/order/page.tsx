@@ -13,8 +13,8 @@ export default function home() {
           <div className="drop-shadow-md bg-[#fafafa]">
             <PayCard />
           </div>
-          <div className="drop-shadow-md bg-[#fafafa]">
-            <AddCard />
+          <div className="drop-shadow-lg">
+            <AddCard Flight={FlightData} />
           </div>
         </div>
         <div className="w-1/3 ">

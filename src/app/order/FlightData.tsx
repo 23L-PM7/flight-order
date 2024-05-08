@@ -1,8 +1,8 @@
 interface Flight {
   flight_number: string;
-  departure_airport: string;
+  departure_airport: departure_airport;
   departure_time: string;
-  arrival_airport: string;
+  arrival_airport: arrival_airport;
   arrival_time: string;
   airline: string;
   aircraft: string;
@@ -14,25 +14,45 @@ interface Flight {
   price_details: PriceDetails;
   service_details: ServiceDetails;
 }
-
+interface arrival_airport {
+  code: string;
+  name: string;
+  city: string;
+  country: string;
+}
 interface PriceDetails {
   base_fare: number;
   taxes: number;
   fees: number;
 }
-
 interface ServiceDetails {
   luggage_allowance: string;
   meal_service: boolean;
   wifi_available: boolean;
   entertainment: string[];
 }
+interface departure_airport {
+  code: string;
+  name: string;
+  city: string;
+  country: string;
+}
 
 export const FlightData: Flight = {
   flight_number: "ABC123",
-  departure_airport: "John F. Kennedy International Airport",
+  departure_airport: {
+    code: "LAX",
+    name: "Los Angeles International Airport",
+    city: "Los Angeles",
+    country: "USA",
+  },
   departure_time: "2024-05-02T10:00:00Z",
-  arrival_airport: "Los Angeles International Airport",
+  arrival_airport: {
+    code: "JFK",
+    name: "John F. Kennedy International Airport",
+    city: "New York",
+    country: "USA",
+  },
   arrival_time: "2024-05-02T14:00:00Z",
   airline: "Delta Airlines",
   aircraft: "Boeing 737",

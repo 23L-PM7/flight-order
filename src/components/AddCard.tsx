@@ -11,50 +11,34 @@ import { Visa } from "./icons/Visa";
 import axios from "axios";
 import { ListItemSecondaryAction } from "@mui/material";
 
-export function AddCard() {
+export function AddCard({ Flight }: any) {
   const [selectedFile, setSelectedFile] = useState(null);
-  const [cardData, setCardData] = useState([]);
+  const { fetchCardData, cardData }: any = useCardData();
 
-  function fetchCardData() {
-    fetch(`/api/cardData`)
-      .then((res) => res.json())
-      .then((data) => setCardData(data.documents))
-      .catch((e) => {
-        console.log({ e });
-      });
-  }
-  useEffect(() => {
-    fetchCardData();
-  }, []);
-  console.log(cardData);
   const date = Date();
 
   if (cardData.length == 0) {
     return (
-      <div className="bg-white">
-        {" "}
-        <Card variant="plain">
-          <Card style={{ backgroundColor: "#8DD3BB" }}>
-            <div className="flex justify-between items-center">
-              <div className=" flex gap-2">
-                <FaCcVisa />
-
-                <p className="mt-1">{dayjs(date).format("YY-MM-DD")}</p>
-              </div>
+      <Card variant="plain" sx={{ backgroundColor: "#ffff" }}>
+        <Card style={{ backgroundColor: "#8DD3BB" }}>
+          <div className="flex justify-between items-center">
+            <div className=" flex gap-2">
+              <FaCcVisa />
+              <p className="mt-1">{dayjs(date).format("YY-MM-DD")}</p>
             </div>
-          </Card>
-          <div className="border-dashed border-2 border-[#8DD3BB] ">
-            <Card
-              variant="plain"
-              className="flex justify-center items-center py-10"
-            >
-              <div className="mt-4 ">
-                <CardModal />
-              </div>
-            </Card>
           </div>
         </Card>
-      </div>
+        <div className="border-dashed border-2 border-[#8DD3BB] ">
+          <Card
+            variant="plain"
+            className="flex justify-center items-center py-10"
+          >
+            <div className="mt-4 ">
+              <CardModal />
+            </div>
+          </Card>
+        </div>
+      </Card>
     );
   }
   if (cardData) {
@@ -62,7 +46,10 @@ export function AddCard() {
       <div className="bg-white">
         {cardData.map((card: any) => {
           return (
-            <Card variant="plain">
+            <Card
+              variant="outlined"
+              sx={{ backgroundColor: "#ffff", borderColor: "#EAEDED" }}
+            >
               <Card style={{ backgroundColor: "#8DD3BB" }}>
                 <div className="flex justify-between items-center">
                   <div className=" flex gap-2">
