@@ -2,7 +2,7 @@ import React from "react";
 import Kekw from "../destination/Kekw";
 import { useState } from "react";
 
-const tripCardStyle:any = {
+const tripCardStyle: any = {
   WebkitLineClamp: 3,
   WebkitBoxOrient: "vertical",
   overflow: "hidden",
@@ -10,8 +10,7 @@ const tripCardStyle:any = {
 };
 
 const Trip = () => {
-
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <div className="m-auto flex w-10/12 flex-col gap-10">
@@ -30,12 +29,15 @@ const Trip = () => {
               className="h-10 rounded border border-[#8DD3BB] px-4 py-2 text-[#4C4850] delay-75 duration-100 ease-in-out hover:bg-[#8DD3BB] max-[740px]:truncate"
               onClick={() => setIsOpen(!isOpen)}
             >
-              {isOpen ? 'Show more places' : 'Show less places...'}
+              {isOpen ? "Show more places" : "Show less places..."}
             </button>
           </div>
         </div>
         <div className="w-full gap-8 grid">
-          <div style={isOpen ? undefined : tripCardStyle} className="grid grid-rows-3 grid-cols-3 gap-8">
+          <div
+            style={isOpen ? undefined : tripCardStyle}
+            className="grid grid-rows-3 grid-cols-3 gap-8"
+          >
             <Kekw />
             <Kekw />
             <Kekw />

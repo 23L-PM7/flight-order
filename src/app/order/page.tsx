@@ -3,7 +3,7 @@ import { FlightData } from "./FlightData";
 import { PriceDetails } from "@/components/PriceDetails";
 import { PayCard } from "@/components/PayCard";
 import { AddCard } from "@/components/AddCard";
-import CardModal from "@/components/CardModal";
+
 export default function home() {
   return (
     <div className="bg-[#fafafa]">
@@ -13,7 +13,7 @@ export default function home() {
           <PayCard />
           <AddCard />
         </div>
-        <div className="w-1/3">
+        <div className="w-1/3 ">
           <PriceDetails Flight={FlightData} />
         </div>
       </div>
