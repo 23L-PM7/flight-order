@@ -1,3 +1,4 @@
+import axios from "axios";
 import { create } from "zustand";
 
 export const useRegion = create((set) => ({
@@ -11,6 +12,11 @@ export const useFlight = create((set) => ({
 }));
 
 export const useCardData = create((set) => ({
-  cardData: null,
+  cardData: [],
   setCardData: (newList: any) => set(() => ({ cardData: newList })),
+  fetchCardData: () => {
+    axios.get("http://localhost:3000/api/cardData").then(({ data }) => {
+      set(() => ({ cardData: data.documents }));
+    });
+  },
 }));

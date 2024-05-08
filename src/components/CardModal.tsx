@@ -22,18 +22,21 @@ export default function CardModal() {
   const [nameOnCard, SetNameOnCard] = React.useState();
   const { region }: any = useRegion();
   const { flight }: any = useFlight();
-  const { setCardData, cardData }: any = useCardData();
+  const { fetchCardData, cardData }: any = useCardData();
 
   function addCard() {
     try {
-      axios.post("http://localhost:3000/api/cardData", {
-        cvc,
-        nameOnCard,
-        date,
-        cardNumber,
-        region,
-      });
-      cardData();
+      axios
+        .post("http://localhost:3000/api/cardData", {
+          cvc,
+          nameOnCard,
+          date,
+          cardNumber,
+          region,
+        })
+        .then(() => {
+          cardData();
+        });
     } catch (error) {
       console.log(error);
     }

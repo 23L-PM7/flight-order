@@ -51,7 +51,12 @@ export function FlightDetailsCard({ Flight }: any) {
         <div className="text-2xl font-semibold">
           {dayjs(Flight.departure_time).format("hA")}
         </div>
-        <div className="font-medium"> Newark(EWR)</div>
+        <div className="font-medium">
+          {" "}
+          {Flight.departure_airport.country +
+            ">" +
+            Flight.departure_airport.city}
+        </div>
         <div className="h-[2px] w-20 bg-slate-700"></div>
         <div className="">
           <FaPlane size={50} />
@@ -60,7 +65,9 @@ export function FlightDetailsCard({ Flight }: any) {
         <div className="text-2xl font-semibold">
           {dayjs(Flight.arrival_time).format("hA")}
         </div>
-        <p className="font-medium "> Newark(EWR)</p>
+        <p className="font-medium ">
+          {Flight.arrival_airport.country + ">" + Flight.arrival_airport.city}
+        </p>
       </div>
     </Card>
   );

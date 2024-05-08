@@ -14,7 +14,7 @@ export default function home() {
             <PayCard />
           </div>
           <div className="drop-shadow-lg">
-            <AddCard />
+            <AddCard Flight={FlightData} />
           </div>
         </div>
         <div className="w-1/3">
