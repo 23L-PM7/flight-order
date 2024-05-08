@@ -38,6 +38,7 @@ export default function CardModal() {
         .then(() => {
           fetchCardData();
         });
+
     } catch (error) {
       console.log(error);
     }
