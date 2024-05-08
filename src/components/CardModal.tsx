@@ -25,6 +25,7 @@ export default function CardModal() {
   const { fetchCardData, cardData }: any = useCardData();
 
   function addCard() {
+    setOpen(false);
     try {
       axios
         .post("http://localhost:3000/api/cardData", {
@@ -35,7 +36,7 @@ export default function CardModal() {
           region,
         })
         .then(() => {
-          cardData();
+          fetchCardData();
         });
     } catch (error) {
       console.log(error);

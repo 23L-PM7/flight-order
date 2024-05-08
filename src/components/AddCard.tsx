@@ -14,12 +14,7 @@ import { ListItemSecondaryAction } from "@mui/material";
 export function AddCard({ Flight }: any) {
   const [selectedFile, setSelectedFile] = useState(null);
   const { fetchCardData, cardData }: any = useCardData();
-  console.log(cardData, Flight);
-  useEffect(() => {
-    fetchCardData();
-  }, []);
 
-  console.log(cardData);
   const date = Date();
 
   if (cardData.length == 0) {
