@@ -7,15 +7,11 @@ import CardModal from "@/components/CardModal";
 export default function home() {
   return (
     <div className="bg-[#fafafa]">
-      <div className="container mx-auto flex pt-[94px] pb-[120px] gap-10">
-        <div className="w-2/3 flex flex-col bg-white drop-shadow-lg gap-[40px]">
+      <div className="container mx-auto pt-10 flex pb-[120px] gap-10">
+        <div className="w-2/3 flex flex-col gap-5">
           <FlightDetailsCard Flight={FlightData} />
-          <div className="drop-shadow-lg">
-            <PayCard />
-          </div>
-          <div className="drop-shadow-lg">
-            <AddCard />
-          </div>
+          <PayCard />
+          <AddCard />
         </div>
         <div className="w-1/3">
           <PriceDetails Flight={FlightData} />

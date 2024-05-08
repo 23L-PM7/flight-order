@@ -20,7 +20,10 @@ export function PayCard() {
   };
 
   return (
-    <Card variant="plain">
+    <Card
+      variant="outlined"
+      sx={{ backgroundColor: "#ffff", borderColor: "#EAEDED" }}
+    >
       <Card style={{ backgroundColor: "#8DD3BB" }}>
         <div className="flex justify-between font-sans">
           <div>

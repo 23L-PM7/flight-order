@@ -31,7 +31,7 @@ export function AddCard() {
 
   if (cardData.length == 0) {
     return (
-      <Card variant="plain">
+      <Card variant="plain" sx={{ backgroundColor: "#ffff" }}>
         <Card style={{ backgroundColor: "#8DD3BB" }}>
           <div className="flex justify-between items-center">
             <div className=" flex gap-2">
@@ -59,7 +59,10 @@ export function AddCard() {
       <div>
         {cardData.map((card: any) => {
           return (
-            <Card variant="plain">
+            <Card
+              variant="outlined"
+              sx={{ backgroundColor: "#ffff", borderColor: "#EAEDED" }}
+            >
               <Card style={{ backgroundColor: "#8DD3BB" }}>
                 <div className="flex justify-between items-center">
                   <div className=" flex gap-2">
