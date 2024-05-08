@@ -11,22 +11,10 @@ import { Visa } from "./icons/Visa";
 import axios from "axios";
 import { ListItemSecondaryAction } from "@mui/material";
 
-export function AddCard() {
+export function AddCard({ Flight }: any) {
   const [selectedFile, setSelectedFile] = useState(null);
-  const [cardData, setCardData] = useState([]);
+  const { fetchCardData, cardData }: any = useCardData();
 
-  function fetchCardData() {
-    fetch(`http://localhost:3000/api/cardData`)
-      .then((res) => res.json())
-      .then((data) => setCardData(data.documents))
-      .catch((e) => {
-        console.log({ e });
-      });
-  }
-  useEffect(() => {
-    fetchCardData();
-  }, []);
-  console.log(cardData);
   const date = Date();
 
   if (cardData.length == 0) {
