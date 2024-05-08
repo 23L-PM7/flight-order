@@ -26,7 +26,7 @@ export default function CardModal() {
 
   function addCard() {
     try {
-      axios.post("http://localhost:3000/api/cardData", {
+      axios.post("/api/cardData", {
         cvc,
         nameOnCard,
         date,

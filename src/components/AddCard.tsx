@@ -16,7 +16,7 @@ export function AddCard() {
   const [cardData, setCardData] = useState([]);
 
   function fetchCardData() {
-    fetch(`http://localhost:3000/api/cardData`)
+    fetch(`/api/cardData`)
       .then((res) => res.json())
       .then((data) => setCardData(data.documents))
       .catch((e) => {
