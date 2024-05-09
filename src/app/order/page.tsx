@@ -10,14 +10,10 @@ export default function home() {
     <div className="">
       <Toaster position="top-right" richColors />
       <div className="container mx-auto flex pt-[94px] pb-[120px] gap-10 ">
-        <div className="w-2/3 flex flex-col drop-shadow-md gap-[50px] bg-[#fafafa]">
+        <div className="w-2/3 flex flex-col gap-[50px]">
           <FlightDetailsCard Flight={FlightData} />
-          <div className="drop-shadow-md bg-[#fafafa]">
-            <PayCard />
-          </div>
-          <div className="drop-shadow-lg">
-            <AddCard Flight={FlightData} />
-          </div>
+          <PayCard />
+          <AddCard Flight={FlightData} />
         </div>
         <div className="w-1/3 ">
           <PriceDetails Flight={FlightData} />
