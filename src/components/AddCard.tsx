@@ -101,11 +101,9 @@ export function AddCard({ Flight }: any) {
               </div>
               <button
                 onClick={orderButton}
-                className="drop-shadow-md mt-[50px]"
+                className="mt-[50px] flex justify-center items-center bg-[#8DD3BB] hover:bg-[#81cab1] p-4 rounded-xl cursor-pointer hover:text-green-600 font-bold text-xl"
               >
-                <div className="flex justify-center items-center bg-[#8DD3BB] hover:bg-[#81cab1] p-4 rounded-xl cursor-pointer hover:text-green-600">
-                  <div className="font-bold text-xl">Order now</div>
-                </div>
+                Order now
               </button>
             </Card>
           );
