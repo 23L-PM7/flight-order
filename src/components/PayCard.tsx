@@ -6,7 +6,7 @@ import Card from "@mui/joy/Card";
 import React, { useEffect, useState } from "react";
 
 export function PayCard() {
-  const [payFull, setPayFull] = useState(false);
+  const [payFull, setPayFull] = useState(true);
   const [payPart, setPayPart] = useState(false);
 
   const handlePayFullChange = () => {

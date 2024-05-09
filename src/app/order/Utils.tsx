@@ -12,7 +12,7 @@ export const useFlight = create((set) => ({
 }));
 
 export const useCardData = create((set) => ({
-  cardData: [],
+  cardData: null,
   setCardData: (newList: any) => set(() => ({ cardData: newList })),
   fetchCardData: () => {
     axios.get("/api/cardData").then(({ data }) => {
