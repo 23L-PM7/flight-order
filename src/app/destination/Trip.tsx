@@ -1,6 +1,7 @@
 import React from "react";
 import Kekw from "../destination/Kekw";
 import { useState } from "react";
+import ChooseCard from "./ChooseCard";
 
 const tripCardStyle: any = {
   WebkitLineClamp: 3,
@@ -57,6 +58,7 @@ const Trip = () => {
             <Kekw />
           </div>
         </div>
+        <ChooseCard />
       </div>
     </div>
   );
