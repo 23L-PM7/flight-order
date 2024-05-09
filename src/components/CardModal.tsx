@@ -9,7 +9,7 @@ import Sheet from "@mui/joy/Sheet";
 import { GoPlusCircle } from "react-icons/go";
 import { Checkbox, Input, Option, Select } from "@mui/joy";
 import SelectCountry from "./SelectCountry";
-
+import { Toaster, toast } from "sonner";
 import { useRegion, useFlight, useCardData } from "@/app/order/Utils";
 import axios from "axios";
 import { Visa } from "./icons/Visa";
@@ -37,8 +37,8 @@ export default function CardModal() {
         })
         .then(() => {
           fetchCardData();
+          toast.success("Card uploaded");
         });
-
     } catch (error) {
       console.log(error);
     }
@@ -54,6 +54,7 @@ export default function CardModal() {
           <p className="">Add new Card</p>
         </div>
       </Button>
+      <Toaster position="top-right" richColors />
       <Modal
         aria-labelledby="modal-title"
         aria-describedby="modal-desc"
@@ -138,3 +139,29 @@ export default function CardModal() {
     </React.Fragment>
   );
 }
+
+// const order = {
+//   id: 1,
+//   userId: '1',
+//   price: 100,
+// }
+
+// const orderItems = {
+//   orderId:1,
+//   userId: '1',
+//   ticketId: 123
+//   price: 50
+// }
+
+// const orderItems = [
+//   orderId:1,
+//   userId: '1',
+//   ticketId: 123
+//   price: 50
+// ]
+
+// {
+//   userId: '1',
+//   order: order,
+//   irderItems: [orderItems, orderItems]
+// }

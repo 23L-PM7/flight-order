@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { dbRequest } from "../config/dbRequest";
 
 export async function GET(request: Request) {
@@ -110,3 +111,31 @@ export async function POST(request: Request) {
 //     console.log(error);
 //   }
 // }
+
+// const creatOrder = (req, res) => {
+//   const { order, orderItems } = req;
+//   const { userId, price, ticketId, orderId } = orderItem;
+
+//   const newOrder = await OrderModel.create({
+//     price: order.price,
+//     userId: order.userId,
+//   });
+
+//   const newOrderItems = await OrderItemsModel.insertMany(orderItems);
+
+//   respose.json(order);
+// };
+
+// const Component = () => {
+//   const [cart, setCart] = useState({
+//     price: 0,
+//   });
+
+//   const [cartItems, setCartItems] = useState([]);
+
+//   const addCardItem = (item: any, quantity: number) => {
+//     setCartItems([...cartItems, { ...item, quantity }]);
+
+//     setCart(cart.price + item.price);
+//   };
+// };

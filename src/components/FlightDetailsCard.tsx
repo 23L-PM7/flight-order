@@ -55,7 +55,7 @@ export function FlightDetailsCard({ Flight }: any) {
         <div className="font-medium">
           {" "}
           {Flight.departure_airport.country +
-            ">" +
+            " > " +
             Flight.departure_airport.city}
         </div>
         <div className="h-[2px] w-20 bg-slate-700"></div>
@@ -67,7 +67,7 @@ export function FlightDetailsCard({ Flight }: any) {
           {dayjs(Flight.arrival_time).format("hA")}
         </div>
         <p className="font-medium ">
-          {Flight.arrival_airport.country + ">" + Flight.arrival_airport.city}
+          {Flight.arrival_airport.country + " > " + Flight.arrival_airport.city}
         </p>
       </div>
     </Card>
