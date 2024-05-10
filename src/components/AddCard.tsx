@@ -72,47 +72,46 @@ export function AddCard({ Flight }: any) {
   }
   if (cardData) {
     return (
-      <>
-        <div className="bg-white">
-          {cardData.map((card: any) => {
-            return (
-              <Card
-                variant="outlined"
-                sx={{ backgroundColor: "#ffff", borderColor: "#EAEDED" }}
-              >
-                <Card style={{ backgroundColor: "#8DD3BB" }}>
-                  <div className="flex justify-between items-center">
-                    <div className=" flex gap-2">
-                      <div className="flex items-center">
-                        <FaCcVisa />
-                      </div>
-                      <p className="flex items-center">{card.cardNumber}</p>
-                      <p className="flex items-center">
-                        {dayjs(card.date).format("MM/YY")}
-                      </p>
+      <div className="bg-white">
+        {cardData.map((card: any) => {
+          return (
+            <Card
+              variant="plain"
+              sx={{ backgroundColor: "#ffff", borderColor: "#EAEDED" }}
+            >
+              <Card style={{ backgroundColor: "#8DD3BB" }}>
+                <div className="flex justify-between items-center">
+                  <div className=" flex gap-2">
+                    <div className="flex items-center">
+                      <FaCcVisa />
                     </div>
-                  </div>
-                </Card>
-                <div
-                  className="p-4 w-[378px] bg-[url('/Card.png')] bg-cover rounded-2xl "
-                  style={{ backgroundImage: "" }}
-                >
-                  <div className="font-semibold text-2xl flex justify-end">
-                    BANK
-                  </div>
-                  <div className="flex justify-between mt-[60px] p-[11px] items-center">
-                    <div>
-                      <div className="text-xl font-semibold">
-                        {card.cardNumber}
-                      </div>
-                      <div className="text-xl font-semibold">
-                        {card.nameOnCard}
-                      </div>
-                    </div>
-                    <Visa />
+                    <p className="flex items-center text-bold">
+                      {card.cardNumber}
+                    </p>
+                    <p className="flex items-center">
+                      {dayjs(card.date).format("MM/YY")}
+                    </p>
                   </div>
                 </div>
-
+              </Card>
+              <div
+                className="p-4 w-[378px] bg-[url('/Card.png')] bg-cover rounded-2xl "
+                style={{ backgroundImage: "" }}
+              >
+                <div className="font-semibold text-2xl flex justify-end">
+                  BANK
+                </div>
+                <div className="flex justify-between mt-[60px] p-[11px] items-center">
+                  <div>
+                    <div className="text-xl font-semibold">
+                      {card.cardNumber}
+                    </div>
+                    <div className="text-xl font-semibold">
+                      {card.nameOnCard}
+                    </div>
+                  </div>
+                  <Visa />
+                </div>
               </div>
               <button
                 onClick={orderButton}

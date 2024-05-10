@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import { useRouter } from "next/navigation";
@@ -14,12 +14,17 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DateRangePicker } from "@mui/x-date-pickers-pro/DateRangePicker";
 import { Passengers, passengersQuantityStore } from "./Passengers";
 
-const fromTo = ["Ulaanbaatar - Beijing", "Ulaanbaatar - Seoul"];
+const fromTo = [
+  "Ulaanbaatar - Beijing",
+  "Ulaanbaatar - Seoul",
+  "Ulaanbaatar - Istanbul",
+];
 const tripType = ["One way", "Round trip"];
 const classType = ["Economy", "Business", "First"];
 
 export function FindFlight() {
   const router = useRouter();
+  // const [flighDatas, setFlightDatas]: any = useState([]);
   const [country, setCountry] = React.useState<string | null>(fromTo[0]);
   const [firstInput, setFirstInput] = React.useState("");
   const [trip, setTrip] = React.useState<string | null>(tripType[0]);
@@ -38,33 +43,34 @@ export function FindFlight() {
   const { adultQuantity, childQuantity, infantQuantity } =
     passengersQuantityStore();
 
+  // useEffect(() => {
+  //   findFlights();
+  // }, []);
+
   const findFlights = async () => {
-    // if (!country || !trip || !value || !economy) {
-    //   alert("Бүх талбарыг бөглөнө үү!");
-    //   return;
-    // }
     // try {
-    //   await axios.post("http://localhost:3000/flights", {
-    //     country,
-    //     trip,
-    //     value,
-    //     economy,
+    //   await axios.get("/api/flightData").then((data) => {
+    //     setFlightDatas(data);
+
+    //     console.log(data);
     //   });
-    //   router.push("/login");
     // } catch (error) {
     //   console.error("Error:", error);
     //   alert("An error occured while creating the new articles");
     // }
-    console.log({
-      country,
-      trip,
-      startDate,
-      endDate,
-      economy,
-      adultQuantity,
-      childQuantity,
-      infantQuantity,
-    });
+
+    const params = new URLSearchParams({
+      country: country || "",
+      trip: trip || "",
+      startDate: startDate || "",
+      endDate: endDate || "",
+      economy: economy || "",
+      adultQuantity: String(adultQuantity),
+      childQuantity: String(childQuantity),
+      infantQuantity: String(infantQuantity),
+    }).toString();
+
+    router.push(`/flightlist?${params}`);
   };
 
   return (
@@ -143,7 +149,7 @@ export function FindFlight() {
           className="p-4 px-4 rounded bg-[#8DD3BB] mt-8 flex items-center gap-1"
         >
           <MdFlightTakeoff />
-          <div> Show Flights</div>
+          <span>Show Flights</span>
         </button>
       </div>
     </div>
