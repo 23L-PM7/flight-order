@@ -6,14 +6,14 @@ import { FaCcVisa } from "react-icons/fa";
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import CardModal from "./CardModal";
-import { useCardData } from "@/app/order/Utils";
+import { useCardData, useSeat } from "@/app/order/Utils";
 import { Visa } from "./icons/Visa";
 import axios from "axios";
 import { Button } from "@mui/material";
 import { toast } from "sonner";
 export function AddCard({ Flight }: any) {
   const { fetchCardData, cardData }: any = useCardData();
-
+  const { seat }: any = useSeat();
   useEffect(() => {
     fetchCardData();
   }, []);
@@ -28,17 +28,22 @@ export function AddCard({ Flight }: any) {
     );
   }
   function orderButton() {
-    try {
-      axios
-        .post("/api/order", {
-          Flight,
-          cardData,
-        })
-        .then(() => {
-          toast.success("Successfully ticket ordered ");
-        });
-    } catch (error) {
-      console.log(error);
+    if (Flight && cardData && seat) {
+      try {
+        axios
+          .post("/api/order", {
+            Flight,
+            cardData,
+            seat,
+          })
+          .then(() => {
+            toast.success("Successfully ticket ordered ");
+          });
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      alert("fill all option");
     }
   }
 

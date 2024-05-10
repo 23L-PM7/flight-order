@@ -14,8 +14,8 @@ export async function GET(request: Request) {
 
 export async function POST(request: Request) {
   const body = await request.json();
-  const { cardData, Flight } = body;
-  console.log(cardData, Flight);
+  const { cardData, Flight, seat } = body;
+  console.log(seat);
   try {
     const data = await dbRequest("order", "insertOne", {
       document: {
@@ -50,7 +50,7 @@ export async function POST(request: Request) {
             aircraft: Flight.aircraft,
 
             seat: {
-              number: "15B",
+              number: seat,
               class: "Economy",
             },
           },
