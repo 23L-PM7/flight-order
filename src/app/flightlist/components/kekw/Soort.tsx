@@ -36,7 +36,7 @@ const Soort = () => {
         </div>
       </div>
       <img src="./line.svg" alt="line"></img>
-      <div className="flex justify-center rounded w-full">
+      <div className="flex rounded w-full">
         <button className="flex gap-2 items-center justify-center">
           <img className="w-6 h-6" src="./ssort.svg" alt="sort" />
           <p className="">Other sort</p>

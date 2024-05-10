@@ -75,10 +75,10 @@ const FlightInfo = () => {
         </div>
         <img src="./bruh.svg" alt="" />
         <div className="flex gap-4">
-          <button className="flex gap-[10px] border rounded px-4 py-4 border-[#8DD3BB]">
+          <button className="flex gap-[10px] border rounded px-4 py-4 border-[#8DD3BB] hover:bg-[#8DD3BB]">
             <img src="./heart.svg" alt="" />
           </button>
-          <button className="bg-[#8DD3BB] rounded w-full">
+          <button className="bg-[#8DD3BB] hover:bg-slate-100 rounded w-full">
             <span className="text-sm font-medium">View Deals</span>
           </button>
         </div>
