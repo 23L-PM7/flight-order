@@ -11,9 +11,11 @@ import { useEffect } from "react";
 
 export function FlightDetailsCard({ Flight }: any) {
   const { setFlight }: any = useFlight();
+
   useEffect(() => {
     setFlight(Flight);
   }, []);
+
   return (
     <Card
       variant="outlined"

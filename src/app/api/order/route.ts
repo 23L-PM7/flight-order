@@ -3,9 +3,9 @@ import { dbRequest } from "../config/dbRequest";
 
 export async function GET(request: Request) {
   try {
-    const data = await dbRequest("order", "find");
+    const { documents } = await dbRequest("order", "find");
 
-    return Response.json(data);
+    return Response.json(documents);
   } catch (error) {
     console.log(error);
     throw new Error("aldaa");
