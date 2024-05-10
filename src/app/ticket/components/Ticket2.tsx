@@ -6,6 +6,9 @@ import AirlineSeatReclineNormalOutlinedIcon from "@mui/icons-material/AirlineSea
 import { LinkIcon } from "@/components/icons/LinkIcon";
 import { Button } from "@mui/joy";
 import { LocationIcon } from "@/components/icons/LocationIcon";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { dark } from "@mui/material/styles/createPalette";
 
 type ticketInfo = {
   id: number;
@@ -44,11 +47,23 @@ const tickets: ticketInfo[] = [
 ];
 
 export default function Ticket2() {
+  const [orderData, setOrderData]: any = useState([]);
+  function fetchOrderData() {
+    fetch("/api/order")
+      .then((res) => {
+        res.json();
+      })
+      .then((data) => setOrderData(data));
+    console.log(orderData);
+  }
+  useEffect(() => {
+    fetchOrderData();
+  }, []);
   return (
     <div className="container mx-auto mt-4 flex flex-col justify-center">
       {tickets.map((ticket) => (
         <>
-          <div className="flex justify-between my-8">
+          <div key={ticket.id} className="flex justify-between my-8">
             <div className="flex flex-col gap-2">
               <h1 className="text-2xl font-bold">{ticket.flight}</h1>
               <p className="flex items-center gap-2">

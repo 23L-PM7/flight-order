@@ -1,25 +1,24 @@
 "use client";
 
-import { Card, CircularProgress } from "@mui/joy";
+import { Card, CircularProgress, Drawer } from "@mui/joy";
 import { FaCcVisa } from "react-icons/fa";
 
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import CardModal from "./CardModal";
-import { useCardData } from "@/app/order/Utils";
+import { useCardData, useSeat } from "@/app/order/Utils";
 import { Visa } from "./icons/Visa";
 import axios from "axios";
-import { Toaster, toast } from "sonner";
+import { Button } from "@mui/material";
+import { toast } from "sonner";
 export function AddCard({ Flight }: any) {
-  const [selectedFile, setSelectedFile] = useState(null);
   const { fetchCardData, cardData }: any = useCardData();
-
+  const { seat }: any = useSeat();
   useEffect(() => {
     fetchCardData();
   }, []);
 
   const date = Date();
-  console.log(cardData);
 
   if (cardData == null) {
     return (
@@ -28,23 +27,25 @@ export function AddCard({ Flight }: any) {
       </div>
     );
   }
-
   function orderButton() {
-    try {
-      axios
-        .post("/api/order", {
-          Flight,
-          cardData,
-        })
-        .then(() => {
-          toast.success("Successfully ticket ordered ");
-        });
-    } catch (error) {
-      console.log(error);
+    if (Flight && cardData && seat) {
+      try {
+        axios
+          .post("/api/order", {
+            Flight,
+            cardData,
+            seat,
+          })
+          .then(() => {
+            toast.success("Successfully ticket ordered ");
+          });
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      alert("fill all option");
     }
   }
-
-  console.log(cardData);
 
   if (cardData.length == 0) {
     return (
@@ -76,7 +77,12 @@ export function AddCard({ Flight }: any) {
         {cardData.map((card: any) => {
           return (
             <Card
+
+              key={card._id}
+
+
               variant="plain"
+
               sx={{ backgroundColor: "#ffff", borderColor: "#EAEDED" }}
             >
               <Card style={{ backgroundColor: "#8DD3BB" }}>
@@ -85,9 +91,13 @@ export function AddCard({ Flight }: any) {
                     <div className="flex items-center">
                       <FaCcVisa />
                     </div>
+
+              
+
                     <p className="flex items-center text-bold">
                       {card.cardNumber}
                     </p>
+
                     <p className="flex items-center">
                       {dayjs(card.date).format("MM/YY")}
                     </p>
@@ -113,12 +123,12 @@ export function AddCard({ Flight }: any) {
                   <Visa />
                 </div>
               </div>
-              <button
+              <a
                 onClick={orderButton}
-                className="mt-[50px] flex justify-center items-center bg-[#8DD3BB] hover:bg-[#81cab1] p-4 rounded-xl cursor-pointer hover:text-green-600 font-bold text-xl"
+                className="mt-[50px] w-full flex justify-center items-center bg-[#8DD3BB] hover:bg-[#81cab1] p-4 rounded-xl cursor-pointer hover:text-green-600 font-bold text-xl"
               >
-                Order now
-              </button>
+                Order Now
+              </a>
             </Card>
           );
         })}
