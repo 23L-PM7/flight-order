@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import { useRouter } from "next/navigation";
@@ -41,34 +41,27 @@ export default function FindFlight() {
   const { adultQuantity, childQuantity, infantQuantity } =
     passengersQuantityStore();
 
-  const findFlights = async () => {
-    // if (!country || !trip || !value || !economy) {
-    //   alert("Бүх талбарыг бөглөнө үү!");
-    //   return;
-    // }
-    // try {
-    //   await axios.post("http://localhost:3000/flights", {
-    //     country,
-    //     trip,
-    //     value,
-    //     economy,
-    //   });
-    //   router.push("/login");
-    // } catch (error) {
-    //   console.error("Error:", error);
-    //   alert("An error occured while creating the new articles");
-    // }
-    console.log({
-      country,
-      trip,
-      startDate,
-      endDate,
-      economy,
-      adultQuantity,
-      childQuantity,
-      infantQuantity,
-    });
-  };
+    // useEffect(() => {
+    //   SearchFlight();
+    // }, []);
+   
+    // const SearchFlight = () => {
+    //   fetch("/api/flightData")
+    //     .then((data) => setCountry(data));
+    // };
+
+  // const findFlights = async () => {
+
+
+  //   try {
+  //     await axios.get("/api/flightData", {
+
+  //     })
+  //     return Response.data;
+  //   } catch (error) {
+  //     console.error("Error:", error);
+  //     alert("An error occured while creating the new articles");
+  //   }
 
   return (
     <div className="mt-[40px] flex gap-6 w-10/12 justify-center items-center bg-white py-8 px-6 rounded-2xl">
