@@ -1,8 +1,6 @@
 "use client";
-
 import { Card, CircularProgress, Drawer } from "@mui/joy";
 import { FaCcVisa } from "react-icons/fa";
-
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import CardModal from "./CardModal";
@@ -17,9 +15,9 @@ export function AddCard({ Flight }: any) {
   useEffect(() => {
     fetchCardData();
   }, []);
-
   const date = Date();
 
+  console.log(cardData);
   if (cardData == null) {
     return (
       <div className="flex justify-center my-10">
@@ -27,6 +25,7 @@ export function AddCard({ Flight }: any) {
       </div>
     );
   }
+
   function orderButton() {
     if (Flight && cardData && seat) {
       try {
@@ -77,12 +76,8 @@ export function AddCard({ Flight }: any) {
         {cardData.map((card: any) => {
           return (
             <Card
-
               key={card._id}
-
-
-              variant="plain"
-
+              variant="outlined"
               sx={{ backgroundColor: "#ffff", borderColor: "#EAEDED" }}
             >
               <Card style={{ backgroundColor: "#8DD3BB" }}>
@@ -91,13 +86,7 @@ export function AddCard({ Flight }: any) {
                     <div className="flex items-center">
                       <FaCcVisa />
                     </div>
-
-              
-
-                    <p className="flex items-center text-bold">
-                      {card.cardNumber}
-                    </p>
-
+                    <p className="flex items-center">{card.cardNumber}</p>
                     <p className="flex items-center">
                       {dayjs(card.date).format("MM/YY")}
                     </p>

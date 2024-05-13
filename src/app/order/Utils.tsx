@@ -21,7 +21,7 @@ export const useCardData = create((set) => ({
   setCardData: (newList: any) => set(() => ({ cardData: newList })),
   fetchCardData: () => {
     axios.get("/api/cardData").then(({ data }) => {
-      set(() => ({ cardData: data.documents }));
+      set(() => ({ cardData: data }));
     });
   },
 }));
@@ -31,7 +31,7 @@ export const useOrder = create((set) => ({
   setOrder: (newList: any) => set(() => ({ seat: newList })),
   fetchOrders: () => {
     axios.get(`api/order`).then(({ data }) => {
-      set(() => ({ order: data.documents }));
+      set(() => ({ order: data }));
     });
   },
 }));
