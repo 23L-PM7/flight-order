@@ -77,12 +77,8 @@ export function AddCard({ Flight }: any) {
         {cardData.map((card: any) => {
           return (
             <Card
-
               key={card._id}
-
-
               variant="plain"
-
               sx={{ backgroundColor: "#ffff", borderColor: "#EAEDED" }}
             >
               <Card style={{ backgroundColor: "#8DD3BB" }}>
@@ -91,8 +87,6 @@ export function AddCard({ Flight }: any) {
                     <div className="flex items-center">
                       <FaCcVisa />
                     </div>
-
-              
 
                     <p className="flex items-center text-bold">
                       {card.cardNumber}
