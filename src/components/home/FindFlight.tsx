@@ -14,18 +14,13 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DateRangePicker } from "@mui/x-date-pickers-pro/DateRangePicker";
 import { Passengers, passengersQuantityStore } from "./Passengers";
 
-const fromTo = [
-  "Ulaanbaatar - Beijing",
-  "Ulaanbaatar - Seoul",
-  "Ulaanbaatar - Istanbul",
-];
 const tripType = ["One way", "Round trip"];
 const classType = ["Economy", "Business", "First"];
 
 export function FindFlight() {
   const router = useRouter();
-  // const [flighDatas, setFlightDatas]: any = useState([]);
-  const [country, setCountry] = React.useState<string | null>(fromTo[0]);
+  const [flightDatas, setFlightDatas]: any = React.useState([]);
+  const [country, setCountry] = React.useState<string | null>(null);
   const [firstInput, setFirstInput] = React.useState("");
   const [trip, setTrip] = React.useState<string | null>(tripType[0]);
   const [secondInput, setSecondInput] = React.useState("");
@@ -33,32 +28,31 @@ export function FindFlight() {
     dayjs("2024-05-01"),
     dayjs("2024-05-31"),
   ]);
-
   const startDate = value[0].format("YYYY-MM-DD");
   const endDate = value[1].format("YYYY-MM-DD");
-
   const [economy, setEconomy] = React.useState<string | null>(classType[0]);
   const [thirdInput, setThirdInput] = React.useState("");
-
   const { adultQuantity, childQuantity, infantQuantity } =
     passengersQuantityStore();
 
-  // useEffect(() => {
-  //   findFlights();
-  // }, []);
+  useEffect(() => {
+    fetchCountry();
+  }, []);
+
+  const fetchCountry = async () => {
+    try {
+      await axios.get("/api/flightDatas").then(({ data }) => {
+        setFlightDatas(data);
+        setCountry(
+          `${data[0].departure_airport.city} - ${data[0].arrival_airport.city}`
+        );
+      });
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
 
   const findFlights = async () => {
-    // try {
-    //   await axios.get("/api/flightData").then((data) => {
-    //     setFlightDatas(data);
-
-    //     console.log(data);
-    //   });
-    // } catch (error) {
-    //   console.error("Error:", error);
-    //   alert("An error occured while creating the new articles");
-    // }
-
     const params = new URLSearchParams({
       country: country || "",
       trip: trip || "",
@@ -91,7 +85,10 @@ export function FindFlight() {
               setFirstInput(newInputValue);
             }}
             id="1"
-            options={fromTo}
+            options={flightDatas.map(
+              (flight) =>
+                `${flight.departure_airport.city} - ${flight.arrival_airport.city}`
+            )}
             sx={{ width: 300 }}
             renderInput={(params) => (
               <TextField {...params} label="From - To" />
