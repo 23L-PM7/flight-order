@@ -5,10 +5,7 @@ import MenuButton from "@mui/joy/MenuButton";
 import Menu from "@mui/joy/Menu";
 import MenuItem from "@mui/joy/MenuItem";
 import Dropdown from "@mui/joy/Dropdown";
-import ListDivider from "@mui/joy/ListDivider";
-import ListItemDecorator from "@mui/joy/ListItemDecorator";
-import Check from "@mui/icons-material/Check";
-import { Button, Divider, Typography } from "@mui/joy";
+import { Divider } from "@mui/joy";
 import { useOrder, useSeat } from "@/app/order/Utils";
 
 export default function SeatMenu() {
@@ -35,8 +32,6 @@ export default function SeatMenu() {
     });
   }
 
-  console.log({ selectedSeats, arrayWith100 });
-
   return (
     <Dropdown>
       <MenuButton size="sm" fullWidth={true}>
@@ -49,7 +44,7 @@ export default function SeatMenu() {
               <button
                 disabled={selectedSeats.includes(seatNumber)}
                 key={seatNumber}
-                className={`text-center border ${selectedSeat == seatNumber ? "bg-green-500" : "bg-white"} ${selectedSeats.includes(seatNumber) ? "bg-red-400  text-black opacity-5" : ""}`}
+                className={`text-center border ${selectedSeat == seatNumber ? "bg-green-500" : "bg-white"} ${selectedSeats.includes(seatNumber) ? "bg-slate-500 text-slate-300  " : ""}`}
                 onClick={() => setSelectedSeat(seatNumber)}
               >
                 {seatNumber}
