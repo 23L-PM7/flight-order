@@ -24,12 +24,18 @@ export function Header() {
           <img src="/Logo.png" alt="logo" />
         </Link>
         <div className="flex items-center gap-2 py-[27px]">
-          <button className="py-4 px-6 rounded-lg hover:bg-black hover:text-white">
+          <a
+            href="/api/auth/login"
+            className="py-4 px-6 rounded-lg hover:bg-black hover:text-white"
+          >
             Login
-          </button>
-          <button className="p-4 px-6 rounded-lg hover:bg-black hover:text-white">
-            Sign up
-          </button>
+          </a>
+          <a
+            href="/api/auth/logout"
+            className="py-4 px-6 rounded-lg hover:bg-black hover:text-white"
+          >
+            Log Out
+          </a>
         </div>
       </div>
     </div>

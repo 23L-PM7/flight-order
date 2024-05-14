@@ -14,20 +14,19 @@ export async function GET(request: Request) {
 
 export async function POST(request: Request) {
   const body = await request.json();
-  const { cardData, Flight, seat } = body;
-  console.log(seat);
+  const { cartData, Flight, seat, user } = body;
   try {
     const data = await dbRequest("order", "insertOne", {
       document: {
         FlightTicket: {
           passenger: {
-            first_name: "Alice",
-            last_name: "Smith",
-            email: "alice@example.com",
+            userId: user.sub,
+            first_name: user.name,
+            last_name: user.family_name,
+            email: user.email,
             phone: "+1234567890",
             address: "123 Main Street, City, Country",
           },
-
           flight: {
             number: Flight.flight_number,
             departure_airport: {
@@ -67,8 +66,8 @@ export async function POST(request: Request) {
           payment: {
             method: "credit_card",
             card_type: "Visa",
-            last_four_digits: cardData.cardNumber,
-            expiration_date: cardData.date,
+            last_four_digits: cartData.cardNumber,
+            expiration_date: cartData.date,
           },
         },
       },
@@ -77,7 +76,6 @@ export async function POST(request: Request) {
     return Response.json(data);
   } catch (error) {
     console.log(error);
-
     throw new Error("aldaa");
   }
 }

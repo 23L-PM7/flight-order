@@ -3,7 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/header/Header";
 import Footer from "@/components/footer/Footer";
-
+import { UserProvider } from "@auth0/nextjs-auth0/client";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -18,11 +18,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="bg-[#fafafa]">
-      <body className={inter.className}>
-        <Header />
-        <div>{children}</div>
-        <Footer />
-      </body>
+      <UserProvider>
+        <body className={inter.className}>
+          <Header />
+          <div>{children}</div>
+          <Footer />
+        </body>
+      </UserProvider>
     </html>
   );
 }

@@ -4,36 +4,48 @@ import { FaCcVisa } from "react-icons/fa";
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import CardModal from "./CardModal";
-import { useCardData, useSeat } from "@/app/order/Utils";
+import { useCartData, useSeat } from "@/app/order/Utils";
 import { Visa } from "./icons/Visa";
 import axios from "axios";
-import { Button } from "@mui/material";
+import { Button, Stack } from "@mui/material";
 import { toast } from "sonner";
-export function AddCard({ Flight }: any) {
-  const { fetchCardData, cardData }: any = useCardData();
-  const { seat }: any = useSeat();
-  useEffect(() => {
-    fetchCardData();
-  }, []);
-  const date = Date();
+import { useUser } from "@auth0/nextjs-auth0/client";
+import { useRouter } from "next/navigation";
 
-  console.log(cardData);
-  if (cardData == null) {
+export function AddCard({ Flight }: any) {
+  const router = useRouter();
+  const { cartData, setCartData, fetchCartData }: any = useCartData();
+  const { user, isLoading } = useUser();
+  const { seat }: any = useSeat();
+  const userId = user?.sub;
+  useEffect(() => {
+    if (!user) return;
+    fetchCartData(userId);
+  }, [user]);
+
+  if (!user && isLoading) {
     return (
-      <div className="flex justify-center my-10">
-        <CircularProgress color="primary" size="md" variant="soft" />
-      </div>
+      <Stack height={300} justifyContent="center" alignItems="center">
+        <CircularProgress />
+      </Stack>
     );
   }
 
+  if (!user && !isLoading) {
+    router.push("/");
+    return;
+  }
+  const date = Date();
+
   function orderButton() {
-    if (Flight && cardData && seat) {
+    if (Flight && cartData && seat && user) {
       try {
         axios
           .post("/api/order", {
             Flight,
-            cardData,
+            cartData,
             seat,
+            user,
           })
           .then(() => {
             toast.success("Successfully ticket ordered ");
@@ -46,7 +58,7 @@ export function AddCard({ Flight }: any) {
     }
   }
 
-  if (cardData.length == 0) {
+  if (cartData.length == 0) {
     return (
       <Card variant="plain" sx={{ backgroundColor: "#ffff" }}>
         <Card style={{ backgroundColor: "#8DD3BB" }}>
@@ -70,10 +82,10 @@ export function AddCard({ Flight }: any) {
       </Card>
     );
   }
-  if (cardData) {
+  if (cartData) {
     return (
       <div className="bg-white">
-        {cardData.map((card: any) => {
+        {cartData.map((card: any) => {
           return (
             <Card
               key={card._id}
@@ -112,15 +124,17 @@ export function AddCard({ Flight }: any) {
                   <Visa />
                 </div>
               </div>
-              <a
-                onClick={orderButton}
-                className="mt-[50px] w-full flex justify-center items-center bg-[#8DD3BB] hover:bg-[#81cab1] p-4 rounded-xl cursor-pointer hover:text-green-600 font-bold text-xl"
-              >
-                Order Now
-              </a>
             </Card>
           );
         })}
+        <div>
+          <a
+            onClick={orderButton}
+            className="mt-[50px] w-full flex justify-center items-center bg-[#8DD3BB] hover:bg-[#81cab1] p-4 rounded-xl cursor-pointer hover:text-green-600 font-bold text-xl"
+          >
+            Order Now
+          </a>
+        </div>
       </div>
     );
   }
