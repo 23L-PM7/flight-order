@@ -43,6 +43,7 @@ export function FindFlight() {
     try {
       await axios.get("/api/flightDatas").then(({ data }) => {
         setFlightDatas(data);
+        console.log(data);
         setCountry(
           `${data[0].departure_airport.city} - ${data[0].arrival_airport.city}`
         );
@@ -74,7 +75,7 @@ export function FindFlight() {
         <Passengers />
       </div>
       <div className="flex gap-6">
-        <div className="mt-8 font-mono">
+        <div className="mt-8">
           <Autocomplete
             value={country}
             onChange={(event, newValue) => {

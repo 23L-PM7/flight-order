@@ -88,6 +88,7 @@ export default function CardModal() {
               onChange={(event: any) => {
                 setCardNumber(event.target.value);
               }}
+              defaultValue="**** **** **** 1234"
               className="mb-3"
               placeholder="Card Number"
             />
@@ -104,6 +105,7 @@ export default function CardModal() {
                 className="flex-1"
                 type="number"
                 placeholder="cvc"
+                defaultValue="123"
                 onChange={(event: any) => {
                   setCvc(event.target.value);
                 }}
@@ -111,6 +113,7 @@ export default function CardModal() {
             </div>
             <Input
               className="w-full mb-3"
+              defaultValue="Joe"
               placeholder="Name on Card"
               onChange={(event: any) => {
                 SetNameOnCard(event.target.value);
