@@ -32,7 +32,6 @@ export async function GET(request: Request) {
 export async function POST(request: Request) {
   const body = await request.json();
   const { cvc, userId, region, nameOnCard, cardNumber, date } = body;
-  console.log(userId);
   try {
     const data = await dbRequest("cardData", "insertOne", {
       document: {

@@ -1,26 +1,45 @@
 import { useState } from "react";
 import { dbRequest } from "../config/dbRequest";
+import { Filter } from "@mui/icons-material";
 
 export async function GET(request: Request) {
-  try {
-    const { documents } = await dbRequest("order", "find");
+  const { searchParams } = new URL(request.url);
+  const userId = searchParams.get("userId");
+  if (userId) {
+    try {
+      const { documents } = await dbRequest("order", "find", {
+        filter: {
+          userId: userId,
+        },
+      });
 
-    return Response.json(documents);
-  } catch (error) {
-    console.log(error);
-    throw new Error("aldaa");
+      return Response.json(documents);
+    } catch (error) {
+      console.log(error);
+      throw new Error("aldaa");
+    }
+  } else {
+    try {
+      const { documents } = await dbRequest("order", "find");
+
+      return Response.json(documents);
+    } catch (error) {
+      console.log(error);
+      throw new Error("aldaa");
+    }
   }
 }
 
 export async function POST(request: Request) {
   const body = await request.json();
   const { cartData, Flight, seat, user } = body;
+
   try {
     const data = await dbRequest("order", "insertOne", {
       document: {
+        userId: user.sub,
         FlightTicket: {
           passenger: {
-            userId: user.sub,
             first_name: user.name,
             last_name: user.family_name,
             email: user.email,

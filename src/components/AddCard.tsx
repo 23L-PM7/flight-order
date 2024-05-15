@@ -18,6 +18,7 @@ export function AddCard({ Flight }: any) {
   const { user, isLoading } = useUser();
   const { seat }: any = useSeat();
   const userId = user?.sub;
+
   useEffect(() => {
     if (!user) return;
     fetchCartData(userId);
