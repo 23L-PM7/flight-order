@@ -44,7 +44,7 @@ export default function SeatMenu() {
               <button
                 disabled={selectedSeats.includes(seatNumber)}
                 key={seatNumber}
-                className={`text-center border ${selectedSeat == seatNumber ? "bg-green-500" : "bg-white"} ${selectedSeats.includes(seatNumber) ? "bg-slate-500 text-slate-300  " : ""}`}
+                className={`text-center hover:bg-green-500 border ${selectedSeat == seatNumber ? "bg-green-500" : "bg-white"} ${selectedSeats.includes(seatNumber) ? "bg-slate-600 text-slate-300  " : ""}`}
                 onClick={() => setSelectedSeat(seatNumber)}
               >
                 {seatNumber}
