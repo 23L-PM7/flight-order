@@ -20,7 +20,6 @@ export default function home() {
           <div className="mb-8">
             <PriceDetails Flight={FlightData} />
           </div>
-
           <SeatMenu />
         </div>
       </div>

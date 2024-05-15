@@ -20,11 +20,9 @@ export const useCartData = create((set) => ({
   cartData: [],
   setCartData: (newList: any) => set(() => ({ cardData: newList })),
   fetchCartData: (userId: string) => {
-    axios
-      .get(`http://localhost:3000/api/cardData?userId=${userId}`)
-      .then(({ data }) => {
-        set(() => ({ cartData: data }));
-      });
+    axios.get(`/api/cardData?userId=${userId}`).then(({ data }) => {
+      set(() => ({ cartData: data }));
+    });
   },
 }));
 
