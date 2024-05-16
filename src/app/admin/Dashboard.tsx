@@ -1,25 +1,63 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { DataGrid, GridColDef } from "@mui/x-data-grid";
+import { DataGrid, GridColDef, GridEventListener } from "@mui/x-data-grid";
 import axios from "axios";
-import { MdOutlineDelete } from "react-icons/md";
-
-const columns: GridColDef[] = [
-  { field: "flightNumber", headerName: "Flight Number", width: 150 },
-  { field: "airline", headerName: "Airline", width: 150 },
-  { field: "aircraft", headerName: "Aircraft", width: 150 },
-  { field: "departureCity", headerName: "Departure City", width: 150 },
-  { field: "arrivalCity", headerName: "Arrival City", width: 150 },
-  { field: "departureTime", headerName: "Departure Time", width: 150 },
-  { field: "arrivalTime", headerName: "Arrival Time", width: 150 },
-  { field: "duration", headerName: "Duration", width: 150 },
-  { field: "price", headerName: "Price", width: 150 },
-  { field: "delete", headerName: "Delete", width: 150 },
-];
+import { Button } from "@mui/material";
 
 export default function DataTable() {
   const [flightInfo, setFlightInfo]: any = React.useState([]);
+
+  const deleteFlightTicket = async (_id: string) => {
+    alert("Are sure delete?");
+    try {
+      await axios.delete(`/api/flightDatas/${_id}`);
+      fetchFlight();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const updateFlightTicket = async (_id: string) => {
+    try {
+      await axios.put(`/api/flightDatas/${_id}`);
+      fetchFlight();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const columns: GridColDef[] = [
+    { field: "flightNumber", headerName: "Flight Number", width: 150 },
+    { field: "airline", headerName: "Airline", width: 150 },
+    { field: "aircraft", headerName: "Aircraft", width: 150 },
+    { field: "departureCity", headerName: "Departure City", width: 150 },
+    { field: "arrivalCity", headerName: "Arrival City", width: 150 },
+    { field: "departureTime", headerName: "Departure Time", width: 200 },
+    { field: "arrivalTime", headerName: "Arrival Time", width: 200 },
+    { field: "duration", headerName: "Duration", width: 100 },
+    { field: "price", headerName: "Price", width: 50 },
+    {
+      field: "delete",
+      headerName: "Delete",
+      width: 100,
+      renderCell: (params) => (
+        <Button onClick={() => deleteFlightTicket(params.row.delete)}>
+          delete
+        </Button>
+      ),
+    },
+    {
+      field: "edit",
+      headerName: "Edit",
+      width: 100,
+      renderCell: (params) => (
+        <Button onClick={() => updateFlightTicket(params.row.edit)}>
+          edit
+        </Button>
+      ),
+    },
+  ];
 
   useEffect(() => {
     fetchFlight();
@@ -47,16 +85,11 @@ export default function DataTable() {
       arrivalTime: flight.arrival_time,
       duration: flight.duration,
       price: flight.price,
-      // delete: `${(
-      //   <div>
-      //     <MdOutlineDelete />
-      //   </div>
-      // )}`,
-      delete: "delete",
+      delete: flight._id,
+      edit: flight._id,
     };
   });
 
-  console.log(row);
   return (
     <>
       <div style={{ height: 400, width: "100%" }}>
@@ -69,7 +102,6 @@ export default function DataTable() {
             },
           }}
           pageSizeOptions={[5, 10]}
-          checkboxSelection
         />
       </div>
     </>

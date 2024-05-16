@@ -1,5 +1,6 @@
 import { GasMeter } from "@mui/icons-material";
 import { dbRequest } from "../config/dbRequest";
+import { useSearchParams } from "next/navigation";
 
 export async function GET(request: Request) {
   try {

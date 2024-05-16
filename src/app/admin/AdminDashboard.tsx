@@ -1,6 +1,6 @@
 "use client";
 
-import * as React from "react";
+import React, { useEffect, useState } from "react";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -39,29 +39,40 @@ export default function AdminDashboard() {
 
   const createData = async () => {
     try {
-      await axios
-        .post("/api/flightDatas", {
-          flightNumber,
-          airline,
-          aircraft,
-          gate,
-          depCountry,
-          depCity,
-          depTime,
-          arrCountry,
-          arrCity,
-          arrTime,
-          price,
-          baseFare,
-          taxes,
-          fees,
-          duration,
-        })
-        .then(() => {
-          setMockData();
-        });
+      await axios.post("/api/flightDatas", {
+        flightNumber,
+        airline,
+        aircraft,
+        gate,
+        depCountry,
+        depCity,
+        depTime,
+        arrCountry,
+        arrCity,
+        arrTime,
+        price,
+        baseFare,
+        taxes,
+        fees,
+        duration,
+      });
+      fetchFlight();
     } catch (error) {
       console.log("Error", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchFlight();
+  }, []);
+
+  const fetchFlight = async () => {
+    try {
+      await axios.get("/api/flightDatas").then(({ data }) => {
+        setMockData(data);
+      });
+    } catch (error) {
+      console.error("Error:", error);
     }
   };
 
