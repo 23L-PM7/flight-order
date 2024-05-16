@@ -50,6 +50,7 @@ export function FindFlight() {
 
   const fetchCountry = async () => {
     try {
+
       const { data } = await axios.get<FlightData[]>("/api/flightDatas");
       setFlightData(data);
       setSelectedFromTo(
@@ -137,6 +138,7 @@ export function FindFlight() {
         </Select>
         <Passengers />
       </div>
+
       <div className="flex flex-col gap-3 sm:flex-row">
         <Autocomplete
           fullWidth
