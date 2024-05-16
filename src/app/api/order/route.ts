@@ -1,33 +1,51 @@
 import { useState } from "react";
 import { dbRequest } from "../config/dbRequest";
+import { Filter } from "@mui/icons-material";
 
 export async function GET(request: Request) {
-  try {
-    const { documents } = await dbRequest("order", "find");
+  const { searchParams } = new URL(request.url);
+  const userId = searchParams.get("userId");
+  if (userId) {
+    try {
+      const { documents } = await dbRequest("order", "find", {
+        filter: {
+          userId: userId,
+        },
+      });
 
-    return Response.json(documents);
-  } catch (error) {
-    console.log(error);
-    throw new Error("aldaa");
+      return Response.json(documents);
+    } catch (error) {
+      console.log(error);
+      throw new Error("aldaa");
+    }
+  } else {
+    try {
+      const { documents } = await dbRequest("order", "find");
+
+      return Response.json(documents);
+    } catch (error) {
+      console.log(error);
+      throw new Error("aldaa");
+    }
   }
 }
 
 export async function POST(request: Request) {
   const body = await request.json();
-  const { cardData, Flight, seat } = body;
-  console.log(seat);
+  const { cartData, Flight, seat, user } = body;
+
   try {
     const data = await dbRequest("order", "insertOne", {
       document: {
+        userId: user.sub,
         FlightTicket: {
           passenger: {
-            first_name: "Alice",
-            last_name: "Smith",
-            email: "alice@example.com",
+            first_name: user.name,
+            last_name: user.family_name,
+            email: user.email,
             phone: "+1234567890",
             address: "123 Main Street, City, Country",
           },
-
           flight: {
             number: Flight.flight_number,
             departure_airport: {
@@ -67,8 +85,8 @@ export async function POST(request: Request) {
           payment: {
             method: "credit_card",
             card_type: "Visa",
-            last_four_digits: cardData.cardNumber,
-            expiration_date: cardData.date,
+            last_four_digits: cartData.cardNumber,
+            expiration_date: cartData.date,
           },
         },
       },
@@ -77,7 +95,6 @@ export async function POST(request: Request) {
     return Response.json(data);
   } catch (error) {
     console.log(error);
-
     throw new Error("aldaa");
   }
 }

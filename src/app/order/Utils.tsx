@@ -16,12 +16,12 @@ export const useSeat = create((set) => ({
   setSeat: (newList: any) => set(() => ({ seat: newList })),
 }));
 
-export const useCardData = create((set) => ({
-  cardData: null,
-  setCardData: (newList: any) => set(() => ({ cardData: newList })),
-  fetchCardData: () => {
-    axios.get("/api/cardData").then(({ data }) => {
-      set(() => ({ cardData: data }));
+export const useCartData = create((set) => ({
+  cartData: [],
+  setCartData: (newList: any) => set(() => ({ cardData: newList })),
+  fetchCartData: (userId: string) => {
+    axios.get(`/api/cardData?userId=${userId}`).then(({ data }) => {
+      set(() => ({ cartData: data }));
     });
   },
 }));
