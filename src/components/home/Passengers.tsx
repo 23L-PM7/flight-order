@@ -1,17 +1,23 @@
 "use client";
 
 import * as React from "react";
+import { useState } from "react";
+import { create } from "zustand";
+
+// Material UI
 import Popover from "@mui/material/Popover";
 import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
+
+// Joy UI
+import Button from "@mui/joy/Button";
+import { VariantProp } from "@mui/joy/styles";
+
 import { IoMdPersonAdd } from "react-icons/io";
 import { GiPerson } from "react-icons/gi";
 import { FaChild } from "react-icons/fa6";
 import { MdChildFriendly } from "react-icons/md";
 import { FiPlusCircle } from "react-icons/fi";
 import { FiMinusCircle } from "react-icons/fi";
-import { useState } from "react";
-import { create } from "zustand";
 
 type State = {
   adultQuantity: number;
@@ -98,30 +104,34 @@ export function Passengers() {
       setInfantQuantity(infantQuantity - 1);
     }
   };
+  const [variant, setVariant] = React.useState<VariantProp>("soft");
 
   return (
     <div>
       <Button
         aria-describedby={id}
-        className=" text-black gap-2"
+        variant={variant}
+        color="neutral"
         onClick={handleClick}
       >
-        <IoMdPersonAdd />
-        {adultQuantity && (
-          <div>
-            {adultQuantity} {adultQuantity > 1 ? "Adults" : "Adult"}
-          </div>
-        )}
-        {childQuantity !== 0 && (
-          <div>
-            {childQuantity} {childQuantity === 1 ? "Child" : "Children"}
-          </div>
-        )}
-        {infantQuantity !== 0 && (
-          <div>
-            {infantQuantity} {infantQuantity === 1 ? "infant" : "Infants"}
-          </div>
-        )}
+        <div className="flex items-center gap-2">
+          <IoMdPersonAdd />
+          {adultQuantity && (
+            <div>
+              {adultQuantity} {adultQuantity > 1 ? "Adults" : "Adult"}
+            </div>
+          )}
+          {childQuantity !== 0 && (
+            <div>
+              {childQuantity} {childQuantity === 1 ? "Child" : "Children"}
+            </div>
+          )}
+          {infantQuantity !== 0 && (
+            <div>
+              {infantQuantity} {infantQuantity === 1 ? "infant" : "Infants"}
+            </div>
+          )}
+        </div>
       </Button>
       <Popover
         id={id}
@@ -156,7 +166,7 @@ export function Passengers() {
             </div>
             <div className="flex justify-between">
               <div>
-                <div className="flex items-center gap-1 mt-2">
+                <div className="mt-2 flex items-center gap-1">
                   <FaChild />
                   <p>Children</p>
                 </div>
@@ -176,7 +186,7 @@ export function Passengers() {
             </div>
             <div className="flex justify-between gap-3">
               <div>
-                <div className="flex items-center gap-1 mt-2">
+                <div className="mt-2 flex items-center gap-1">
                   <MdChildFriendly />
                   <p>Infants</p>
                 </div>

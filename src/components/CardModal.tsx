@@ -10,9 +10,10 @@ import { GoPlusCircle } from "react-icons/go";
 import { Checkbox, Input, Option, Select } from "@mui/joy";
 import SelectCountry from "./SelectCountry";
 import { Toaster, toast } from "sonner";
-import { useRegion, useFlight, useCardData } from "@/app/order/Utils";
+import { useRegion, useFlight, useCartData } from "@/app/order/Utils";
 import axios from "axios";
 import { Visa } from "./icons/Visa";
+import { useUser } from "@auth0/nextjs-auth0/client";
 
 export default function CardModal() {
   const [open, setOpen] = React.useState<boolean>(false);
@@ -21,9 +22,10 @@ export default function CardModal() {
   const [cvc, setCvc] = React.useState();
   const [nameOnCard, SetNameOnCard] = React.useState();
   const { region }: any = useRegion();
-  const { flight }: any = useFlight();
-  const { fetchCardData, cardData }: any = useCardData();
-
+  const { fetchCardData, cardData }: any = useCartData();
+  const { user } = useUser();
+  const userId = user?.sub;
+  const { cartData, setCartData, fetchCartData }: any = useCartData();
   function addCard() {
     setOpen(false);
     try {
@@ -34,9 +36,10 @@ export default function CardModal() {
           date,
           cardNumber,
           region,
+          userId,
         })
         .then(() => {
-          fetchCardData();
+          fetchCartData(userId);
           toast.success("Card uploaded");
         });
     } catch (error) {
@@ -88,6 +91,7 @@ export default function CardModal() {
               onChange={(event: any) => {
                 setCardNumber(event.target.value);
               }}
+              defaultValue="**** **** **** 1234"
               className="mb-3"
               placeholder="Card Number"
             />
@@ -104,6 +108,7 @@ export default function CardModal() {
                 className="flex-1"
                 type="number"
                 placeholder="cvc"
+                defaultValue="123"
                 onChange={(event: any) => {
                   setCvc(event.target.value);
                 }}
@@ -111,6 +116,7 @@ export default function CardModal() {
             </div>
             <Input
               className="w-full mb-3"
+              defaultValue="Joe"
               placeholder="Name on Card"
               onChange={(event: any) => {
                 SetNameOnCard(event.target.value);
@@ -139,29 +145,3 @@ export default function CardModal() {
     </React.Fragment>
   );
 }
-
-// const order = {
-//   id: 1,
-//   userId: '1',
-//   price: 100,
-// }
-
-// const orderItems = {
-//   orderId:1,
-//   userId: '1',
-//   ticketId: 123
-//   price: 50
-// }
-
-// const orderItems = [
-//   orderId:1,
-//   userId: '1',
-//   ticketId: 123
-//   price: 50
-// ]
-
-// {
-//   userId: '1',
-//   order: order,
-//   irderItems: [orderItems, orderItems]
-// }

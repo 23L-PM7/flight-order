@@ -4,6 +4,7 @@ import { PriceDetails } from "@/components/PriceDetails";
 import { PayCard } from "@/components/PayCard";
 import { AddCard } from "@/components/AddCard";
 import { Toaster } from "sonner";
+import SeatMenu from "@/components/SeatMenu";
 
 export default function home() {
   return (
@@ -15,8 +16,11 @@ export default function home() {
           <PayCard />
           <AddCard Flight={FlightData} />
         </div>
-        <div className="w-1/3 ">
-          <PriceDetails Flight={FlightData} />
+        <div className="w-1/3  ">
+          <div className="mb-8">
+            <PriceDetails Flight={FlightData} />
+          </div>
+          <SeatMenu />
         </div>
       </div>
     </div>

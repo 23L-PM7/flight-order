@@ -1,150 +1,190 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import dayjs, { Dayjs } from "dayjs";
+import { useRouter } from "next/navigation";
+import { Passengers, passengersQuantityStore } from "./Passengers";
+
+// Material UI
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
-import { useRouter } from "next/navigation";
-import axios from "axios";
-import { MdFlightTakeoff } from "react-icons/md";
-
-import dayjs, { Dayjs } from "dayjs";
-import { DemoContainer, DemoItem } from "@mui/x-date-pickers/internals/demo";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DateRangePicker } from "@mui/x-date-pickers-pro/DateRangePicker";
-import { Passengers, passengersQuantityStore } from "./Passengers";
 
-const fromTo = ["Ulaanbaatar - Beijing", "Ulaanbaatar - Seoul"];
+// Joy UI
+import Button from "@mui/joy/Button";
+import CircularProgress from "@mui/joy/CircularProgress";
+import Select, { selectClasses } from "@mui/joy/Select";
+import Option from "@mui/joy/Option";
+import KeyboardArrowDown from "@mui/icons-material/KeyboardArrowDown";
+
+interface FlightData {
+  departure_airport: { city: string };
+  arrival_airport: { city: string };
+}
+
 const tripType = ["One way", "Round trip"];
 const classType = ["Economy", "Business", "First"];
 
 export function FindFlight() {
   const router = useRouter();
-  const [country, setCountry] = React.useState<string | null>(fromTo[0]);
-  const [firstInput, setFirstInput] = React.useState("");
-  const [trip, setTrip] = React.useState<string | null>(tripType[0]);
-  const [secondInput, setSecondInput] = React.useState("");
-  const [value, setValue] = React.useState<[Dayjs, Dayjs]>([
+  const [flightData, setFlightData] = useState<FlightData[]>([]);
+  const [selectedFromTo, setSelectedFromTo] = useState<string | null>(null);
+  const [selectedTrip, setSelectedTrip] = useState<string | null>(tripType[0]);
+  const [selectedDates, setSelectedDates] = useState<[Dayjs, Dayjs]>([
     dayjs("2024-05-01"),
     dayjs("2024-05-31"),
   ]);
-
-  const startDate = value[0].format("YYYY-MM-DD");
-  const endDate = value[1].format("YYYY-MM-DD");
-
-  const [economy, setEconomy] = React.useState<string | null>(classType[0]);
-  const [thirdInput, setThirdInput] = React.useState("");
-
+  const [selectedClass, setSelectedClass] = useState<string | null>(
+    classType[0],
+  );
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const { adultQuantity, childQuantity, infantQuantity } =
     passengersQuantityStore();
 
+  useEffect(() => {
+    fetchCountry();
+  }, []);
+
+  const fetchCountry = async () => {
+    try {
+
+      const { data } = await axios.get<FlightData[]>("/api/flightDatas");
+      setFlightData(data);
+      setSelectedFromTo(
+        `${data[0].departure_airport.city} - ${data[0].arrival_airport.city}`,
+      );
+    } catch (error) {
+      console.error("Error fetching country data:", error);
+    }
+  };
+
   const findFlights = async () => {
-    // if (!country || !trip || !value || !economy) {
-    //   alert("Бүх талбарыг бөглөнө үү!");
-    //   return;
-    // }
-    // try {
-    //   await axios.post("http://localhost:3000/flights", {
-    //     country,
-    //     trip,
-    //     value,
-    //     economy,
-    //   });
-    //   router.push("/login");
-    // } catch (error) {
-    //   console.error("Error:", error);
-    //   alert("An error occured while creating the new articles");
-    // }
-    console.log({
-      country,
-      trip,
-      startDate,
-      endDate,
-      economy,
-      adultQuantity,
-      childQuantity,
-      infantQuantity,
-    });
+    setIsLoading(true);
+    try {
+      const params = new URLSearchParams({
+        fromTo: selectedFromTo || "",
+        trip: selectedTrip || "",
+        startDate: dayjs().format("YYYY-MM-DD"),
+        endDate: dayjs().add(1, "month").format("YYYY-MM-DD"),
+        class: selectedClass || "",
+        adultQuantity: adultQuantity.toString(),
+        childQuantity: childQuantity.toString(),
+        infantQuantity: infantQuantity.toString(),
+      }).toString();
+
+      await router.push(`/flightlist?${params}`);
+    } catch (error) {
+      console.error("Failed to navigate:", error);
+    }
   };
 
   return (
-    <div className="w-9/12 rounded-2xl px-6 py-8 bg-white drop-shadow-xl -translate-y-1/3">
-      <div className="flex justify-between items-center">
-        <p className="font-semibold text-xl">Where are you flying?</p>
+    <div className="flex w-full -translate-y-1/3 flex-col gap-6 border bg-white p-4 sm:mx-3 sm:rounded-md md:w-3/4">
+      <div className="flex items-center justify-between">
+        <p className="text-xl font-semibold">Where are you flying?</p>
+      </div>
+      <div className="flex gap-2">
+        <Select
+          variant="soft"
+          placeholder="Select trip type..."
+          value={selectedTrip}
+          onChange={(event, newValue) => {
+            setSelectedTrip(newValue);
+          }}
+          indicator={<KeyboardArrowDown />}
+          sx={{
+            width: 240,
+            [`& .${selectClasses.indicator}`]: {
+              transition: "0.2s",
+              [`&.${selectClasses.expanded}`]: {
+                transform: "rotate(-180deg)",
+              },
+            },
+          }}
+        >
+          {tripType.map((option) => (
+            <Option key={option} value={option}>
+              {option}
+            </Option>
+          ))}
+        </Select>
+
+        <Select
+          variant="soft"
+          placeholder="Select class type..."
+          value={selectedClass}
+          onChange={(event, newValue) => {
+            setSelectedClass(newValue);
+          }}
+          indicator={<KeyboardArrowDown />}
+          sx={{
+            width: 240,
+            [`& .${selectClasses.indicator}`]: {
+              transition: "0.2s",
+              [`&.${selectClasses.expanded}`]: {
+                transform: "rotate(-180deg)",
+              },
+            },
+          }}
+        >
+          {classType.map((option) => (
+            <Option key={option} value={option}>
+              {option}
+            </Option>
+          ))}
+        </Select>
         <Passengers />
       </div>
-      <div className="flex gap-6">
-        <div className="mt-8 font-mono">
-          <Autocomplete
-            value={country}
-            onChange={(event, newValue) => {
-              setCountry(newValue);
-            }}
-            inputValue={firstInput}
-            onInputChange={(event, newInputValue) => {
-              setFirstInput(newInputValue);
-            }}
-            id="1"
-            options={fromTo}
-            sx={{ width: 300 }}
-            renderInput={(params) => (
-              <TextField {...params} label="From - To" />
-            )}
+
+      <div className="flex flex-col gap-3 sm:flex-row">
+        <Autocomplete
+          fullWidth
+          value={selectedFromTo}
+          onChange={(event, newValue) => {
+            setSelectedFromTo(newValue);
+          }}
+          options={flightData.map(
+            (flight) =>
+              `${flight.departure_airport.city} - ${flight.arrival_airport.city}`,
+          )}
+          renderInput={(params) => <TextField {...params} label="From - To" />}
+        />
+
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <DateRangePicker
+            sx={{ width: "100%" }}
+            value={selectedDates}
+            onChange={(newValue: any) => setSelectedDates(newValue)}
           />
-        </div>
-        <div className="mt-8">
-          <Autocomplete
-            value={trip}
-            onChange={(event, newValue) => {
-              setTrip(newValue);
-            }}
-            inputValue={secondInput}
-            onInputChange={(event, newInputValue) => {
-              setSecondInput(newInputValue);
-            }}
-            id="2"
-            options={tripType}
-            sx={{ width: 164 }}
-            renderInput={(params) => <TextField {...params} label="Trip" />}
-          />
-        </div>
-        <div className="mt-6">
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DemoContainer components={["DateRangePicker", "DateRangePicker"]}>
-              <DemoItem>
-                <DateRangePicker
-                  value={value}
-                  onChange={(newValue: any) => setValue(newValue)}
-                />
-              </DemoItem>
-            </DemoContainer>
-          </LocalizationProvider>
-        </div>
-        <div className="mt-8">
-          <Autocomplete
-            value={economy}
-            onChange={(event, newValue) => {
-              setEconomy(newValue);
-            }}
-            inputValue={thirdInput}
-            onInputChange={(event, newInputValue) => {
-              setThirdInput(newInputValue);
-            }}
-            id="3"
-            options={classType}
-            sx={{ width: 324 }}
-            renderInput={(params) => <TextField {...params} label="Class" />}
-          />
+        </LocalizationProvider>
+        <div className="hidden sm:flex">
+          <Button
+            onClick={findFlights}
+            loading={isLoading}
+            disabled={isLoading}
+            sx={{ width: 120, borderRadius: 30, height: "100%" }}
+            loadingPosition="start"
+            loadingIndicator={<CircularProgress />}
+          >
+            {isLoading ? "Loading..." : "Search"}
+          </Button>
         </div>
       </div>
-      <div className="flex justify-end">
-        <button
+      <div className="sm:hidden">
+        <Button
           onClick={findFlights}
-          className="p-4 px-4 rounded bg-[#8DD3BB] mt-8 flex items-center gap-1"
+          sx={{ height: 56, borderRadius: 30 }}
+          loading={isLoading}
+          disabled={isLoading}
+          fullWidth
+          loadingPosition="start"
+          loadingIndicator={<CircularProgress />}
         >
-          <MdFlightTakeoff />
-          <div> Show Flights</div>
-        </button>
+          {isLoading ? "Loading..." : "Search"}
+        </Button>
       </div>
     </div>
   );

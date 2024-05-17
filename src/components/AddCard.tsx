@@ -1,52 +1,65 @@
 "use client";
-
-import { Card, CircularProgress } from "@mui/joy";
+import { Card, CircularProgress, Drawer } from "@mui/joy";
 import { FaCcVisa } from "react-icons/fa";
-
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import CardModal from "./CardModal";
-import { useCardData } from "@/app/order/Utils";
+import { useCartData, useSeat } from "@/app/order/Utils";
 import { Visa } from "./icons/Visa";
 import axios from "axios";
-import { Toaster, toast } from "sonner";
+import { Button, Stack } from "@mui/material";
+import { toast } from "sonner";
+import { useUser } from "@auth0/nextjs-auth0/client";
+import { useRouter } from "next/navigation";
+
 export function AddCard({ Flight }: any) {
-  const [selectedFile, setSelectedFile] = useState(null);
-  const { fetchCardData, cardData }: any = useCardData();
+  const router = useRouter();
+  const { cartData, setCartData, fetchCartData }: any = useCartData();
+  const { user, isLoading } = useUser();
+  const { seat }: any = useSeat();
+  const userId = user?.sub;
 
   useEffect(() => {
-    fetchCardData();
-  }, []);
+    if (!user) return;
+    fetchCartData(userId);
+  }, [user]);
 
-  const date = Date();
-  console.log(cardData);
-
-  if (cardData == null) {
+  if (!user && isLoading) {
     return (
-      <div className="flex justify-center my-10">
-        <CircularProgress color="primary" size="md" variant="soft" />
-      </div>
+      <Stack height={300} justifyContent="center" alignItems="center">
+        <CircularProgress />
+      </Stack>
     );
   }
 
+  if (!user && !isLoading) {
+    router.push("/");
+    return;
+  }
+  const date = Date();
+
   function orderButton() {
-    try {
-      axios
-        .post("/api/order", {
-          Flight,
-          cardData,
-        })
-        .then(() => {
-          toast.success("Successfully ticket ordered ");
-        });
-    } catch (error) {
-      console.log(error);
+    if (Flight && cartData && seat && user) {
+      try {
+        axios
+          .post("/api/order", {
+            Flight,
+            cartData,
+            seat,
+            user,
+          })
+          .then(() => {
+            toast.success("Successfully ticket ordered ");
+          });
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      alert("fill all option");
     }
   }
 
-  console.log(cardData);
-
-  if (cardData.length == 0) {
+  if (cartData.length == 0) {
     return (
       <Card variant="plain" sx={{ backgroundColor: "#ffff" }}>
         <Card style={{ backgroundColor: "#8DD3BB" }}>
@@ -70,59 +83,63 @@ export function AddCard({ Flight }: any) {
       </Card>
     );
   }
-  if (cardData) {
+  if (cartData) {
     return (
-      <>
-        <div className="bg-white">
-          {cardData.map((card: any) => {
-            return (
-              <Card
-                variant="outlined"
-                sx={{ backgroundColor: "#ffff", borderColor: "#EAEDED" }}
-              >
-                <Card style={{ backgroundColor: "#8DD3BB" }}>
-                  <div className="flex justify-between items-center">
-                    <div className=" flex gap-2">
-                      <div className="flex items-center">
-                        <FaCcVisa />
-                      </div>
-                      <p className="flex items-center">{card.cardNumber}</p>
-                      <p className="flex items-center">
-                        {dayjs(card.date).format("MM/YY")}
-                      </p>
+      <div className="bg-white">
+        {cartData.map((card: any) => {
+          return (
+            <Card
+              key={card._id}
+              variant="plain"
+              sx={{ backgroundColor: "#ffff", borderColor: "#EAEDED" }}
+            >
+              <Card style={{ backgroundColor: "#8DD3BB" }}>
+                <div className="flex justify-between items-center">
+                  <div className=" flex gap-2">
+                    <div className="flex items-center">
+                      <FaCcVisa />
                     </div>
-                  </div>
-                </Card>
-                <div
-                  className="p-4 w-[378px] bg-[url('/Card.png')] bg-cover rounded-2xl "
-                  style={{ backgroundImage: "" }}
-                >
-                  <div className="font-semibold text-2xl flex justify-end">
-                    BANK
-                  </div>
-                  <div className="flex justify-between mt-[60px] p-[11px] items-center">
-                    <div>
-                      <div className="text-xl font-semibold">
-                        {card.cardNumber}
-                      </div>
-                      <div className="text-xl font-semibold">
-                        {card.nameOnCard}
-                      </div>
-                    </div>
-                    <Visa />
+                    <p className="flex items-center text-bold">
+                      {card.cardNumber}
+                    </p>
+
+
+                    <p className="flex items-center">
+                      {dayjs(card.date).format("MM/YY")}
+                    </p>
                   </div>
                 </div>
-
-              </div>
-              <button
-                onClick={orderButton}
-                className="mt-[50px] flex justify-center items-center bg-[#8DD3BB] hover:bg-[#81cab1] p-4 rounded-xl cursor-pointer hover:text-green-600 font-bold text-xl"
+              </Card>
+              <div
+                className="p-4 w-[378px] bg-[url('/Card.png')] bg-cover rounded-2xl "
+                style={{ backgroundImage: "" }}
               >
-                Order now
-              </button>
+                <div className="font-semibold text-2xl flex justify-end">
+                  BANK
+                </div>
+                <div className="flex justify-between mt-[60px] p-[11px] items-center">
+                  <div>
+                    <div className="text-xl font-semibold">
+                      {card.cardNumber}
+                    </div>
+                    <div className="text-xl font-semibold">
+                      {card.nameOnCard}
+                    </div>
+                  </div>
+                  <Visa />
+                </div>
+              </div>
             </Card>
           );
         })}
+        <div>
+          <a
+            onClick={orderButton}
+            className="mt-[50px] w-full flex justify-center items-center bg-[#8DD3BB] hover:bg-[#81cab1] p-4 rounded-xl cursor-pointer hover:text-green-600 font-bold text-xl"
+          >
+            Order Now
+          </a>
+        </div>
       </div>
     );
   }

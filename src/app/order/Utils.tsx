@@ -11,12 +11,27 @@ export const useFlight = create((set) => ({
   setFlight: (newList: any) => set(() => ({ flight: newList })),
 }));
 
-export const useCardData = create((set) => ({
-  cardData: null,
-  setCardData: (newList: any) => set(() => ({ cardData: newList })),
-  fetchCardData: () => {
-    axios.get("/api/cardData").then(({ data }) => {
-      set(() => ({ cardData: data.documents }));
+export const useSeat = create((set) => ({
+  seat: null,
+  setSeat: (newList: any) => set(() => ({ seat: newList })),
+}));
+
+export const useCartData = create((set) => ({
+  cartData: [],
+  setCartData: (newList: any) => set(() => ({ cardData: newList })),
+  fetchCartData: (userId: string) => {
+    axios.get(`/api/cardData?userId=${userId}`).then(({ data }) => {
+      set(() => ({ cartData: data }));
+    });
+  },
+}));
+
+export const useOrder = create((set) => ({
+  order: [],
+  setOrder: (newList: any) => set(() => ({ seat: newList })),
+  fetchOrders: () => {
+    axios.get(`api/order`).then(({ data }) => {
+      set(() => ({ order: data }));
     });
   },
 }));
