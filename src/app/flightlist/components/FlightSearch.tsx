@@ -62,35 +62,27 @@ export default function FindFlight() {
     setInfantQuantity(Number(initialInfantQuantity));
   }, []);
 
-  const findFlights = async () => {
-    // if (!country || !trip || !value || !economy) {
-    //   alert("Бүх талбарыг бөглөнө үү!");
-    //   return;
-    // }
-    // try {
-    //   await axios.post("http://localhost:3000/flights", {
-    //     country,
-    //     trip,
-    //     value,
-    //     economy,
-    //   });
-    //   router.push("/login");
-    // } catch (error) {
-    //   console.error("Error:", error);
-    //   alert("An error occured while creating the new articles");
-    // }
+    // useEffect(() => {
+    //   SearchFlight();
+    // }, []);
+   
+    // const SearchFlight = () => {
+    //   fetch("/api/flightData")
+    //     .then((data) => setCountry(data));
+    // };
 
-    console.log({
-      country,
-      trip,
-      startDate,
-      endDate,
-      economy,
-      adultQuantity,
-      childQuantity,
-      infantQuantity,
-    });
-  };
+  // const findFlights = async () => {
+
+
+  //   try {
+  //     await axios.get("/api/flightData", {
+
+  //     })
+  //     return Response.data;
+  //   } catch (error) {
+  //     console.error("Error:", error);
+  //     alert("An error occured while creating the new articles");
+  //   }
 
   return (
     <>
