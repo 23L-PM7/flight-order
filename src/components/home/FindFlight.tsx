@@ -53,7 +53,6 @@ export function FindFlight() {
 
   const fetchCountry = async () => {
     try {
-
       const { data } = await axios.get<FlightData[]>("/api/flightDatas");
       setFlightData(data);
       setSelectedFromTo(
