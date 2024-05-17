@@ -24,11 +24,11 @@ const classType = ["Economy", "Business", "First"];
 export default function FindFlight() {
   const searchParams = useSearchParams();
 
-  const initialCountry = searchParams.get("country");
+  const initialCountry = searchParams.get("fromTo");
   const initialTrip = searchParams.get("trip");
   const initialStartDate = searchParams.get("startDate");
   const initialEndDate = searchParams.get("endDate");
-  const initialEconomy = searchParams.get("economy");
+  const initialEconomy = searchParams.get("class");
   const initialAdultQuantity = searchParams.get("adultQuantity");
   const initialChildQuantity = searchParams.get("childQuantity");
   const initialInfantQuantity = searchParams.get("infantQuantity");
@@ -62,17 +62,16 @@ export default function FindFlight() {
     setInfantQuantity(Number(initialInfantQuantity));
   }, []);
 
-    // useEffect(() => {
-    //   SearchFlight();
-    // }, []);
-   
-    // const SearchFlight = () => {
-    //   fetch("/api/flightData")
-    //     .then((data) => setCountry(data));
-    // };
+  // useEffect(() => {
+  //   SearchFlight();
+  // }, []);
+
+  // const SearchFlight = () => {
+  //   fetch("/api/flightData")
+  //     .then((data) => setCountry(data));
+  // };
 
   // const findFlights = async () => {
-
 
   //   try {
   //     await axios.get("/api/flightData", {
@@ -86,7 +85,7 @@ export default function FindFlight() {
 
   return (
     <>
-      <div className="mt-[40px] flex flex-col w-10/12 items-center bg-white py-8 px-6 rounded-2xl">
+      <div className="mt-[40px] flex w-10/12 flex-col items-center rounded-2xl bg-white px-6 py-8">
         <div className="flex justify-end">
           <Passengers />
         </div>
@@ -152,7 +151,7 @@ export default function FindFlight() {
             sx={{ width: 324 }}
             renderInput={(params) => <TextField {...params} label="Class" />}
           />
-          <button className="bg-[#8DD3BB] px-[16px] py-[16px] rounded">
+          <button className="rounded bg-[#8DD3BB] px-[16px] py-[16px]">
             <img src="./Search.svg" alt="search" />
           </button>
         </div>
