@@ -17,13 +17,18 @@ import {
   passengersQuantityStore,
 } from "@/components/home/Passengers";
 
+interface FlightData {
+  departure_airport: { city: string };
+  arrival_airport: { city: string };
+}
+
 const fromTo = ["Ulaanbaatar - Beijing", "Ulaanbaatar - Seoul"];
 const tripType = ["One way", "Round trip"];
 const classType = ["Economy", "Business", "First"];
 
 export default function FindFlight() {
   const searchParams = useSearchParams();
-
+  const router = useRouter();
   const initialCountry = searchParams.get("fromTo");
   const initialTrip = searchParams.get("trip");
   const initialStartDate = searchParams.get("startDate");
@@ -32,7 +37,7 @@ export default function FindFlight() {
   const initialAdultQuantity = searchParams.get("adultQuantity");
   const initialChildQuantity = searchParams.get("childQuantity");
   const initialInfantQuantity = searchParams.get("infantQuantity");
-
+  const [flightData, setFlightData] = React.useState<FlightData[]>([]);
   const [country, setCountry] = React.useState<string | null>(initialCountry);
   const [firstInput, setFirstInput] = React.useState("");
   const [trip, setTrip] = React.useState<string | null>(initialTrip);
@@ -62,26 +67,37 @@ export default function FindFlight() {
     setInfantQuantity(Number(initialInfantQuantity));
   }, []);
 
-  // useEffect(() => {
-  //   SearchFlight();
-  // }, []);
+  useEffect(() => {
+    fetchCountry();
+  }, []);
 
-  // const SearchFlight = () => {
-  //   fetch("/api/flightData")
-  //     .then((data) => setCountry(data));
-  // };
+  const fetchCountry = async () => {
+    try {
+      const { data } = await axios.get<FlightData[]>("/api/flightDatas");
+      setFlightData(data);
+    } catch (error) {
+      console.error("Error fetching country data:", error);
+    }
+  };
 
-  // const findFlights = async () => {
+  const findFlights = async () => {
+    try {
+      const params = new URLSearchParams({
+        fromTo: country || "",
+        trip: trip || "",
+        startDate: startDate || "",
+        endDate: endDate || "",
+        class: economy || "",
+        adultQuantity: adultQuantity.toString(),
+        childQuantity: childQuantity.toString(),
+        infantQuantity: infantQuantity.toString(),
+      }).toString();
 
-  //   try {
-  //     await axios.get("/api/flightData", {
-
-  //     })
-  //     return Response.data;
-  //   } catch (error) {
-  //     console.error("Error:", error);
-  //     alert("An error occured while creating the new articles");
-  //   }
+      await router.push(`/flightlist?${params}`);
+    } catch (error) {
+      console.error("Failed to navigate:", error);
+    }
+  };
 
   return (
     <>
@@ -100,7 +116,10 @@ export default function FindFlight() {
               setFirstInput(newInputValue);
             }}
             id="1"
-            options={fromTo}
+            options={flightData.map(
+              (flight) =>
+                `${flight.departure_airport.city} - ${flight.arrival_airport.city}`,
+            )}
             sx={{ width: 300 }}
             renderInput={(params) => (
               <TextField {...params} label="From - To" />
@@ -151,7 +170,10 @@ export default function FindFlight() {
             sx={{ width: 324 }}
             renderInput={(params) => <TextField {...params} label="Class" />}
           />
-          <button className="rounded bg-[#8DD3BB] px-[16px] py-[16px]">
+          <button
+            onClick={findFlights}
+            className="rounded bg-[#8DD3BB] px-[16px] py-[16px]"
+          >
             <img src="./Search.svg" alt="search" />
           </button>
         </div>
