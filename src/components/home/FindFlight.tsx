@@ -44,6 +44,9 @@ export function FindFlight() {
   const { adultQuantity, childQuantity, infantQuantity } =
     passengersQuantityStore();
 
+  const startDate = selectedDates[0].format("YYYY-MM-DD");
+  const endDate = selectedDates[1].format("YYYY-MM-DD");
+
   useEffect(() => {
     fetchCountry();
   }, []);
@@ -67,8 +70,8 @@ export function FindFlight() {
       const params = new URLSearchParams({
         fromTo: selectedFromTo || "",
         trip: selectedTrip || "",
-        startDate: dayjs().format("YYYY-MM-DD"),
-        endDate: dayjs().add(1, "month").format("YYYY-MM-DD"),
+        startDate: startDate || "",
+        endDate: endDate || "",
         class: selectedClass || "",
         adultQuantity: adultQuantity.toString(),
         childQuantity: childQuantity.toString(),
