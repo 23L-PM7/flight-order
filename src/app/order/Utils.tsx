@@ -16,8 +16,13 @@ export const useSeat = create((set) => ({
   setSeat: (newList: any) => set(() => ({ seat: newList })),
 }));
 
+export const usePassengerQuantity = create((set) => ({
+  passenger: null,
+  setPassenger: (newList: any) => set(() => ({ seat: newList })),
+}));
+
 export const useCartData = create((set) => ({
-  cartData: [],
+  cartData: null,
   setCartData: (newList: any) => set(() => ({ cardData: newList })),
   fetchCartData: (userId: string) => {
     axios.get(`/api/cardData?userId=${userId}`).then(({ data }) => {

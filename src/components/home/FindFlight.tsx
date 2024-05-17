@@ -40,10 +40,12 @@ export function FindFlight() {
   const [selectedClass, setSelectedClass] = useState<string | null>(
     classType[0],
   );
+
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const { adultQuantity, childQuantity, infantQuantity } =
     passengersQuantityStore();
-
+  const value: any = adultQuantity + childQuantity + infantQuantity;
+  console.log(value, "its");
   const startDate = selectedDates[0].format("YYYY-MM-DD");
   const endDate = selectedDates[1].format("YYYY-MM-DD");
 
@@ -65,6 +67,7 @@ export function FindFlight() {
 
   const findFlights = async () => {
     setIsLoading(true);
+    localStorage.setItem("quantity", value);
     try {
       const params = new URLSearchParams({
         fromTo: selectedFromTo || "",
