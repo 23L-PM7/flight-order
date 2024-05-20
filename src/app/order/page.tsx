@@ -1,3 +1,4 @@
+import React from "react";
 import { FlightDetailsCard } from "@/components/FlightDetailsCard";
 import { FlightData } from "./FlightData";
 import { PriceDetails } from "@/components/PriceDetails";
