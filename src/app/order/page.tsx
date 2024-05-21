@@ -1,5 +1,4 @@
-
-import React from "react";
+"use client";
 
 import React, { useEffect } from "react";
 import { FlightDetailsCard } from "@/components/FlightDetailsCard";
@@ -8,7 +7,6 @@ import { PriceDetails } from "@/components/PriceDetails";
 import { PayCard } from "@/components/PayCard";
 import { AddCard } from "@/components/AddCard";
 import { Toaster } from "sonner";
-
 import { TicketQuantity } from "./TicketQuantity";
 import { usePassengerStore } from "./Utils";
 
