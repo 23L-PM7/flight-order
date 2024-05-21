@@ -87,109 +87,113 @@ export function FindFlight() {
   };
 
   return (
-    <div className="flex w-full -translate-y-1/3 flex-col gap-6 border bg-white p-4 sm:mx-3 sm:rounded-md md:w-3/4">
-      <div className="flex items-center justify-between">
-        <p className="text-xl font-semibold">Where are you flying?</p>
-      </div>
-      <div className="flex gap-2">
-        <Select
-          variant="soft"
-          placeholder="Select trip type..."
-          value={selectedTrip}
-          onChange={(event, newValue) => {
-            setSelectedTrip(newValue);
-          }}
-          indicator={<KeyboardArrowDown />}
-          sx={{
-            width: 240,
-            [`& .${selectClasses.indicator}`]: {
-              transition: "0.2s",
-              [`&.${selectClasses.expanded}`]: {
-                transform: "rotate(-180deg)",
+    <div className="container mx-auto flex justify-center">
+      <div className="flex w-full -translate-y-1/2 flex-col gap-6 border bg-white p-6 sm:mx-3 sm:rounded-md lg:w-[1200px]">
+        <div className="flex items-center justify-between">
+          <p className="text-xl font-semibold">Where are you flying?</p>
+        </div>
+        <div className="flex gap-2">
+          <Select
+            variant="soft"
+            placeholder="Select trip type..."
+            value={selectedTrip}
+            onChange={(event, newValue) => {
+              setSelectedTrip(newValue);
+            }}
+            indicator={<KeyboardArrowDown />}
+            sx={{
+              width: 240,
+              [`& .${selectClasses.indicator}`]: {
+                transition: "0.2s",
+                [`&.${selectClasses.expanded}`]: {
+                  transform: "rotate(-180deg)",
+                },
               },
-            },
-          }}
-        >
-          {tripType.map((option) => (
-            <Option key={option} value={option}>
-              {option}
-            </Option>
-          ))}
-        </Select>
+            }}
+          >
+            {tripType.map((option) => (
+              <Option key={option} value={option}>
+                {option}
+              </Option>
+            ))}
+          </Select>
 
-        <Select
-          variant="soft"
-          placeholder="Select class type..."
-          value={selectedClass}
-          onChange={(event, newValue) => {
-            setSelectedClass(newValue);
-          }}
-          indicator={<KeyboardArrowDown />}
-          sx={{
-            width: 240,
-            [`& .${selectClasses.indicator}`]: {
-              transition: "0.2s",
-              [`&.${selectClasses.expanded}`]: {
-                transform: "rotate(-180deg)",
+          <Select
+            variant="soft"
+            placeholder="Select class type..."
+            value={selectedClass}
+            onChange={(event, newValue) => {
+              setSelectedClass(newValue);
+            }}
+            indicator={<KeyboardArrowDown />}
+            sx={{
+              width: 240,
+              [`& .${selectClasses.indicator}`]: {
+                transition: "0.2s",
+                [`&.${selectClasses.expanded}`]: {
+                  transform: "rotate(-180deg)",
+                },
               },
-            },
-          }}
-        >
-          {classType.map((option) => (
-            <Option key={option} value={option}>
-              {option}
-            </Option>
-          ))}
-        </Select>
-        <Passengers />
-      </div>
+            }}
+          >
+            {classType.map((option) => (
+              <Option key={option} value={option}>
+                {option}
+              </Option>
+            ))}
+          </Select>
+          <Passengers />
+        </div>
 
-      <div className="flex flex-col gap-3 sm:flex-row">
-        <Autocomplete
-          fullWidth
-          value={selectedFromTo}
-          onChange={(event, newValue) => {
-            setSelectedFromTo(newValue);
-          }}
-          options={flightData.map(
-            (flight) =>
-              `${flight.departure_airport.city} - ${flight.arrival_airport.city}`,
-          )}
-          renderInput={(params) => <TextField {...params} label="From - To" />}
-        />
-
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <DateRangePicker
-            sx={{ width: "100%" }}
-            value={selectedDates}
-            onChange={(newValue: any) => setSelectedDates(newValue)}
+        <div className="flex flex-col gap-3 sm:flex-row">
+          <Autocomplete
+            fullWidth
+            value={selectedFromTo}
+            onChange={(event, newValue) => {
+              setSelectedFromTo(newValue);
+            }}
+            options={flightData.map(
+              (flight) =>
+                `${flight.departure_airport.city} - ${flight.arrival_airport.city}`,
+            )}
+            renderInput={(params) => (
+              <TextField {...params} label="From - To" />
+            )}
           />
-        </LocalizationProvider>
-        <div className="hidden sm:flex">
+
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DateRangePicker
+              sx={{ width: "100%" }}
+              value={selectedDates}
+              onChange={(newValue: any) => setSelectedDates(newValue)}
+            />
+          </LocalizationProvider>
+          <div className="hidden sm:flex">
+            <Button
+              onClick={findFlights}
+              loading={isLoading}
+              disabled={isLoading}
+              sx={{ width: 120, borderRadius: 30, height: "100%" }}
+              loadingPosition="start"
+              loadingIndicator={<CircularProgress />}
+            >
+              {isLoading ? "Loading..." : "Search"}
+            </Button>
+          </div>
+        </div>
+        <div className="sm:hidden">
           <Button
             onClick={findFlights}
+            sx={{ height: 56, borderRadius: 30 }}
             loading={isLoading}
             disabled={isLoading}
-            sx={{ width: 120, borderRadius: 30, height: "100%" }}
+            fullWidth
             loadingPosition="start"
             loadingIndicator={<CircularProgress />}
           >
             {isLoading ? "Loading..." : "Search"}
           </Button>
         </div>
-      </div>
-      <div className="sm:hidden">
-        <Button
-          onClick={findFlights}
-          sx={{ height: 56, borderRadius: 30 }}
-          loading={isLoading}
-          disabled={isLoading}
-          fullWidth
-          loadingPosition="start"
-          loadingIndicator={<CircularProgress />}
-        >
-          {isLoading ? "Loading..." : "Search"}
-        </Button>
       </div>
     </div>
   );
