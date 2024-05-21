@@ -8,6 +8,7 @@ import AirplanemodeActiveIcon from "@mui/icons-material/AirplanemodeActive";
 import Avatar from "@mui/joy/Avatar";
 import Button from "@mui/joy/Button";
 import { Typography } from "@mui/joy";
+import { Flight } from "@mui/icons-material";
 
 export function Header() {
   const { user, error, isLoading } = useUser();
@@ -60,15 +61,17 @@ export function Header() {
                 </Button>
               </>
             ) : (
-              <a href="/profile">
-                <Button>
-                  <Avatar
-                    alt={`Username ${user.name}`}
-                    src={`${user.picture}`}
-                  />
-                  <Typography>{user.name}</Typography>
-                </Button>
-              </a>
+              <Link
+                href="/profile"
+                className="flex items-center gap-3 rounded-md px-4 py-2 hover:bg-slate-200"
+              >
+                <Typography>{user.name}</Typography>
+                <Avatar
+                  alt={`Username ${user.name}`}
+                  src={`${user.picture}`}
+                  size="sm"
+                />
+              </Link>
             )}
           </div>
         </div>
