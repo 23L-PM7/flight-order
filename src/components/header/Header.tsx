@@ -8,23 +8,13 @@ import AirplanemodeActiveIcon from "@mui/icons-material/AirplanemodeActive";
 import Avatar from "@mui/joy/Avatar";
 import Button from "@mui/joy/Button";
 import { Typography } from "@mui/joy";
+import { Flight } from "@mui/icons-material";
 
 export function Header() {
   const { user, error, isLoading } = useUser();
   console.log(user);
 
   return (
-
-    <div className="bg-white">
-      <div className="container mx-auto flex items-center justify-between font-sans font-medium ">
-        <div className="flex cursor-pointer gap-[32px]">
-          <Link
-            href={"/"}
-            className="flex items-center gap-1 py-[27px] hover:border-b-4 hover:border-[#8DD3BB]"
-          >
-            <Flight />
-            <div>Find flight</div>
-
     <nav className="sticky top-0 z-50 w-full bg-white">
       <div className="container mx-auto">
         <div className="flex items-center justify-between py-3 font-sans font-medium md:py-4">
@@ -71,38 +61,20 @@ export function Header() {
                 </Button>
               </>
             ) : (
-              <Button>
-                <Avatar alt={`Username ${user.name}`} src={`${user.picture}`} />
+              <Link
+                href="/profile"
+                className="flex items-center gap-3 rounded-md px-4 py-2 hover:bg-slate-200"
+              >
                 <Typography>{user.name}</Typography>
-              </Button>
+                <Avatar
+                  alt={`Username ${user.name}`}
+                  src={`${user.picture}`}
+                  size="sm"
+                />
+              </Link>
             )}
           </div>
         </div>
-
-        <Link href={"/"} className="object-cover py-[27px]">
-          <img src="/Logo.png" alt="logo" />
-        </Link>
-        <div className="flex items-center gap-2 py-[27px]">
-          {!user && (
-            <a
-              href="/api/auth/login"
-              className="rounded-lg px-6 py-4 hover:bg-black hover:text-white"
-            >
-              Login
-            </a>
-          )}
-
-          <a
-            href="/ticket"
-            className="rounded-lg px-3 py-2 hover:bg-black hover:text-white"
-          >
-            Your Ticket
-          </a>
-          <a href="/profile">
-            {user && <Avatar alt="Remy Sharp" src={`${user.picture}`} />}
-          </a>
-        </div>
-
       </div>
     </nav>
   );
