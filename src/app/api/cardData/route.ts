@@ -5,49 +5,34 @@ export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const userId = searchParams.get("userId");
   if (userId) {
-    try {
-      const { documents } = await dbRequest("cardData", "find", {
-        filter: {
-          userId: userId,
-        },
-      });
+    const { documents } = await dbRequest("cardData", "find", {
+      filter: {
+        userId: userId,
+      },
+    });
 
-      console.log({ documents });
-      return Response.json(documents);
-    } catch (error) {
-      console.log(error);
-      throw new Error("aldaa1");
-    }
+    console.log({ documents });
+    return Response.json(documents);
   } else {
-    try {
-      const { documents } = await dbRequest("cardData", "find");
-      console.log({ documents });
-      return Response.json(documents);
-    } catch (error) {
-      console.log(error);
-      throw new Error("aldaa1");
-    }
+    const { documents } = await dbRequest("cardData", "find");
+    console.log({ documents });
+    return Response.json(documents);
   }
 }
 export async function POST(request: Request) {
   const body = await request.json();
   const { cvc, userId, region, nameOnCard, cardNumber, date } = body;
-  try {
-    const data = await dbRequest("cardData", "insertOne", {
-      document: {
-        cvc: cvc,
-        userId: userId,
-        nameOnCard: nameOnCard,
-        date: date,
-        cardNumber: cardNumber,
-        region: region,
-      },
-    });
 
-    return Response.json(data);
-  } catch (error) {
-    console.log(error);
+  const data = await dbRequest("cardData", "insertOne", {
+    document: {
+      cvc: cvc,
+      userId: userId,
+      nameOnCard: nameOnCard,
+      date: date,
+      cardNumber: cardNumber,
+      region: region,
+    },
+  });
 
-    throw new Error("aldaa");
-  }
+  return Response.json(data);
 }

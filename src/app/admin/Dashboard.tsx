@@ -6,6 +6,7 @@ import axios from "axios";
 import { Button } from "@mui/material";
 import EditingModal from "./EditingModal";
 import { toast } from "sonner";
+import dayjs from "dayjs";
 
 export default function DataTable() {
   const [flightInfo, setFlightInfo]: any = React.useState([]);
@@ -76,8 +77,8 @@ export default function DataTable() {
       aircraft: flight.aircraft,
       departureCity: flight.departure_airport.city,
       arrivalCity: flight.arrival_airport.city,
-      departureTime: flight.departure_time,
-      arrivalTime: flight.arrival_time,
+      departureTime: dayjs(flight.departure_time).format("YYYY-MM-DD hh-mm"),
+      arrivalTime: dayjs(flight.arrival_time).format("YYYY-MM-DD hh-mm"),
       duration: flight.duration,
       price: flight.price,
     };
@@ -101,6 +102,7 @@ export default function DataTable() {
             flightId={editing}
             open={true}
             onClose={() => setEditing("")}
+            onComplete={fetchFlight}
           />
         )}
       </div>

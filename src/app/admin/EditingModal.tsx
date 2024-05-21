@@ -20,7 +20,7 @@ import DialogTitle from "@mui/joy/DialogTitle";
 import DialogContent from "@mui/joy/DialogContent";
 import Stack from "@mui/joy/Stack";
 
-export default function EditingModal({ open, onClose, flightId }) {
+export default function EditingModal({ open, onClose, flightId, onComplete }) {
   const [flightNumber, setFlightNumber] = React.useState();
   const [airline, setAirline] = React.useState();
   const [aircraft, setAircraft] = React.useState();
@@ -59,7 +59,7 @@ export default function EditingModal({ open, onClose, flightId }) {
         fees,
         duration,
       });
-      fetchFlight();
+      onComplete();
     } else {
       await axios.post("/api/flightDatas", {
         flightNumber,
@@ -78,13 +78,9 @@ export default function EditingModal({ open, onClose, flightId }) {
         fees,
         duration,
       });
-      fetchFlight();
+      onComplete();
     }
   };
-
-  useEffect(() => {
-    fetchFlight();
-  }, []);
 
   useEffect(() => {
     if (flightId) {
@@ -113,16 +109,6 @@ export default function EditingModal({ open, onClose, flightId }) {
     }
   }, [flightId]);
 
-  const fetchFlight = async () => {
-    try {
-      await axios.get("/api/flightDatas").then(({ data }) => {
-        setMockData(data);
-      });
-    } catch (error) {
-      console.error("Error:", error);
-    }
-  };
-
   return (
     <Modal open={open} onClose={onClose}>
       <ModalDialog>
@@ -141,47 +127,78 @@ export default function EditingModal({ open, onClose, flightId }) {
                   <div className="rounded bg-[#8DD3BB] p-4 text-2xl font-semibold text-white">
                     Flight information
                   </div>
-                  <TextField
-                    value={flightNumber}
-                    required
-                    id="outlined-required"
-                    sx={{ width: 300 }}
-                    label="Flight Number"
-                    defaultValue=""
-                    onChange={(event: any) => {
-                      setFlightNumber(event.target.value);
-                    }}
-                  />
-                  <TextField
-                    value={airline}
-                    required
-                    id="outlined-required"
-                    label="Airline"
-                    defaultValue=""
-                    onChange={(event: any) => {
-                      setAirline(event.target.value);
-                    }}
-                  />
-                  <TextField
-                    value={aircraft}
-                    required
-                    id="outlined-required"
-                    label="Aircraft"
-                    defaultValue=""
-                    onChange={(event: any) => {
-                      setAircraft(event.target.value);
-                    }}
-                  />
-                  <TextField
-                    value={gate}
-                    required
-                    id="outlined-required"
-                    label="Gate"
-                    defaultValue=""
-                    onChange={(event: any) => {
-                      setGate(event.target.value);
-                    }}
-                  />
+                  <FormControl fullWidth sx={{ m: 0 }}>
+                    <InputLabel htmlFor="outlined-adornment-amount">
+                      Flight Number
+                    </InputLabel>
+                    <OutlinedInput
+                      value={flightNumber}
+                      id="outlined-adornment-amount"
+                      startAdornment={
+                        <InputAdornment position="start"></InputAdornment>
+                      }
+                      label="Flight Number"
+                      sx={{ width: 300 }}
+                      defaultValue=""
+                      onChange={(event: any) => {
+                        setFlightNumber(event.target.value);
+                      }}
+                    />
+                  </FormControl>
+                  <FormControl fullWidth sx={{ m: 0 }}>
+                    <InputLabel htmlFor="outlined-adornment-amount">
+                      Airline
+                    </InputLabel>
+                    <OutlinedInput
+                      value={airline}
+                      id="outlined-adornment-amount"
+                      startAdornment={
+                        <InputAdornment position="start"></InputAdornment>
+                      }
+                      label="Airline"
+                      sx={{ width: 300 }}
+                      defaultValue=""
+                      onChange={(event: any) => {
+                        setAirline(event.target.value);
+                      }}
+                    />
+                  </FormControl>
+                  <FormControl fullWidth sx={{ m: 0 }}>
+                    <InputLabel htmlFor="outlined-adornment-amount">
+                      Aircraft
+                    </InputLabel>
+                    <OutlinedInput
+                      value={aircraft}
+                      id="outlined-adornment-amount"
+                      startAdornment={
+                        <InputAdornment position="start"></InputAdornment>
+                      }
+                      label="Aircraft"
+                      sx={{ width: 300 }}
+                      defaultValue=""
+                      onChange={(event: any) => {
+                        setAircraft(event.target.value);
+                      }}
+                    />
+                  </FormControl>
+                  <FormControl fullWidth sx={{ m: 0 }}>
+                    <InputLabel htmlFor="outlined-adornment-amount">
+                      Gate
+                    </InputLabel>
+                    <OutlinedInput
+                      value={gate}
+                      id="outlined-adornment-amount"
+                      startAdornment={
+                        <InputAdornment position="start"></InputAdornment>
+                      }
+                      label="Gate"
+                      sx={{ width: 300 }}
+                      defaultValue=""
+                      onChange={(event: any) => {
+                        setGate(event.target.value);
+                      }}
+                    />
+                  </FormControl>
                 </div>
                 <div className="flex flex-col gap-6">
                   <div className="rounded bg-[#8DD3BB] p-4 text-2xl font-semibold text-white">
@@ -224,16 +241,24 @@ export default function EditingModal({ open, onClose, flightId }) {
                       />
                     )}
                   />
-                  <TextField
-                    value={depCity}
-                    required
-                    id="outlined-required"
-                    label="City"
-                    defaultValue=""
-                    onChange={(event: any) => {
-                      setDepCity(event.target.value);
-                    }}
-                  />
+                  <FormControl fullWidth sx={{ m: 0 }}>
+                    <InputLabel htmlFor="outlined-adornment-amount">
+                      City
+                    </InputLabel>
+                    <OutlinedInput
+                      value={depCity}
+                      id="outlined-adornment-amount"
+                      startAdornment={
+                        <InputAdornment position="start"></InputAdornment>
+                      }
+                      label="City"
+                      sx={{ width: 300 }}
+                      defaultValue=""
+                      onChange={(event: any) => {
+                        setDepCity(event.target.value);
+                      }}
+                    />
+                  </FormControl>
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DemoContainer components={["TimePicker", "TimePicker"]}>
                       <TimePicker
@@ -243,16 +268,24 @@ export default function EditingModal({ open, onClose, flightId }) {
                       />
                     </DemoContainer>
                   </LocalizationProvider>
-                  <TextField
-                    value={duration}
-                    required
-                    id="outlined-required"
-                    label="Duration"
-                    defaultValue=""
-                    onChange={(event: any) => {
-                      setDuration(event.target.value);
-                    }}
-                  />
+                  <FormControl fullWidth sx={{ m: 0 }}>
+                    <InputLabel htmlFor="outlined-adornment-amount">
+                      Duration
+                    </InputLabel>
+                    <OutlinedInput
+                      value={duration}
+                      id="outlined-adornment-amount"
+                      startAdornment={
+                        <InputAdornment position="start"></InputAdornment>
+                      }
+                      label="Duration"
+                      sx={{ width: 300 }}
+                      defaultValue=""
+                      onChange={(event: any) => {
+                        setDuration(event.target.value);
+                      }}
+                    />
+                  </FormControl>
                 </div>
                 <div className="flex flex-col gap-6">
                   <div className="rounded bg-[#8DD3BB] p-4 text-2xl font-semibold text-white">
@@ -295,16 +328,24 @@ export default function EditingModal({ open, onClose, flightId }) {
                       />
                     )}
                   />
-                  <TextField
-                    value={arrCity}
-                    required
-                    id="outlined-required"
-                    label="City"
-                    defaultValue=""
-                    onChange={(event: any) => {
-                      setArrCity(event.target.value);
-                    }}
-                  />
+                  <FormControl fullWidth sx={{ m: 0 }}>
+                    <InputLabel htmlFor="outlined-adornment-amount">
+                      City
+                    </InputLabel>
+                    <OutlinedInput
+                      value={arrCity}
+                      id="outlined-adornment-amount"
+                      startAdornment={
+                        <InputAdornment position="start"></InputAdornment>
+                      }
+                      label="City"
+                      sx={{ width: 300 }}
+                      defaultValue=""
+                      onChange={(event: any) => {
+                        setArrCity(event.target.value);
+                      }}
+                    />
+                  </FormControl>
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DemoContainer components={["TimePicker", "TimePicker"]}>
                       <TimePicker
