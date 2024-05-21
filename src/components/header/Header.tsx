@@ -14,7 +14,7 @@ export function Header() {
   console.log(user);
 
   return (
-    <nav className="sticky top-0 z-50 w-full">
+    <nav className="sticky top-0 z-50 w-full bg-white">
       <div className="container mx-auto">
         <div className="flex items-center justify-between py-3 font-sans font-medium md:py-4">
           <div className="flex cursor-pointer gap-[32px]">
