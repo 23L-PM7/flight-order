@@ -8,6 +8,7 @@ import AirplanemodeActiveIcon from "@mui/icons-material/AirplanemodeActive";
 import Avatar from "@mui/joy/Avatar";
 import Button from "@mui/joy/Button";
 import { Typography } from "@mui/joy";
+import { Flight } from "@mui/icons-material";
 
 export function Header() {
   const { user, error, isLoading } = useUser();
@@ -60,36 +61,19 @@ export function Header() {
                 </Button>
               </>
             ) : (
-              <Button>
-                <Avatar alt={`Username ${user.name}`} src={`${user.picture}`} />
+              <Link
+                href="/profile"
+                className="flex items-center gap-3 rounded-md px-4 py-2 hover:bg-slate-200"
+              >
                 <Typography>{user.name}</Typography>
-              </Button>
+                <Avatar
+                  alt={`Username ${user.name}`}
+                  src={`${user.picture}`}
+                  size="sm"
+                />
+              </Link>
             )}
           </div>
-        </div>
-
-        <Link href={"/"} className="object-cover py-[27px]">
-          <img src="/Logo.png" alt="logo" />
-        </Link>
-        <div className="flex items-center gap-2 py-[27px]">
-          {!user && (
-            <a
-              href="/api/auth/login"
-              className="rounded-lg px-6 py-4 hover:bg-black hover:text-white"
-            >
-              Login
-            </a>
-          )}
-
-          <a
-            href="/ticket"
-            className="rounded-lg px-3 py-2 hover:bg-black hover:text-white"
-          >
-            Your Ticket
-          </a>
-          <a href="/profile">
-            {user && <Avatar alt="Remy Sharp" src={`${user.picture}`} />}
-          </a>
         </div>
       </div>
     </nav>

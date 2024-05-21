@@ -1,4 +1,5 @@
 "use client";
+import React from "react";
 
 import { Hero } from "../components/home/Hero";
 import Trip from "./destination/Trip";
