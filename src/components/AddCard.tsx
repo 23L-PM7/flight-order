@@ -4,7 +4,7 @@ import { FaCcVisa } from "react-icons/fa";
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import CardModal from "./CardModal";
-import { useCartData, useSeat } from "@/app/order/Utils";
+import { useCartData, usePassengerStore, useSeat } from "@/app/order/Utils";
 import { Visa } from "./icons/Visa";
 import axios from "axios";
 import { Button, Stack } from "@mui/material";
@@ -15,15 +15,16 @@ import { useRouter } from "next/navigation";
 export function AddCard({ Flight }: any) {
   const router = useRouter();
   const { cartData, setCartData, fetchCartData }: any = useCartData();
+  const { passengerData }: any = usePassengerStore();
   const { user, isLoading } = useUser();
   const { seat }: any = useSeat();
   const userId = user?.sub;
-
   useEffect(() => {
     if (!user) return;
     fetchCartData(userId);
   }, [user]);
 
+  console.log(passengerData, "asdf");
   if (!user && isLoading) {
     return (
       <Stack height={300} justifyContent="center" alignItems="center">
@@ -40,14 +41,14 @@ export function AddCard({ Flight }: any) {
   const date = Date();
 
   function orderButton() {
-    if (Flight && cartData && seat && user) {
+    if (Flight && cartData && user && passengerData) {
       if (confirm("Get Ticket ?") == true) {
         try {
           axios
             .post("/api/order", {
               Flight,
               cartData,
-              seat,
+              passengerData,
               user,
             })
             .then(() => {

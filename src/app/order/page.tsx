@@ -1,24 +1,32 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { FlightDetailsCard } from "@/components/FlightDetailsCard";
 import { FlightData } from "./FlightData";
 import { PriceDetails } from "@/components/PriceDetails";
 import { PayCard } from "@/components/PayCard";
 import { AddCard } from "@/components/AddCard";
 import { Toaster } from "sonner";
-import SeatMenu from "@/components/SeatMenu";
-import { passengersQuantityStore } from "@/components/home/Passengers";
-import { TicketQuantity } from "./TicketQuantity";
 
-export default function home() {
-  const [quantity, setQuantity]: any = useState();
+import { TicketQuantity } from "./TicketQuantity";
+import { usePassengerStore } from "./Utils";
+
+export default function Home() {
+  const {
+    quantity,
+    setQuantity,
+    passengerData,
+    setPassengerData,
+    updatePassengerData,
+  }: any = usePassengerStore();
   useEffect(() => {
-    setQuantity(localStorage.getItem("quantity"));
-  });
-  const array: number[] = [];
-  for (let i = 1; i < Number(quantity) + 1; i++) {
-    array.push(i);
-  }
+    const savedQuantity = Number(localStorage.getItem("quantity")) || 1;
+    setQuantity(savedQuantity);
+  }, [setQuantity]);
+
+  const handleChange = (value, index) => {
+    updatePassengerData(value, index);
+  };
+
   return (
     <div className="">
       <Toaster position="top-right" richColors />
@@ -32,9 +40,13 @@ export default function home() {
           <div className="mb-8">
             <PriceDetails Flight={FlightData} />
           </div>
-          <SeatMenu />
-          {array.map((index) => (
-            <TicketQuantity key={index} number={index} />
+
+          {[...Array(quantity)].map((_, index) => (
+            <TicketQuantity
+              onChange={(value) => handleChange(value, index)}
+              key={index}
+              number={index + 1}
+            />
           ))}
         </div>
       </div>

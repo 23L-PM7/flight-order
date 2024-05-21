@@ -8,16 +8,18 @@ import Dropdown from "@mui/joy/Dropdown";
 import { Divider } from "@mui/joy";
 import { useOrder, useSeat } from "@/app/order/Utils";
 
-export default function SeatMenu() {
+export default function SeatMenu({ onChange }: any) {
   const [selectedSeat, setSelectedSeat] = React.useState<any>();
-  const { seat, setSeat }: any = useSeat();
+  const [seat, setSeat] = React.useState<any>();
+  // const { seat, setSeat }: any = useSeat();
   const { order, fetchOrders }: any = useOrder();
 
   React.useEffect(() => {
     fetchOrders();
-  }, []);
+    onChange(seat);
+  }, [seat]);
   const arrayWith100: number[] = [];
-  for (let i = 1; i < 100; i++) {
+  for (let i = 1; i < 25 + 1; i++) {
     arrayWith100.push(i);
   }
 
@@ -38,13 +40,13 @@ export default function SeatMenu() {
         Seat
       </MenuButton>
       <Menu className="w-1/4" size="sm">
-        <div className="grid grid-cols-4 grid-center gap-2">
+        <div className="grid-center grid grid-cols-4 gap-2">
           {arrayWith100.map((seatNumber) => {
             return (
               <button
                 disabled={selectedSeats.includes(seatNumber)}
                 key={seatNumber}
-                className={`text-center hover:bg-green-500 border ${selectedSeat == seatNumber ? "bg-green-500" : "bg-white"} ${selectedSeats.includes(seatNumber) ? "bg-slate-600 text-slate-300  " : ""}`}
+                className={`border text-center hover:bg-green-500 ${selectedSeat == seatNumber ? "bg-green-500" : "bg-white"} ${selectedSeats.includes(seatNumber) ? "bg-slate-600 text-slate-300  " : ""}`}
                 onClick={() => setSelectedSeat(seatNumber)}
               >
                 {seatNumber}
@@ -55,7 +57,7 @@ export default function SeatMenu() {
         <Divider />
         <MenuItem
           onClick={saveSeat}
-          className="w-full flex justify-center bg-[#8DD3BB]"
+          className="flex w-full justify-center bg-[#8DD3BB]"
         >
           <p className="text-md">Submit</p>
         </MenuItem>
