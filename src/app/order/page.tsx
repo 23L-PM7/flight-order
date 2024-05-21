@@ -25,6 +25,7 @@ export default function Home() {
 
   const handleChange = (value, index) => {
     updatePassengerData(value, index);
+    console.log(value);
   };
 
   return (
@@ -38,7 +39,7 @@ export default function Home() {
         </div>
         <div className="w-1/3">
           <div className="mb-8">
-            <PriceDetails Flight={FlightData} />
+            <PriceDetails Flight={FlightData} Passenger={quantity} />
           </div>
 
           {[...Array(quantity)].map((_, index) => (

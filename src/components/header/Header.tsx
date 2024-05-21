@@ -14,11 +14,11 @@ export function Header() {
 
   return (
     <div className="bg-white">
-      <div className="container mx-auto font-medium font-sans flex justify-between items-center ">
-        <div className="flex gap-[32px] cursor-pointer">
+      <div className="container mx-auto flex items-center justify-between font-sans font-medium ">
+        <div className="flex cursor-pointer gap-[32px]">
           <Link
             href={"/"}
-            className="flex py-[27px] items-center gap-1 hover:border-b-4 hover:border-[#8DD3BB]"
+            className="flex items-center gap-1 py-[27px] hover:border-b-4 hover:border-[#8DD3BB]"
           >
             <Flight />
             <div>Find flight</div>
@@ -35,24 +35,21 @@ export function Header() {
           {!user && (
             <a
               href="/api/auth/login"
-              className="py-4 px-6 rounded-lg hover:bg-black hover:text-white"
+              className="rounded-lg px-6 py-4 hover:bg-black hover:text-white"
             >
               Login
             </a>
           )}
-          {/* <a
-            href="/api/auth/logout"
-            className="py-4 px-6 rounded-lg hover:bg-black hover:text-white"
-          >
-            Log Out
-          </a> */}
+
           <a
             href="/ticket"
-            className="py-2 px-3 rounded-lg hover:bg-black hover:text-white"
+            className="rounded-lg px-3 py-2 hover:bg-black hover:text-white"
           >
             Your Ticket
           </a>
-          <a>{user && <Avatar alt="Remy Sharp" src={`${user.picture}`} />}</a>
+          <a href="/profile">
+            {user && <Avatar alt="Remy Sharp" src={`${user.picture}`} />}
+          </a>
         </div>
       </div>
     </div>
