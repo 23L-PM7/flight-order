@@ -62,9 +62,15 @@ export function AddCard({ Flight }: any) {
       alert("fill all option");
     }
   }
-
-  console.log(cartData);
   if (cartData == null) {
+    return (
+      <Stack height={300} justifyContent="center" alignItems="center">
+        <CircularProgress />
+      </Stack>
+    );
+  }
+  console.log(cartData);
+  if (cartData.length == 0) {
     return (
       <Card variant="plain" sx={{ backgroundColor: "#ffff" }}>
         <Card style={{ backgroundColor: "#8DD3BB" }}>
