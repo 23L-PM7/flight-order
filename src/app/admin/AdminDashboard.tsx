@@ -19,7 +19,12 @@ export default function AdminDashboard() {
       >
         Add flight
       </Button>
-      <EditingModal flightId={""} open={open} onClose={() => setOpen(false)} />
+      <EditingModal
+        flightId={""}
+        open={open}
+        onClose={() => setOpen(false)}
+        onComplete={() => {}}
+      />
     </React.Fragment>
   );
 }
