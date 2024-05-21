@@ -20,6 +20,14 @@ export default function Ticket2() {
       .then((res) => res.json())
       .then((data) => setOrderData(data));
   }, [user]);
+  console.log(orderData);
+  if (orderData === null) {
+    return (
+      <div className="my-20 flex justify-center">
+        <div>asfd</div>
+      </div>
+    );
+  }
   if (orderData.length == 0) {
     return (
       <Stack height={300} justifyContent="center" alignItems="center">
@@ -27,7 +35,7 @@ export default function Ticket2() {
       </Stack>
     );
   }
-  console.log(orderData);
+
   return (
     <div className="container mx-auto mt-4 flex flex-col justify-center">
       {orderData &&
