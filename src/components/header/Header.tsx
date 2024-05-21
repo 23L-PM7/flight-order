@@ -14,17 +14,6 @@ export function Header() {
   console.log(user);
 
   return (
-
-    <div className="bg-white">
-      <div className="container mx-auto flex items-center justify-between font-sans font-medium ">
-        <div className="flex cursor-pointer gap-[32px]">
-          <Link
-            href={"/"}
-            className="flex items-center gap-1 py-[27px] hover:border-b-4 hover:border-[#8DD3BB]"
-          >
-            <Flight />
-            <div>Find flight</div>
-
     <nav className="sticky top-0 z-50 w-full bg-white">
       <div className="container mx-auto">
         <div className="flex items-center justify-between py-3 font-sans font-medium md:py-4">
@@ -102,7 +91,6 @@ export function Header() {
             {user && <Avatar alt="Remy Sharp" src={`${user.picture}`} />}
           </a>
         </div>
-
       </div>
     </nav>
   );
