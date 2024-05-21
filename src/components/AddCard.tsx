@@ -4,7 +4,7 @@ import { FaCcVisa } from "react-icons/fa";
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import CardModal from "./CardModal";
-import { useCartData, useSeat } from "@/app/order/Utils";
+import { useCartData, usePassengerStore, useSeat } from "@/app/order/Utils";
 import { Visa } from "./icons/Visa";
 import axios from "axios";
 import { Button, Stack } from "@mui/material";
@@ -15,15 +15,16 @@ import { useRouter } from "next/navigation";
 export function AddCard({ Flight }: any) {
   const router = useRouter();
   const { cartData, setCartData, fetchCartData }: any = useCartData();
+  const { passengerData }: any = usePassengerStore();
   const { user, isLoading } = useUser();
   const { seat }: any = useSeat();
   const userId = user?.sub;
-
   useEffect(() => {
     if (!user) return;
     fetchCartData(userId);
   }, [user]);
 
+  console.log(passengerData, "asdf");
   if (!user && isLoading) {
     return (
       <Stack height={300} justifyContent="center" alignItems="center">
@@ -32,48 +33,58 @@ export function AddCard({ Flight }: any) {
     );
   }
 
-  if (!user && !isLoading) {
-    router.push("/");
-    return;
-  }
+  // if (!user && !isLoading) {
+  //   router.push("/");
+  //   return;
+  // }
+
   const date = Date();
 
   function orderButton() {
-    if (Flight && cartData && seat && user) {
-      try {
-        axios
-          .post("/api/order", {
-            Flight,
-            cartData,
-            seat,
-            user,
-          })
-          .then(() => {
-            toast.success("Successfully ticket ordered ");
-          });
-      } catch (error) {
-        console.log(error);
+    if (Flight && cartData && user && passengerData) {
+      if (confirm("Get Ticket ?") == true) {
+        try {
+          axios
+            .post("/api/order", {
+              Flight,
+              cartData,
+              passengerData,
+              user,
+            })
+            .then(() => {
+              toast.success("Successfully ticket ordered ");
+            });
+        } catch (error) {
+          console.log(error);
+        }
       }
     } else {
       alert("fill all option");
     }
   }
-
+  if (cartData == null) {
+    return (
+      <Stack height={300} justifyContent="center" alignItems="center">
+        <CircularProgress />
+      </Stack>
+    );
+  }
+  console.log(cartData);
   if (cartData.length == 0) {
     return (
       <Card variant="plain" sx={{ backgroundColor: "#ffff" }}>
         <Card style={{ backgroundColor: "#8DD3BB" }}>
-          <div className="flex justify-between items-center">
+          <div className="flex items-center justify-between">
             <div className=" flex gap-2">
               <FaCcVisa />
               <p className="mt-1">{dayjs(date).format("YY-MM-DD")}</p>
             </div>
           </div>
         </Card>
-        <div className="border-dashed border-2 border-[#8DD3BB] ">
+        <div className="border-2 border-dashed border-[#8DD3BB] ">
           <Card
             variant="plain"
-            className="flex justify-center items-center py-10"
+            className="flex items-center justify-center py-10"
           >
             <div className="mt-4 ">
               <CardModal />
@@ -94,15 +105,14 @@ export function AddCard({ Flight }: any) {
               sx={{ backgroundColor: "#ffff", borderColor: "#EAEDED" }}
             >
               <Card style={{ backgroundColor: "#8DD3BB" }}>
-                <div className="flex justify-between items-center">
+                <div className="flex items-center justify-between">
                   <div className=" flex gap-2">
                     <div className="flex items-center">
                       <FaCcVisa />
                     </div>
-                    <p className="flex items-center text-bold">
+                    <p className="text-bold flex items-center">
                       {card.cardNumber}
                     </p>
-
 
                     <p className="flex items-center">
                       {dayjs(card.date).format("MM/YY")}
@@ -111,13 +121,13 @@ export function AddCard({ Flight }: any) {
                 </div>
               </Card>
               <div
-                className="p-4 w-[378px] bg-[url('/Card.png')] bg-cover rounded-2xl "
+                className="w-[378px] rounded-2xl bg-[url('/Card.png')] bg-cover p-4 "
                 style={{ backgroundImage: "" }}
               >
-                <div className="font-semibold text-2xl flex justify-end">
+                <div className="flex justify-end text-2xl font-semibold">
                   BANK
                 </div>
-                <div className="flex justify-between mt-[60px] p-[11px] items-center">
+                <div className="mt-[60px] flex items-center justify-between p-[11px]">
                   <div>
                     <div className="text-xl font-semibold">
                       {card.cardNumber}
@@ -135,7 +145,7 @@ export function AddCard({ Flight }: any) {
         <div>
           <a
             onClick={orderButton}
-            className="mt-[50px] w-full flex justify-center items-center bg-[#8DD3BB] hover:bg-[#81cab1] p-4 rounded-xl cursor-pointer hover:text-green-600 font-bold text-xl"
+            className="mt-[50px] flex w-full cursor-pointer items-center justify-center rounded-xl bg-[#8DD3BB] p-4 text-xl font-bold hover:bg-[#81cab1] hover:text-green-600"
           >
             Order Now
           </a>
