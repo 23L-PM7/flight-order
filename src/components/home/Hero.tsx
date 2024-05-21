@@ -14,9 +14,7 @@ export function Hero() {
           </p>
         </div>
       </div>
-      <div className="flex justify-center">
-        <FindFlight />
-      </div>
+      <FindFlight />
     </div>
   );
 }
