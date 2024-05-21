@@ -88,7 +88,7 @@ export function FindFlight() {
 
   return (
     <div className="container mx-auto flex justify-center">
-      <div className="flex w-full -translate-y-1/2 flex-col gap-6 border bg-white p-6 sm:mx-3 sm:rounded-md lg:w-[1000px]">
+      <div className="flex w-full -translate-y-1/2 flex-col gap-6 border bg-white p-6 sm:mx-3 sm:rounded-md lg:w-[1200px]">
         <div className="flex items-center justify-between">
           <p className="text-xl font-semibold">Where are you flying?</p>
         </div>

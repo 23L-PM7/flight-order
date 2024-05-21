@@ -42,8 +42,12 @@ const Card = ({
   cardLink,
 }: CardTypes) => (
   <Link href={cardLink}>
-    <div className="relative cursor-pointer opacity-95 hover:opacity-100">
-      <img src={imageSrc} alt={altText} />
+    <div className="relative w-full cursor-pointer opacity-95 hover:opacity-100">
+      <img
+        src={imageSrc}
+        alt={altText}
+        className="w-full rounded-[20px] object-cover lg:h-[600px]"
+      />
       <div className="absolute bottom-0 mb-5 flex w-full flex-col gap-3 text-center text-white">
         <div className="font-bold md:text-[20px] lg:text-[40px]">{title}</div>
         <div>{description}</div>
