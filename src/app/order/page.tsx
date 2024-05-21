@@ -1,6 +1,4 @@
-
-import React from "react";
-
+"use client";
 import React, { useEffect } from "react";
 import { FlightDetailsCard } from "@/components/FlightDetailsCard";
 import { FlightData } from "./FlightData";

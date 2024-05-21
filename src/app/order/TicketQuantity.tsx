@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 
 import { passengersQuantityStore } from "@/components/home/Passengers";
 import { Card, SelectChangeEvent } from "@mui/material";
-import { Input, Option, Select, selectClasses } from "@mui/joy";
+import { Button, Input, Option, Select, selectClasses } from "@mui/joy";
 import { DateRangePicker } from "@mui/x-date-pickers-pro/DateRangePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
@@ -19,10 +19,16 @@ export function TicketQuantity({ number, data, onChange }: any) {
   const [gender, setGender] = useState<string | null>(tripType[0]);
   const [last, setLast] = useState<any>();
   const [selectedSeat, setSelectedSeat] = React.useState<any>();
-  useEffect(() => {
-    onChange({ first, date, last, gender, selectedSeat });
-  }, [first, date, last, gender, selectedSeat]);
-
+  // useEffect(() => {
+  //   saveData();
+  // }, []);
+  function saveData() {
+    if (last && date && first && selectedSeat && gender) {
+      onChange({ first, date, last, gender, selectedSeat });
+    } else {
+      alert("Fill All Option");
+    }
+  }
   return (
     <div className="my-10">
       <div>
@@ -84,6 +90,12 @@ export function TicketQuantity({ number, data, onChange }: any) {
           <div className="mt-5">
             <SeatMenu onChange={(value) => setSelectedSeat(value)} />
           </div>
+          <Button
+            onClick={saveData}
+            className="mt-2 w-full bg-[#8DD3BB] hover:bg-[#B5E9CE] hover:text-black"
+          >
+            Save
+          </Button>
         </Card>
       </div>
     </div>
