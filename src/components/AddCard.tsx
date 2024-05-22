@@ -30,15 +30,10 @@ export function AddCard({ Flight }: any) {
     return <CardLoader />;
   }
 
-  // if (!user && !isLoading) {
-  //   router.push("/");
-  //   return;
-  // }
-
   const date = Date();
-
+  console.log(passengerData, "asdf");
   function orderButton() {
-    if (Flight && cartData && user && passengerData) {
+    if (Flight && cartData && user && passengerData[0].value.first) {
       if (confirm("Get Ticket ?") == true) {
         try {
           axios
@@ -50,6 +45,7 @@ export function AddCard({ Flight }: any) {
             })
             .then(() => {
               toast.success("Successfully ticket ordered ");
+              router.push("/ticket");
             });
         } catch (error) {
           console.log(error);

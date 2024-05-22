@@ -22,10 +22,12 @@ export default function Ticket2() {
       .then((res) => res.json())
       .then((data) => setOrderData(data));
   }, [user]);
+
   if (orderData.length == 0) {
     return <CardLoader />;
   }
   console.log(orderData);
+
   return (
     <div className="container mx-auto mt-4 flex flex-col justify-center">
       {orderData &&
