@@ -19,6 +19,7 @@ import CircularProgress from "@mui/joy/CircularProgress";
 import Select, { selectClasses } from "@mui/joy/Select";
 import Option from "@mui/joy/Option";
 import KeyboardArrowDown from "@mui/icons-material/KeyboardArrowDown";
+import { MdFlightTakeoff } from "react-icons/md";
 
 interface FlightData {
   departure_airport: { city: string };
@@ -90,7 +91,9 @@ export function FindFlight() {
     <div className="container mx-auto flex justify-center">
       <div className="flex w-full -translate-y-1/2 flex-col gap-6 border bg-white p-6 sm:mx-3 sm:rounded-md lg:w-[1200px]">
         <div className="flex items-center justify-between">
-          <p className="text-xl font-semibold">Where are you flying?</p>
+          <p className="text-xl font-semibold text-black">
+            Where are you flying?
+          </p>
         </div>
         <div className="flex gap-2">
           <Select
@@ -173,8 +176,15 @@ export function FindFlight() {
               onClick={findFlights}
               loading={isLoading}
               disabled={isLoading}
-              sx={{ width: 120, borderRadius: 30, height: "100%" }}
+              sx={{
+                width: 120,
+                borderRadius: 30,
+                height: "100%",
+                backgroundColor: "#8DD3BB",
+              }}
+              className="text-black hover:bg-[#7cc4ab]"
               loadingPosition="start"
+              startDecorator={<MdFlightTakeoff />}
               loadingIndicator={<CircularProgress />}
             >
               {isLoading ? "Loading..." : "Search"}
@@ -184,9 +194,11 @@ export function FindFlight() {
         <div className="sm:hidden">
           <Button
             onClick={findFlights}
-            sx={{ height: 56, borderRadius: 30 }}
+            sx={{ height: 56, borderRadius: 30, backgroundColor: "#8DD3BB" }}
+            className="text-black hover:bg-[#7cc4ab]"
             loading={isLoading}
             disabled={isLoading}
+            startDecorator={<MdFlightTakeoff />}
             fullWidth
             loadingPosition="start"
             loadingIndicator={<CircularProgress />}

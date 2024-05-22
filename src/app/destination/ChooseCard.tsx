@@ -54,7 +54,7 @@ const Card = ({
         <div>
           <Button
             sx={{ backgroundColor: "#8DD3BB" }}
-            className="hover:bg-[#7cc4ab]"
+            className="text-black hover:bg-[#7cc4ab]"
             size="lg"
           >
             {buttonIcon}
