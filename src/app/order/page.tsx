@@ -9,6 +9,7 @@ import { AddCard } from "@/components/AddCard";
 import { Toaster } from "sonner";
 import { TicketQuantity } from "./TicketQuantity";
 import { usePassengerStore } from "./Utils";
+import { TicketLoader } from "@/components/loader/TicketLoader";
 
 export default function Home() {
   const {
@@ -34,6 +35,7 @@ export default function Home() {
       <div className="container mx-auto flex gap-10 pb-[120px] pt-[94px] ">
         <div className="flex w-2/3 flex-col gap-[50px]">
           <FlightDetailsCard Flight={FlightData} />
+          <TicketLoader />
           <PayCard />
           <AddCard Flight={FlightData} />
         </div>

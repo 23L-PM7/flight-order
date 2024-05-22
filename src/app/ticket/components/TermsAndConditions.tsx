@@ -2,7 +2,7 @@ export function TermsAndConditions() {
   return (
     <div className="container mx-auto my-10 flex flex-col gap-10 font-sans">
       <div>
-        <h1 className="font-bold text-xl">Terms and Conditions</h1>
+        <h1 className="text-xl font-bold">Terms and Conditions</h1>
       </div>
       {/* Payments */}
       <div className="flex flex-col gap-3">
