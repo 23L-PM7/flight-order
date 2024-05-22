@@ -3,6 +3,22 @@ import { dbRequest } from "../config/dbRequest";
 import { useSearchParams } from "next/navigation";
 
 export async function GET(request: Request) {
+
+
+  const { searchParams } = new URL(request.url);
+  const fromTo = searchParams.get("fromTo");
+  
+
+  console.log({ fromTo });
+
+  const { documents } = await dbRequest("flightData", "find",{
+    filter: {
+      
+    },
+  })
+  
+
+
   try {
     const { documents } = await dbRequest("flightData", "find");
 
@@ -15,6 +31,7 @@ export async function GET(request: Request) {
 
 export async function POST(request: Request) {
   const body = await request.json();
+
   const {
     flightNumber,
     airline,

@@ -58,10 +58,12 @@ export function FindFlight() {
       setSelectedFromTo(
         `${data[0].departure_airport.city} - ${data[0].arrival_airport.city}`,
       );
+    
     } catch (error) {
       console.error("Error fetching country data:", error);
     }
   };
+
 
   const findFlights = async () => {
     setIsLoading(true);
