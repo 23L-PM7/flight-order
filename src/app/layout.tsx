@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/header/Header";
@@ -29,7 +29,7 @@ export default function RootLayout({
       <UserProvider>
         <body className={inter.className}>
           <Header />
-          <div>{children}</div>
+          <Suspense>{children}</Suspense>
           <Footer />
         </body>
         {/* {loading && <>Loader</>} */}
