@@ -30,7 +30,7 @@ const FlightInfo = ({ data }: { data: any }) => {
               <div className="flex flex-col gap-1">
                 <div className="flex gap-2">
                   <div className="flex flex-col gap-2">
-                    <span className="">{data.departure_time}</span> 
+                    <span className="">{data.departure_time}</span>
                     <span className="opacity-40 text-sm w-[50px]">
                     <div className="group flex flex-col transition ease-in-out duration-300 relative">
                         <div className="w-max hover:cursor-help">

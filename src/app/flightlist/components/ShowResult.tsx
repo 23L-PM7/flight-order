@@ -3,6 +3,7 @@ import FlightInfo from "./kekw/FlightInfo";
 import Recommended from "./kekw/Recommended";
 import Soort from "./kekw/Soort";
 import React, { useEffect, useState } from "react";
+import Skeleton from "@mui/joy/Skeleton";
 
 interface Props {
   flightInfo: any;
