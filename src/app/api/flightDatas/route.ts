@@ -5,7 +5,21 @@ import { log } from "console";
 
 export async function GET(request: Request) {
 
-  const { documents } = await dbRequest("flightData", "find");
+  const { searchParams } = new URL(request.url);
+
+  const fromTo = searchParams.get("fromTo") || '';
+
+  const filter = {};
+
+  if (fromTo){
+    const [depCity, arrCity] = fromTo.split(' - ');
+    filter["departure_airport.city"] = depCity;
+    filter["arrival_airport.city"] = arrCity
+  }
+
+
+  const { documents } = await dbRequest("flightData", "find", { filter });
+
   return Response.json(documents);
 }
 
