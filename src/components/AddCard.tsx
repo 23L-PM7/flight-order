@@ -11,6 +11,7 @@ import { Button, Stack } from "@mui/material";
 import { toast } from "sonner";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import { useRouter } from "next/navigation";
+import { CardLoader } from "./loader/CardLoader";
 
 export function AddCard({ Flight }: any) {
   const router = useRouter();
@@ -26,11 +27,7 @@ export function AddCard({ Flight }: any) {
 
   console.log(passengerData, "asdf");
   if (!user && isLoading) {
-    return (
-      <Stack height={300} justifyContent="center" alignItems="center">
-        <CircularProgress />
-      </Stack>
-    );
+    return <CardLoader />;
   }
 
   const date = Date();
@@ -59,11 +56,7 @@ export function AddCard({ Flight }: any) {
     }
   }
   if (cartData == null) {
-    return (
-      <Stack height={300} justifyContent="center" alignItems="center">
-        <CircularProgress />
-      </Stack>
-    );
+    return <CardLoader />;
   }
   console.log(cartData);
   if (cartData.length == 0) {

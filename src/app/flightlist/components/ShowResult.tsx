@@ -1,15 +1,15 @@
+import { WeatherLoader } from "@/components/loader/WeatherLoader";
 import FlightInfo from "./kekw/FlightInfo";
 import Recommended from "./kekw/Recommended";
 import Soort from "./kekw/Soort";
 import React, { useEffect, useState } from "react";
 
 interface Props {
-  flightInfo:any;
+  flightInfo: any;
 }
 
-const ShowResult = (props:Props) => {
- 
-  const { flightInfo } = props
+const ShowResult = (props: Props) => {
+  const { flightInfo } = props;
 
   // function filter() {
   //   let allList = flightInfo || []
@@ -24,21 +24,20 @@ const ShowResult = (props:Props) => {
   // }
 
   return (
-    <div className="w-10/12 flex gap-2 mt-[40px] bg-[#FAFBFC]">
-      <div className="w-[500px] bg-cyan-100"></div>
-      <div className="w-full flex flex-col gap-6">
+    <div className="mt-[40px] flex w-10/12 gap-2 bg-[#FAFBFC]">
+      <WeatherLoader />
+      <div className="flex w-full flex-col gap-6">
         <Soort />
         <Recommended />
-        {
-          flightInfo.length <= 0 ? <p>Loading flight information...</p> :
+        {flightInfo.length <= 0 ? (
+          <p>Loading flight information...</p>
+        ) : (
           <>
-           {
-              flightInfo.map((data, idx) => {
-                return <FlightInfo key={`data-${idx}`} data={data}/>
-              })
-            }
+            {flightInfo.map((data, idx) => {
+              return <FlightInfo key={`data-${idx}`} data={data} />;
+            })}
           </>
-        }
+        )}
         {/* <FlightInfo /> */}
       </div>
     </div>
