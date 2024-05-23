@@ -1,29 +1,27 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { DataGrid, GridColDef, GridEventListener } from "@mui/x-data-grid";
+import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import axios from "axios";
 import { Button } from "@mui/material";
+import EditingModal from "./EditingModal";
+import { toast } from "sonner";
+import dayjs from "dayjs";
 
 export default function DataTable() {
   const [flightInfo, setFlightInfo]: any = React.useState([]);
+  const [editing, setEditing] = useState("");
 
   const deleteFlightTicket = async (_id: string) => {
-    alert("Are sure delete?");
-    try {
-      await axios.delete(`/api/flightDatas/${_id}`);
-      fetchFlight();
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const updateFlightTicket = async (_id: string) => {
-    try {
-      await axios.put(`/api/flightDatas/${_id}`);
-      fetchFlight();
-    } catch (error) {
-      console.log(error);
+    if (confirm("Are you sure delete?")) {
+      try {
+        await axios.delete(`/api/flightDatas/${_id}`).then(() => {
+          toast.success("Successfully deleted.");
+        });
+        fetchFlight();
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 
@@ -42,7 +40,7 @@ export default function DataTable() {
       headerName: "Delete",
       width: 100,
       renderCell: (params) => (
-        <Button onClick={() => deleteFlightTicket(params.row.delete)}>
+        <Button onClick={() => deleteFlightTicket(params.row.id)}>
           delete
         </Button>
       ),
@@ -52,9 +50,7 @@ export default function DataTable() {
       headerName: "Edit",
       width: 100,
       renderCell: (params) => (
-        <Button onClick={() => updateFlightTicket(params.row.edit)}>
-          edit
-        </Button>
+        <Button onClick={() => setEditing(params.row.id)}>edit</Button>
       ),
     },
   ];
@@ -81,28 +77,34 @@ export default function DataTable() {
       aircraft: flight.aircraft,
       departureCity: flight.departure_airport.city,
       arrivalCity: flight.arrival_airport.city,
-      departureTime: flight.departure_time,
-      arrivalTime: flight.arrival_time,
+      departureTime: dayjs(flight.departure_time).format("YYYY-MM-DD hh-mm"),
+      arrivalTime: dayjs(flight.arrival_time).format("YYYY-MM-DD hh-mm"),
       duration: flight.duration,
       price: flight.price,
-      delete: flight._id,
-      edit: flight._id,
     };
   });
 
   return (
     <>
-      <div style={{ height: 400, width: "100%" }}>
+      <div style={{ height: 600, width: "100%" }}>
         <DataGrid
           rows={row}
           columns={columns}
           initialState={{
             pagination: {
-              paginationModel: { page: 0, pageSize: 5 },
+              paginationModel: { page: 0, pageSize: 10 },
             },
           }}
           pageSizeOptions={[5, 10]}
         />
+        {editing && (
+          <EditingModal
+            flightId={editing}
+            open={true}
+            onClose={() => setEditing("")}
+            onComplete={fetchFlight}
+          />
+        )}
       </div>
     </>
   );

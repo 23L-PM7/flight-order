@@ -1,15 +1,17 @@
 "use client";
 
+import React from "react";
 import { Hero } from "../components/home/Hero";
 import Trip from "./destination/Trip";
 import { useUser } from "@auth0/nextjs-auth0/client";
-export default function Home() {
-  const { user, error, isLoading } = useUser();
+import { LottieLoader } from "@/components/loader/LottieLoader";
+import { OrderLoader } from "@/components/loader/OrderLoader";
 
-  console.log(user);
+export default function Home() {
   return (
     <main>
       <Hero />
+      <OrderLoader />
       <Trip />
     </main>
   );

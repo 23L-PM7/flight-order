@@ -6,42 +6,35 @@ export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const userId = searchParams.get("userId");
   if (userId) {
-    try {
-      const { documents } = await dbRequest("order", "find", {
-        filter: {
-          userId: userId,
-        },
-      });
+    const { documents } = await dbRequest("order", "find", {
+      filter: {
+        userId: userId,
+      },
+    });
 
-      return Response.json(documents);
-    } catch (error) {
-      console.log(error);
-      throw new Error("aldaa");
-    }
+    return Response.json(documents);
   } else {
-    try {
-      const { documents } = await dbRequest("order", "find");
-
-      return Response.json(documents);
-    } catch (error) {
-      console.log(error);
-      throw new Error("aldaa");
-    }
+    const { documents } = await dbRequest("order", "find");
+    return Response.json(documents);
   }
 }
 
 export async function POST(request: Request) {
   const body = await request.json();
-  const { cartData, Flight, seat, user } = body;
+  const { cartData, Flight, passengerData, user } = body;
+  console.log(passengerData);
+  console.log({ passengerData });
 
-  try {
-    const data = await dbRequest("order", "insertOne", {
-      document: {
+  const data = await dbRequest("order", "insertMany", {
+    documents: passengerData.map((passenger) => {
+      return {
         userId: user.sub,
         FlightTicket: {
           passenger: {
-            first_name: user.name,
-            last_name: user.family_name,
+            first_name: passenger.value.first,
+            last_name: passenger.value.last,
+            type: passenger.value.gender,
+            date: passenger.value.date,
             email: user.email,
             phone: "+1234567890",
             address: "123 Main Street, City, Country",
@@ -68,7 +61,7 @@ export async function POST(request: Request) {
             aircraft: Flight.aircraft,
 
             seat: {
-              number: seat,
+              number: passenger.value.selectedSeat,
               class: "Economy",
             },
           },
@@ -89,12 +82,9 @@ export async function POST(request: Request) {
             expiration_date: cartData.date,
           },
         },
-      },
-    });
+      };
+    }),
+  });
 
-    return Response.json(data);
-  } catch (error) {
-    console.log(error);
-    throw new Error("aldaa");
-  }
+  return Response.json(data);
 }

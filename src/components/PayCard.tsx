@@ -27,7 +27,7 @@ export function PayCard() {
       <Card style={{ backgroundColor: "#8DD3BB" }}>
         <div className="flex justify-between">
           <div>
-            <div className="font-bold text-xl">Pay in full</div>
+            <div className="text-xl font-bold">Pay in full</div>
             <div className="text-sm">Pay the total and you are all set</div>
           </div>
           <div className="flex items-center">
@@ -43,7 +43,7 @@ export function PayCard() {
       <Card style={{ backgroundColor: "#8DD3BB" }}>
         <div className="flex justify-between font-sans">
           <div>
-            <div className="font-bold text-xl">Pay part now, part later</div>
+            <div className="text-xl font-bold">Pay part now, part later</div>
             <div className="text-sm">
               {" "}
               Pay $207.43 now, and the rest ($207.43) will be automatically
