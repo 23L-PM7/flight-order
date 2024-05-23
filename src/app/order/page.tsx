@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import { FlightDetailsCard } from "@/components/FlightDetailsCard";
 // import { FlightData } from "./FlightData";
 import { PriceDetails } from "@/components/PriceDetails";
@@ -51,29 +51,31 @@ export default function Home() {
   };
 
   return (
-    <div className="">
-      <Toaster position="top-right" richColors />
-      <div className="container mx-auto flex gap-10 pb-[120px] pt-[94px] ">
-        <div className="flex w-2/3 flex-col gap-[50px]">
-          <FlightDetailsCard Flight={flightData} />
-          <TicketLoader />
-          <PayCard />
-          <AddCard Flight={flightData} />
-        </div>
-        <div className="w-1/3">
-          <div className="mb-8">
-            <PriceDetails Flight={flightData} Passenger={quantity} />
+    <Suspense>
+      <div className="">
+        <Toaster position="top-right" richColors />
+        <div className="container mx-auto flex gap-10 pb-[120px] pt-[94px] ">
+          <div className="flex w-2/3 flex-col gap-[50px]">
+            <FlightDetailsCard Flight={flightData} />
+            <TicketLoader />
+            <PayCard />
+            <AddCard Flight={flightData} />
           </div>
+          <div className="w-1/3">
+            <div className="mb-8">
+              <PriceDetails Flight={flightData} Passenger={quantity} />
+            </div>
 
-          {[...Array(quantity)].map((_, index) => (
-            <TicketQuantity
-              onChange={(value) => handleChange(value, index)}
-              key={index}
-              number={index + 1}
-            />
-          ))}
+            {[...Array(quantity)].map((_, index) => (
+              <TicketQuantity
+                onChange={(value) => handleChange(value, index)}
+                key={index}
+                number={index + 1}
+              />
+            ))}
+          </div>
         </div>
       </div>
-    </div>
+    </Suspense>
   );
 }
