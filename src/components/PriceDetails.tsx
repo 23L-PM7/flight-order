@@ -4,6 +4,7 @@ import React, { Suspense } from "react";
 
 export function PriceDetails({ Flight, Passenger }: any) {
   return (
+
     <Suspense>
       <Card
         sx={{ backgroundColor: "#ffff", borderColor: "#EAEDED" }}
@@ -29,6 +30,7 @@ export function PriceDetails({ Flight, Passenger }: any) {
                     <div className="mt-5 text-xs font-medium">
                       <RatingSize />
                     </div>
+
                   </div>
                 </Stack>
                 <div className="opacity-6 my-4 h-[1px] bg-[#d2d6d2] font-medium"></div>

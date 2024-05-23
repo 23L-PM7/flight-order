@@ -16,6 +16,7 @@ export function FlightDetailsCard({ Flight }: any) {
   }, []);
   console.log(Flight, "asdf");
   return (
+
     <Suspense>
       <Card
         variant="outlined"
@@ -31,6 +32,7 @@ export function FlightDetailsCard({ Flight }: any) {
                   <p className="text-3xl font-bold text-red-400">
                     ${Flight.price}
                   </p>
+
                 </div>
                 <div className="flex justify-between  ">
                   <p className="font-bold">
