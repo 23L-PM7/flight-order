@@ -2,7 +2,7 @@
 import { Card, CircularProgress, Drawer } from "@mui/joy";
 import { FaCcVisa } from "react-icons/fa";
 import dayjs from "dayjs";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import CardModal from "./CardModal";
 import { useCartData, usePassengerStore, useSeat } from "@/app/order/Utils";
 import { Visa } from "./icons/Visa";
@@ -55,90 +55,98 @@ export function AddCard({ Flight }: any) {
     }
   }
   if (cartData == null) {
-    return <CardLoader />;
+    return (
+      <Suspense>
+        <CardLoader />;
+      </Suspense>
+    );
   }
   console.log(cartData);
   if (cartData.length == 0) {
     return (
-      <Card variant="plain" sx={{ backgroundColor: "#ffff" }}>
-        <Card style={{ backgroundColor: "#8DD3BB" }}>
-          <div className="flex items-center justify-between">
-            <div className=" flex gap-2">
-              <FaCcVisa />
-              <p className="mt-1">{dayjs(date).format("YY-MM-DD")}</p>
-            </div>
-          </div>
-        </Card>
-        <div className="border-2 border-dashed border-[#8DD3BB] ">
-          <Card
-            variant="plain"
-            className="flex items-center justify-center py-10"
-          >
-            <div className="mt-4 ">
-              <CardModal />
+      <Suspense>
+        <Card variant="plain" sx={{ backgroundColor: "#ffff" }}>
+          <Card style={{ backgroundColor: "#8DD3BB" }}>
+            <div className="flex items-center justify-between">
+              <div className=" flex gap-2">
+                <FaCcVisa />
+                <p className="mt-1">{dayjs(date).format("YY-MM-DD")}</p>
+              </div>
             </div>
           </Card>
-        </div>
-      </Card>
+          <div className="border-2 border-dashed border-[#8DD3BB] ">
+            <Card
+              variant="plain"
+              className="flex items-center justify-center py-10"
+            >
+              <div className="mt-4 ">
+                <CardModal />
+              </div>
+            </Card>
+          </div>
+        </Card>
+      </Suspense>
     );
   }
   if (cartData) {
     return (
-      <div className="bg-white">
-        {cartData.map((card: any) => {
-          return (
-            <Card
-              key={card._id}
-              variant="plain"
-              sx={{ backgroundColor: "#ffff", borderColor: "#EAEDED" }}
-            >
-              <Card style={{ backgroundColor: "#8DD3BB" }}>
-                <div className="flex items-center justify-between">
-                  <div className=" flex gap-2">
-                    <div className="flex items-center">
-                      <FaCcVisa />
-                    </div>
-                    <p className="text-bold flex items-center">
-                      {card.cardNumber}
-                    </p>
+      <Suspense>
+        <div className="bg-white">
+          {cartData.map((card: any) => {
+            return (
+              <Card
+                key={card._id}
+                variant="plain"
+                sx={{ backgroundColor: "#ffff", borderColor: "#EAEDED" }}
+              >
+                <Card style={{ backgroundColor: "#8DD3BB" }}>
+                  <div className="flex items-center justify-between">
+                    <div className=" flex gap-2">
+                      <div className="flex items-center">
+                        <FaCcVisa />
+                      </div>
+                      <p className="text-bold flex items-center">
+                        {card.cardNumber}
+                      </p>
 
-                    <p className="flex items-center">
-                      {dayjs(card.date).format("MM/YY")}
-                    </p>
+                      <p className="flex items-center">
+                        {dayjs(card.date).format("MM/YY")}
+                      </p>
+                    </div>
+                  </div>
+                </Card>
+                <div
+                  className="w-[378px] rounded-2xl bg-[url('/Card.png')] bg-cover p-4 "
+                  style={{ backgroundImage: "" }}
+                >
+                  <div className="flex justify-end text-2xl font-semibold">
+                    BANK
+                  </div>
+                  <div className="mt-[60px] flex items-center justify-between p-[11px]">
+                    <div>
+                      <div className="text-xl font-semibold">
+                        {card.cardNumber}
+                      </div>
+                      <div className="text-xl font-semibold">
+                        {card.nameOnCard}
+                      </div>
+                    </div>
+                    <Visa />
                   </div>
                 </div>
               </Card>
-              <div
-                className="w-[378px] rounded-2xl bg-[url('/Card.png')] bg-cover p-4 "
-                style={{ backgroundImage: "" }}
-              >
-                <div className="flex justify-end text-2xl font-semibold">
-                  BANK
-                </div>
-                <div className="mt-[60px] flex items-center justify-between p-[11px]">
-                  <div>
-                    <div className="text-xl font-semibold">
-                      {card.cardNumber}
-                    </div>
-                    <div className="text-xl font-semibold">
-                      {card.nameOnCard}
-                    </div>
-                  </div>
-                  <Visa />
-                </div>
-              </div>
-            </Card>
-          );
-        })}
-        <div>
-          <a
-            onClick={orderButton}
-            className="mt-[50px] flex w-full cursor-pointer items-center justify-center rounded-xl bg-[#8DD3BB] p-4 text-xl font-bold hover:bg-[#81cab1] hover:text-green-600"
-          >
-            Order Now
-          </a>
+            );
+          })}
+          <div>
+            <a
+              onClick={orderButton}
+              className="mt-[50px] flex w-full cursor-pointer items-center justify-center rounded-xl bg-[#8DD3BB] p-4 text-xl font-bold hover:bg-[#81cab1] hover:text-green-600"
+            >
+              Order Now
+            </a>
+          </div>
         </div>
-      </div>
+      </Suspense>
     );
   }
 }
