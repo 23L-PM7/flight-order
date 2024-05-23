@@ -30,7 +30,7 @@ export async function GET(request: Request) {
     const { documents } = await dbRequest("flightData", "find", {
       filter: {
         // "departure_airport.city": fromToSplited[0],
-        "arrival_airport.city": fromToSplited?[1]
+        // "arrival_airport.city": fromToSplited?[1]
       }
     });
 
