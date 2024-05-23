@@ -6,7 +6,6 @@ import dayjs from "dayjs";
 const FlightInfo = ({ data }: { data: any }) => {
   const router = useRouter();
 
-
   const booking = async () => {
     try {
       const params = new URLSearchParams({
@@ -18,19 +17,22 @@ const FlightInfo = ({ data }: { data: any }) => {
     }
   };
 
-  const now = dayjs()
-const arrivalTime = dayjs(data.arrival_time).format("YYYY-MM-DD hh-mm")
-const departureTime = dayjs(data.departure_time).format("YYYY-MM-DD hh-mm")
-  return <div className="w-full rounded-2xl flex px-6 py-4 bg-white border hover:shadow">
-    <img src="./emirates.svg" alt="" />
-    <div className="px-6 w-full gap-4 flex flex-col">
-      <div className="flex justify-between">
-        <div className="flex gap-2 items-center">
-          <div className="flex border border-[#8DD3BB] px-4 py-2 rounded">
-            <button className="">
-              <span className="text-xs">4.2</span>
-            </button>
-
+  const arrivalTime = dayjs(data.arrival_time).format("YYYY-MM-DD hh-mm");
+  const departureTime = dayjs(data.departure_time).format("YYYY-MM-DD hh-mm");
+  return (
+    <div className="flex w-full rounded-2xl border bg-white px-6 py-4 hover:shadow">
+      <img src="./emirates.svg" alt="" />
+      <div className="flex w-full flex-col gap-4 px-6">
+        <div className="flex justify-between">
+          <div className="flex items-center gap-2">
+            <div className="flex rounded border border-[#8DD3BB] px-4 py-2">
+              <button className="">
+                <span className="text-xs">4.2</span>
+              </button>
+            </div>
+            <span>
+              <strong>Very Good</strong> 54 reviews
+            </span>
           </div>
           <span className="flex flex-col">
             <p className="text-xs opacity-75">starting from</p>
@@ -39,43 +41,46 @@ const departureTime = dayjs(data.departure_time).format("YYYY-MM-DD hh-mm")
             </p>
           </span>
         </div>
-
-        <span className="flex flex-col">
-          <p className="opacity-75 text-xs">starting from</p>
-          <p className="text-[#FF8682] place-items-end flex text-2xl font-semibold">
-            ${data.price}
-          </p>
-        </span>
-      </div>
-      <div className="flex flex-col gap-6 w-full justify-center items-center">
-        <div className="flex flex-col gap-4">
-          <div className="gap-10 flex">
-            <div className="flex gap-3">
-              <div className="flex flex-col gap-1">
-                <div className="flex gap-2">
-                  <div className="flex flex-col gap-2">
-                    <span className="">{arrivalTime}</span>
-                    <span className="opacity-40 text-sm w-[50px]">
-                    <div className="group flex flex-col transition ease-in-out duration-300 relative">
-                        <div className="w-max hover:cursor-help">
-                          {data.departure_airport.city}
+        <div className="flex w-full flex-col items-center justify-center gap-6">
+          <div className="flex flex-col gap-4">
+            <div className="flex gap-10">
+              <div className="flex gap-3">
+                <div className="flex flex-col gap-1">
+                  <div className="flex gap-2">
+                    <div className="flex flex-col gap-2">
+                      <span className="">{arrivalTime}</span>
+                      <span className="w-[50px] text-sm opacity-40">
+                        <div className="group relative flex flex-col transition duration-300 ease-in-out">
+                          <div className="w-max hover:cursor-help">
+                            {data.departure_airport.city}
+                          </div>
+                          <span
+                            className="visible absolute mx-auto hidden w-max -translate-x-1/2 -translate-y-[2px] translate-y-full rounded-md bg-gray-900 
+    px-4 py-4 text-sm text-white transition transition transition-opacity duration-300 group-hover:block"
+                          >
+                            <div>
+                              {JSON.stringify(data.departure_airport.name)}
+                            </div>
+                          </span>
                         </div>
-                        <span
-                          className="group-hover:block w-max transition-opacity bg-gray-900 px-4 py-4 text-sm text-white rounded-md absolute 
-    -translate-x-1/2 visible translate-y-full transition hidden mx-auto transition duration-300 -translate-y-[2px]"
-                        >
-                          <div>{JSON.stringify(data.departure_airport.name)}</div>
-                        </span>
-                      </div>
-                    </span>
-                  </div>
-                  <span className="">-</span>
-                  <div className="flex flex-col gap-2">
-                    <span className="">{departureTime}</span>
-                    <span className="opacity-40 text-sm w-[50px]">
-                      <div className="group flex flex-col ease-in-out duration-300 relative">
-                        <div className="w-max hover:cursor-help">
-                          {data.arrival_airport.city}
+                      </span>
+                    </div>
+                    <span className="">-</span>
+                    <div className="flex flex-col gap-2">
+                      <span className="">{departureTime}</span>
+                      <span className="w-[50px] text-sm opacity-40">
+                        <div className="group relative flex flex-col duration-300 ease-in-out">
+                          <div className="w-max hover:cursor-help">
+                            {data.arrival_airport.city}
+                          </div>
+                          <span
+                            className="visible absolute mx-auto hidden w-max -translate-x-1/2 -translate-y-[2px] translate-y-full rounded-md bg-gray-800 px-4 
+    py-4 text-sm text-gray-100 transition transition-opacity ease-in-out group-hover:block group-hover:delay-200"
+                          >
+                            <div>
+                              {JSON.stringify(data.arrival_airport.name)}
+                            </div>
+                          </span>
                         </div>
                       </span>
                     </div>
