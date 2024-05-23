@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 
 import { passengersQuantityStore } from "@/components/home/Passengers";
 import { Card, SelectChangeEvent } from "@mui/material";
@@ -30,74 +30,76 @@ export function TicketQuantity({ number, data, onChange }: any) {
     }
   }
   return (
-    <div className="my-10">
-      <div>
-        <Card
-          variant="outlined"
-          sx={{
-            backgroundColor: "#fffff",
-            borderColor: "#EAEDED",
-            padding: "10px",
-            marginTop: "30px",
-          }}
-        >
-          <p className="font-bold">Passenger {number}</p>
-          <Select
+    <Suspense>
+      <div className="my-10">
+        <div>
+          <Card
             variant="outlined"
-            placeholder="Select trip type..."
-            value={gender}
-            onChange={(event, newValue) => {
-              setGender(newValue);
-            }}
             sx={{
-              width: 1,
-              [`& .${selectClasses.indicator}`]: {
-                transition: "0.2s",
-                [`&.${selectClasses.expanded}`]: {
-                  transform: "rotate(-180deg)",
-                },
-              },
+              backgroundColor: "#fffff",
+              borderColor: "#EAEDED",
+              padding: "10px",
+              marginTop: "30px",
             }}
           >
-            {tripType.map((option) => (
-              <Option key={option} value={option}>
-                {option}
-              </Option>
-            ))}
-          </Select>
-          <div className="my-3 flex gap-3">
-            <Input
-              placeholder="First Name"
-              className="flex w-1/2"
-              onChange={(e) => setFirst(e.target.value)}
-            />
-            <Input
-              placeholder="last Name"
-              className="w-1/2"
-              onChange={(e) => setLast(e.target.value)}
-            />
-          </div>
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DemoContainer components={["DateField", "DatePicker"]}>
-              <DatePicker
-                value={date}
-                onChange={(newValue) => setDate(newValue)}
-                label="Birth Date"
-                slotProps={{ textField: { size: "small" } }}
+            <p className="font-bold">Passenger {number}</p>
+            <Select
+              variant="outlined"
+              placeholder="Select trip type..."
+              value={gender}
+              onChange={(event, newValue) => {
+                setGender(newValue);
+              }}
+              sx={{
+                width: 1,
+                [`& .${selectClasses.indicator}`]: {
+                  transition: "0.2s",
+                  [`&.${selectClasses.expanded}`]: {
+                    transform: "rotate(-180deg)",
+                  },
+                },
+              }}
+            >
+              {tripType.map((option) => (
+                <Option key={option} value={option}>
+                  {option}
+                </Option>
+              ))}
+            </Select>
+            <div className="my-3 flex gap-3">
+              <Input
+                placeholder="First Name"
+                className="flex w-1/2"
+                onChange={(e) => setFirst(e.target.value)}
               />
-            </DemoContainer>
-          </LocalizationProvider>
-          <div className="mt-5">
-            <SeatMenu onChange={(value) => setSelectedSeat(value)} />
-          </div>
-          <Button
-            onClick={saveData}
-            className="mt-2 w-full bg-[#8DD3BB] hover:bg-[#B5E9CE] hover:text-black"
-          >
-            Save
-          </Button>
-        </Card>
+              <Input
+                placeholder="last Name"
+                className="w-1/2"
+                onChange={(e) => setLast(e.target.value)}
+              />
+            </div>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DemoContainer components={["DateField", "DatePicker"]}>
+                <DatePicker
+                  value={date}
+                  onChange={(newValue) => setDate(newValue)}
+                  label="Birth Date"
+                  slotProps={{ textField: { size: "small" } }}
+                />
+              </DemoContainer>
+            </LocalizationProvider>
+            <div className="mt-5">
+              <SeatMenu onChange={(value) => setSelectedSeat(value)} />
+            </div>
+            <Button
+              onClick={saveData}
+              className="mt-2 w-full bg-[#8DD3BB] hover:bg-[#B5E9CE] hover:text-black"
+            >
+              Save
+            </Button>
+          </Card>
+        </div>
       </div>
-    </div>
+    </Suspense>
   );
 }
