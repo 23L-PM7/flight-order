@@ -1,6 +1,7 @@
 import { GasMeter } from "@mui/icons-material";
 import { dbRequest } from "../config/dbRequest";
 import { useSearchParams } from "next/navigation";
+import { log } from "console";
 
 export async function GET(request: Request) {
 
@@ -9,18 +10,29 @@ export async function GET(request: Request) {
   const fromTo = searchParams.get("fromTo");
   
 
-  console.log({ fromTo });
+  // console.log(fromTo);
 
-  const { documents } = await dbRequest("flightData", "find",{
-    filter: {
-      
-    },
-  })
+  // const { documents } = await dbRequest("flightData", "find",{
+  //   filter: {
+  //     departure_airport: {
+  //       name: 
+  //     }
+  //   },
+  // })
   
+  console.log();
+
+  const fromToSplited = fromTo?.split(" - ")
+  console.log(fromToSplited)
 
 
   try {
-    const { documents } = await dbRequest("flightData", "find");
+    const { documents } = await dbRequest("flightData", "find", {
+      filter: {
+        // "departure_airport.city": fromToSplited[0],
+        "arrival_airport.city": fromToSplited?[1]
+      }
+    });
 
     return Response.json(documents);
   } catch (error) {
