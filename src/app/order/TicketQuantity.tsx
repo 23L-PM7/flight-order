@@ -12,6 +12,7 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { usePassengerQuantity } from "./Utils";
 import { Fullscreen } from "@mui/icons-material";
 import SeatMenu from "@/components/SeatMenu";
+import { Toaster, toast } from "sonner";
 export function TicketQuantity({ number, data, onChange }: any) {
   const tripType = ["Adult", "Child", "Infant"];
   const [first, setFirst] = useState<any>();
@@ -19,18 +20,21 @@ export function TicketQuantity({ number, data, onChange }: any) {
   const [gender, setGender] = useState<string | null>(tripType[0]);
   const [last, setLast] = useState<any>();
   const [selectedSeat, setSelectedSeat] = React.useState<any>();
+
   // useEffect(() => {
   //   saveData();
   // }, []);
   function saveData() {
     if (last && date && first && selectedSeat && gender) {
       onChange({ first, date, last, gender, selectedSeat });
+      toast.success("saved");
     } else {
       alert("Fill All Option");
     }
   }
   return (
     <Suspense>
+      <Toaster position="top-right" richColors />
       <div className="my-10">
         <div>
           <Card
