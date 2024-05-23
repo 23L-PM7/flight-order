@@ -25,7 +25,6 @@ export function AddCard({ Flight }: any) {
     fetchCartData(userId);
   }, [user]);
 
-  console.log(passengerData, "asdf");
   if (!user && isLoading) {
     return <CardLoader />;
   }
