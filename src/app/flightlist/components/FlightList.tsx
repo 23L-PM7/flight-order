@@ -18,7 +18,6 @@ const FlightList = () => {
 
   const trip = searchParams.get("trip");
 
-  // const [trip, setTrip] = React.useState<string | null>(initialTrip);
   const initialStartDate = searchParams.get("startDate");
   const initialEndDate = searchParams.get("endDate");
   const economy = searchParams.get("class");
@@ -42,7 +41,6 @@ const FlightList = () => {
     setInfantQuantity,
   } = passengersQuantityStore();
 
-
   const params = new URLSearchParams({
     fromTo: country || "",
     trip: trip || "",
@@ -54,10 +52,10 @@ const FlightList = () => {
     infantQuantity: infantQuantity.toString(),
   }).toString();
 
-  console.log(params)
+  console.log(params);
 
   useEffect(() => {
-    console.log("---------------")
+    console.log("---------------");
     const getFlightData = async () => {
       try {
         const response = await fetch(`/api/flightDatas?${params}`);
@@ -73,7 +71,7 @@ const FlightList = () => {
 
     getFlightData();
 
-    return () => { };
+    return () => {};
   }, [params]);
 
   return (
