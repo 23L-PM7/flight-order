@@ -56,3 +56,7 @@ export const usePassengerStore = create((set) => ({
       return { passengerData: updatedPassengerData };
     }),
 }));
+export const useBookingStore = create((set): any => ({
+  bookingStore: null,
+  setBookingStore: (newList: any) => set(() => ({ bookingStore: newList })),
+}));

@@ -22,7 +22,7 @@ export async function GET(request: Request) {
 export async function POST(request: Request) {
   const body = await request.json();
   const { cartData, Flight, passengerData, user } = body;
-  console.log(passengerData);
+  console.log(Flight);
   console.log({ passengerData });
 
   const data = await dbRequest("order", "insertMany", {
@@ -40,25 +40,25 @@ export async function POST(request: Request) {
             address: "123 Main Street, City, Country",
           },
           flight: {
-            number: Flight.flight_number,
+            number: Flight[0].flight_number,
             departure_airport: {
-              code: Flight.departure_airport.code,
-              name: Flight.departure_airport.name,
-              city: Flight.departure_airport.city,
-              country: Flight.departure_airport.country,
+              code: Flight[0].departure_airport.code,
+              name: Flight[0].departure_airport.name,
+              city: Flight[0].departure_airport.city,
+              country: Flight[0].departure_airport.country,
             },
             arrival_airport: {
-              code: Flight.arrival_airport.code,
-              name: Flight.arrival_airport.name,
-              city: Flight.arrival_airport.city,
-              country: Flight.arrival_airport.country,
+              code: Flight[0].arrival_airport.code,
+              name: Flight[0].arrival_airport.name,
+              city: Flight[0].arrival_airport.city,
+              country: Flight[0].arrival_airport.country,
             },
-            departure_time: Flight.departure_time,
-            arrival_time: Flight.arrival_time,
-            duration: Flight.duration,
-            airline: Flight.airline,
+            departure_time: Flight[0].departure_time,
+            arrival_time: Flight[0].arrival_time,
+            duration: Flight[0].duration,
+            airline: Flight[0].airline,
 
-            aircraft: Flight.aircraft,
+            aircraft: Flight[0].aircraft,
 
             seat: {
               number: passenger.value.selectedSeat,
@@ -66,7 +66,7 @@ export async function POST(request: Request) {
             },
           },
           ticket_status: "confirmed",
-          price: Flight.price,
+          price: Flight[0].price,
           currency: "USD",
           booking_date: "2024-05-20",
           booking_agent: {

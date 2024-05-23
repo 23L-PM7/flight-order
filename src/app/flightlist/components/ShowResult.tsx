@@ -38,7 +38,6 @@ const ShowResult = (props: Props) => {
             })}
           </>
         )}
-        {/* <FlightInfo /> */}
       </div>
     </div>
   );

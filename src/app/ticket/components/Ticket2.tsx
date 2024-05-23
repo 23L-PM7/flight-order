@@ -32,7 +32,7 @@ export default function Ticket2() {
     <div className="container mx-auto mt-4 flex flex-col justify-center">
       {orderData &&
         orderData.map((ticket) => {
-          console.log(ticket.FlightTicket);
+          console.log(ticket);
           return (
             <>
               <div key={ticket._id} className="my-8 flex justify-between">
@@ -99,8 +99,9 @@ export default function Ticket2() {
                       <div className="row-span-1 flex items-center justify-between rounded-tr-[14px] bg-[#8ED3BB] p-4">
                         <div>
                           <p className="text-2xl font-semibold">
-                            {ticket.FlightTicket.passenger.first_name}
-                            {ticket.FlightTicket.passenger.last_name}
+                            {ticket.FlightTicket.passenger.first_name +
+                              " " +
+                              ticket.FlightTicket.passenger.last_name}
                           </p>
                           <p className="font-light text-gray-800">
                             Boarding Pass N'{ticket._id}
