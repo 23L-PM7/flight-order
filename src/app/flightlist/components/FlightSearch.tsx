@@ -51,6 +51,7 @@ export default function FindFlight() {
 
   const [economy, setEconomy] = React.useState<string | null>(initialEconomy);
   const [thirdInput, setThirdInput] = React.useState("");
+  
 
   const {
     adultQuantity,

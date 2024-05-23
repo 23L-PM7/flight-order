@@ -1,14 +1,17 @@
 import { GasMeter } from "@mui/icons-material";
 import { dbRequest } from "../config/dbRequest";
 import { useSearchParams } from "next/navigation";
+import { log } from "console";
 
 export async function GET(request: Request) {
+
   const { documents } = await dbRequest("flightData", "find");
   return Response.json(documents);
 }
 
 export async function POST(request: Request) {
   const body = await request.json();
+
   const {
     flightNumber,
     airline,
