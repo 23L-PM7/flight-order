@@ -173,7 +173,7 @@ export default function FindFlight() {
           />
           <button
             onClick={findFlights}
-            className="rounded bg-[#8DD3BB] px-[16px] py-[16px]"
+            className="rounded bg-[#8DD3BB] px-[16px] py-[16px] hover:bg-gray-200"
           >
             <img src="./Search.svg" alt="search" />
           </button>

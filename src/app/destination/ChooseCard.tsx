@@ -20,16 +20,16 @@ const CardData: CardTypes[] = [
     imageSrc: "/Flight.png",
     buttonIcon: <MdFlightTakeoff />,
     altText: "Image of an airplane in flight",
-    cardLink: "/flights",
+    cardLink: "/flightlist",
   },
   {
-    title: "Hotels",
+    title: "Rentcars",
     description:
       "Search Flights, Cars & Places Hire to our most popular destinations.",
-    imageSrc: "/Hotels.png",
+    imageSrc: "/Rentcar.jpg",
     buttonIcon: <MdHotel />,
     altText: "Image of a hotel",
-    cardLink: "/hotels",
+    cardLink: "/comingsoon",
   },
 ];
 
