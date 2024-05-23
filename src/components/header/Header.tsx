@@ -20,7 +20,7 @@ export function Header() {
         <div className="flex items-center justify-between py-3 font-sans font-medium md:py-4">
           <div className="flex cursor-pointer gap-[32px]">
             <Link
-              href="/"
+              href="/flightlist"
               className="flex items-center gap-2 border-b-4 border-white py-2  hover:border-b-4 hover:border-[#8DD3BB]"
               aria-label="Find Flights"
             >

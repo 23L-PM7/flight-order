@@ -20,7 +20,7 @@ const CardData: CardTypes[] = [
     imageSrc: "/Flight.png",
     buttonIcon: <MdFlightTakeoff />,
     altText: "Image of an airplane in flight",
-    cardLink: "/flights",
+    cardLink: "/flightlist",
   },
   {
     title: "Rentcars",
@@ -29,7 +29,7 @@ const CardData: CardTypes[] = [
     imageSrc: "/Rentcar.jpg",
     buttonIcon: <MdHotel />,
     altText: "Image of a hotel",
-    cardLink: "/hotels",
+    cardLink: "/comingsoon",
   },
 ];
 
