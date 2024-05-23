@@ -30,11 +30,11 @@ const FlightInfo = ({ data }: { data: any }) => {
               <div className="flex flex-col gap-1">
                 <div className="flex gap-2">
                   <div className="flex flex-col gap-2">
-                    <span className="">{data.departure_time}</span>
+                    <span className="">{data.departure_time}</span> 
                     <span className="opacity-40 text-sm w-[50px]">
                     <div className="group flex flex-col transition ease-in-out duration-300 relative">
-                        <div className="w-[60px] hover:cursor-help">
-                          {data.departure_airport.code}
+                        <div className="w-max hover:cursor-help">
+                          {data.departure_airport.city}
                         </div>
                         <span
                           className="group-hover:block w-max transition-opacity bg-gray-900 px-4 py-4 text-sm text-white rounded-md absolute 
@@ -50,8 +50,8 @@ const FlightInfo = ({ data }: { data: any }) => {
                     <span className="">{data.arrival_time}</span>
                     <span className="opacity-40 text-sm w-[50px]">
                       <div className="group flex flex-col ease-in-out duration-300 relative">
-                        <div className="w-[60px] hover:cursor-help">
-                          {data.arrival_airport.code}
+                        <div className="w-max hover:cursor-help">
+                          {data.arrival_airport.city}
                         </div>
                         <span
                           className="group-hover:block group-hover:delay-200 w-max transition-opacity bg-gray-800 px-4 py-4 text-sm text-gray-100 rounded-md absolute 
