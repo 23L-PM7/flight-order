@@ -19,7 +19,7 @@ export function PriceDetails({ Flight, Passenger }: any) {
               <Stack display={"flex"} direction={"row"} gap={"24px"}>
                 <img
                   className="h-[120px] w-[120px] rounded-xl bg-cover object-cover"
-                  src="https://s3-alpha-sig.figma.com/img/5fa8/e842/23d243db9749cc4ddef95d4c9fdb6c59?Expires=1715558400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=DQzpOYHCMs~E8km1QwLbe~5tKawBgwdwkSmWFDgwMW8dYAJXJm2cCHH4RhxDETDirAnmdgRTFzLjTQDyOw5gavc08sv~nJX4ClW5eiGvLlaMkHm0nN-rpvnm-9y5PTlRhZX4WZHAIQrzZi1ADzdmGKf6pWW7RAAq3tO13lGu7bEg91vHxmSyEoA9HvfILfqwD663QjLGdHXK3QrFQ0H3jh6MDWgCOqtsVSAvypAeDxPmPzyfW9kCcSsYipO1RA3I6qjJzvXpMySgn8sH0eg8Uxy2keky2aKn1WCJRswDu0Hb0glBmXnyVcgt0-KchtSdBvM-ZYywXXeJEK87MKJStQ__"
+                  src="https://images.pexels.com/photos/1089306/pexels-photo-1089306.jpeg"
                 />
                 <div>
                   <p className=" font-medium">Economy</p>
